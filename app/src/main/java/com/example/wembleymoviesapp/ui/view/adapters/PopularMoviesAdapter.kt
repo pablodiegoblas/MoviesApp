@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wembleymoviesapp.R
+import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.db.DBMoviesProvider
 import com.example.wembleymoviesapp.data.model.MovieModel
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
@@ -96,6 +97,6 @@ class PopularMoviesAdapter(
         }
 
         fun loadImage(url: String, imageView: ImageView) =
-            Picasso.get().load("https://image.tmdb.org/t/p/w300$url").fit().into(imageView)
+            Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
     }
 }

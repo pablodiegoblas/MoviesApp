@@ -11,6 +11,7 @@ class API {
 
         const val API_KEY = "bf416be99a24b9cfe9ee3f8c57775b65"
         private val BASE_URL = "https://api.themoviedb.org/3/"
+        val IMG_URL = "https://image.tmdb.org/t/p/w300"
 
         val interceptor = HttpLoggingInterceptor()
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()

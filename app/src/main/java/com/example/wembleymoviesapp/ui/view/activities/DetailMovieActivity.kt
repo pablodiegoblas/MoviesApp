@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.model.DataProvider
 import com.example.wembleymoviesapp.data.model.MovieModel
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
@@ -42,7 +43,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun loadImage(url: String, imageView: ImageView) {
-        Picasso.get().load("https://image.tmdb.org/t/p/w300$url").fit().into(imageView)
+        Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
     }
 
     fun showError() {
