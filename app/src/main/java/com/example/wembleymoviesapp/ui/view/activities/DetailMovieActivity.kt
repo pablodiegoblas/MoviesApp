@@ -26,7 +26,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
         dataProvider = DataProvider(this)
 
-        title?.let { dataProvider.getMovie(it) }
+        title?.let { dataProvider.searchMovie(it) }
     }
 
     fun bindDetailMovie(movie: MovieModel?) {

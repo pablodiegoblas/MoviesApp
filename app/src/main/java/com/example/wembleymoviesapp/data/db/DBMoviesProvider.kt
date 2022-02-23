@@ -11,6 +11,9 @@ class DBMoviesProvider(context: Context) {
     private val adminSqliteHelepr = AdminSqlite(context, "DBWembleyMovies.sqlite", null, 4)
     private val db: SQLiteDatabase = adminSqliteHelepr.writableDatabase
 
+    /**
+     * Function insert movies in database
+     */
     fun insert(movie: MovieModel): Unit {
 
         db?.let {
@@ -31,6 +34,9 @@ class DBMoviesProvider(context: Context) {
         }
     }
 
+    /**
+     * Function returns all favourites movies in database
+     */
     fun getAllFavouritesMovies(): List<MovieModel> {
         val cursor: Cursor = db.rawQuery("select * from favourites", null)
 
@@ -94,7 +100,9 @@ class DBMoviesProvider(context: Context) {
         return false
     }
 
-
+    /**
+     * Function search movie by title in database
+     */
     fun findMovie(title: String): MovieModel? {
         val cursor: Cursor = db.rawQuery("select * from favourites where title=\"$title\"", null)
 

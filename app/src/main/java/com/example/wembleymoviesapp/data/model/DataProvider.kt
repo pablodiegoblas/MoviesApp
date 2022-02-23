@@ -9,9 +9,9 @@ class DataProvider(val activity: DetailMovieActivity) {
     private val dbProvider = DBMoviesProvider(activity)
 
     /**
-     * Function find a movie first in DB and if it does not exist, a request is made to API
+     * Function search a movie, first search in DB and if it does not exist, a request is made to API
      */
-    fun getMovie(title: String) {
+    fun searchMovie(title: String) {
         val movieDB = dbProvider.findMovie(title)
 
         if (movieDB !=  null) activity.bindDetailMovie(movieDB)

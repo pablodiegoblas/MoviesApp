@@ -79,7 +79,7 @@ class FavMoviesFragment: Fragment() {
     }
 
     /**
-     * Override this method for create with others options the menu
+     * Override this method for create with others options the menu in this fragment
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
