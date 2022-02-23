@@ -8,6 +8,7 @@ import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.model.DataProvider
 import com.example.wembleymoviesapp.data.model.MovieModel
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
+import com.example.wembleymoviesapp.ui.controllers.DetailController
 import com.squareup.picasso.Picasso
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private var _binding: ActivityDetailMovieBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dataProvider: DataProvider
+    private lateinit var controller: DetailController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,13 @@ class DetailMovieActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        controller = DetailController(this)
+
+        //Find bundle of the intent
         val title = intent.extras?.getString("title")
 
-        dataProvider = DataProvider(this)
-
-        title?.let { dataProvider.searchMovie(it) }
+        //Find a movie
+        title?.let { controller.findMovie(it) }
     }
 
     fun bindDetailMovie(movie: MovieModel?) {
@@ -50,4 +53,8 @@ class DetailMovieActivity : AppCompatActivity() {
         Toast.makeText(this, "Connection Failure", Toast.LENGTH_SHORT).show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

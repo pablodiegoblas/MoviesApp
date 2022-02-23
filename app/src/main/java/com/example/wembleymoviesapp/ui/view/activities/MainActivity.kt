@@ -5,6 +5,7 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wembleymoviesapp.R
+import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.wembleymoviesapp.databinding.ActivityMainBinding
 import com.example.wembleymoviesapp.ui.controllers.MainController
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
@@ -12,7 +13,8 @@ import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         val popularFragment = PopularMoviesFragment()
@@ -23,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         //Principal fragment
@@ -49,5 +52,8 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
