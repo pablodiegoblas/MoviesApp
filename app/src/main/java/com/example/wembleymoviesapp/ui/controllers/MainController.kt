@@ -8,7 +8,7 @@ import com.example.wembleymoviesapp.data.model.NetworkMoviesProvider
 import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.google.android.material.navigation.NavigationBarView
 
-class MainController(val mainActivity: MainActivity): NavigationBarView.OnItemSelectedListener,
+class MainController(val mainActivity: MainActivity) : NavigationBarView.OnItemSelectedListener,
     SearchView.OnQueryTextListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -34,8 +34,7 @@ class MainController(val mainActivity: MainActivity): NavigationBarView.OnItemSe
         text?.let { searchText ->
             if (searchText != "") {
                 NetworkMoviesProvider.getMoviesSearched(MainActivity.popularFragment, searchText)
-            }
-            else {
+            } else {
                 NetworkMoviesProvider.getAllPopularMoviesRequest(MainActivity.popularFragment)
             }
         }

@@ -11,7 +11,6 @@ import com.example.wembleymoviesapp.data.db.DBMoviesProvider
 import com.example.wembleymoviesapp.data.model.MovieModel
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
-import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
 import com.squareup.picasso.Picasso
 
 class FavMoviesAdapter(

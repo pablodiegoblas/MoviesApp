@@ -1,6 +1,5 @@
 package com.example.wembleymoviesapp.data.model
 
-import android.content.Context
 import com.example.wembleymoviesapp.data.db.DBMoviesProvider
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 
@@ -14,7 +13,7 @@ class DataProvider(val activity: DetailMovieActivity) {
     fun searchMovie(title: String) {
         val movieDB = dbProvider.findMovie(title)
 
-        if (movieDB !=  null) activity.bindDetailMovie(movieDB)
+        if (movieDB != null) activity.bindDetailMovie(movieDB)
         else NetworkMoviesProvider.searchMovieDetail(title, activity)
     }
 }

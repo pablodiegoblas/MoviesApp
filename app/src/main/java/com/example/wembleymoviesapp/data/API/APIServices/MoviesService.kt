@@ -11,6 +11,9 @@ interface MoviesService {
     fun getPopularMovies(@Query("api_key") apiKey: String): Call<ResponseModel>
 
     @GET("search/movie")
-    fun getSearchMovie(@Query("api_key") apiKey: String, @Query("query") query: String): Call<ResponseModel>
+    fun getSearchMovie(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String
+    ): Call<ResponseModel>
 
 }

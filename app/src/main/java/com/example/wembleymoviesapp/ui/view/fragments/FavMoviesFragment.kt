@@ -16,7 +16,7 @@ import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
 
-class FavMoviesFragment: Fragment() {
+class FavMoviesFragment : Fragment() {
 
     private var _binding: FragmentFavMoviesBinding? = null
     private val binding get() = _binding!!
@@ -85,7 +85,7 @@ class FavMoviesFragment: Fragment() {
 
         val searchView = menu.findItem(R.id.item_bar_search).actionView as SearchView
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
@@ -94,8 +94,7 @@ class FavMoviesFragment: Fragment() {
                 text?.let { searchText ->
                     if (searchText != "") {
                         NetworkMoviesProvider.getMoviesSearched(this@FavMoviesFragment, searchText)
-                    }
-                    else {
+                    } else {
                         val listFav = dbProvider.getAllFavouritesMovies()
                         createAdapter(listFav)
                     }
@@ -113,7 +112,7 @@ class FavMoviesFragment: Fragment() {
         private lateinit var context: Context
 
         fun setContext(con: Context) {
-            context=con
+            context = con
         }
 
         /**

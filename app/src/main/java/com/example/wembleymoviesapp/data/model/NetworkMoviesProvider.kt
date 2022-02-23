@@ -53,14 +53,14 @@ class NetworkMoviesProvider {
                 ) {
                     val searchMovie = response.body()
 
-                    when(fragment) {
+                    when (fragment) {
                         is PopularMoviesFragment -> searchMovie?.let { fragment.createAdapter(it.results) }
                         is FavMoviesFragment -> searchMovie?.let { fragment.createAdapter(it.results) }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                    when(fragment) {
+                    when (fragment) {
                         is PopularMoviesFragment -> fragment.showErrorAPI()
                         is FavMoviesFragment -> fragment.showErrorAPI()
                     }
