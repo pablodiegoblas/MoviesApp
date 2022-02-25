@@ -30,10 +30,6 @@ class MainController(
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {
-        return false
-    }
-
-    override fun onQueryTextChange(text: String?): Boolean {
         text?.let { searchText ->
             if (searchText != "") {
                 serverMoviesProvider.getMoviesSearched(mainActivity.popularFragment, searchText, mainActivity.popularFragment.controller, null)
@@ -45,8 +41,14 @@ class MainController(
         return true
     }
 
+    override fun onQueryTextChange(text: String?): Boolean {
+        return false
+    }
+
     override fun onClose(): Boolean {
         serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
+
+        mainActivity
         return true
     }
 }

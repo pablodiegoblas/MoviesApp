@@ -65,4 +65,5 @@ class FavouritesController(
         getFavouritesMovies()
         return true
     }
+
 }

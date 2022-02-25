@@ -16,7 +16,7 @@ class PopularController(
 ) {
 
     fun getPopularMovies() {
-        serverMoviesProvider.getAllPopularMoviesRequest(this, null)
+        serverMoviesProvider.getAllPopularMoviesRequest(this)
     }
 
     fun returnsCall(listMovieItems: List<MovieItem>) {
