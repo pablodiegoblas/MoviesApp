@@ -4,17 +4,21 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.model.NetworkMoviesProvider
+import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.google.android.material.navigation.NavigationBarView
 
-class MainController(val mainActivity: MainActivity) : NavigationBarView.OnItemSelectedListener,
-    SearchView.OnQueryTextListener {
+class MainController(
+    val mainActivity: MainActivity,
+    private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider()
+) : NavigationBarView.OnItemSelectedListener,
+    SearchView.OnQueryTextListener
+{
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.optionPopular -> replaceFragment(MainActivity.popularFragment)
-            R.id.optionFavourites -> replaceFragment(MainActivity.favouritesFragment)
+            R.id.optionPopular -> replaceFragment(mainActivity.popularFragment)
+            R.id.optionFavourites -> replaceFragment(mainActivity.favouritesFragment)
         }
 
         return true
@@ -33,9 +37,9 @@ class MainController(val mainActivity: MainActivity) : NavigationBarView.OnItemS
     override fun onQueryTextChange(text: String?): Boolean {
         text?.let { searchText ->
             if (searchText != "") {
-                NetworkMoviesProvider.getMoviesSearched(MainActivity.popularFragment, searchText)
+                serverMoviesProvider.getMoviesSearched(mainActivity.popularFragment, searchText, mainActivity.popularFragment.controller, null)
             } else {
-                NetworkMoviesProvider.getAllPopularMoviesRequest(MainActivity.popularFragment)
+                serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller, null)
             }
         }
 

@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.db.DBMoviesProvider
-import com.example.wembleymoviesapp.data.model.MovieModel
-import com.example.wembleymoviesapp.data.model.NetworkMoviesProvider
+import com.example.wembleymoviesapp.data.database.DBMoviesProvider
+import com.example.wembleymoviesapp.data.model.RequestMovie
+import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
+import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
 
@@ -21,21 +23,22 @@ class FavMoviesFragment : Fragment() {
     private var _binding: FragmentFavMoviesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dbProvider: DBMoviesProvider
+    lateinit var controller: FavouritesController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        dbProvider = DBMoviesProvider(context)
+        controller = FavouritesController(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //Recargar las opciones del menu
         setHasOptionsMenu(true)
-        setContext(this.requireContext())
 
         _binding = FragmentFavMoviesBinding.inflate(inflater, container, false)
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -44,7 +47,7 @@ class FavMoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Loading data from database
-        val listFav = dbProvider.getAllFavouritesMovies()
+        /*val listFav = dbProvider.getAllFavouritesMovies()
 
         if (listFav.isEmpty()) {
             binding.tvPopularDefault.visibility = View.VISIBLE
@@ -52,30 +55,63 @@ class FavMoviesFragment : Fragment() {
             binding.tvPopularDefault.visibility = View.GONE
         }
         // Important here because don't charge the adapter
-        createAdapter(listFav)
+        createAdapter(listFav)*/
+        controller.getFavouritesMovies()
     }
 
-    fun createAdapter(list: List<MovieModel>) {
-        if (list.isEmpty()) binding.tvPopularDefault.visibility = View.VISIBLE
-        else {
-            //Put DefaultText Gone
-            binding.tvPopularDefault.visibility = View.GONE
-
-            //Charge the adapter
-            binding.recyclerViewFavouritesMovies.layoutManager = LinearLayoutManager(this.context)
-            val adapter = FavMoviesAdapter(list, dbProvider)
-            binding.recyclerViewFavouritesMovies.adapter = adapter
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
-        dbProvider.destroy()
+        controller.destroyDB()
     }
 
     fun showErrorAPI() {
         Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
+    }
+
+    fun showNotMoviesFavText() {
+        binding.recyclerViewFavouritesMovies.visibility = View.GONE
+        binding.tvFavouriteDefaultText.visibility = View.VISIBLE
+    }
+
+    fun createAdapter(listFav: List<MovieItem>) {
+        // Put visibility DetaultText Gone
+        binding.tvFavouriteDefaultText.visibility = View.GONE
+        binding.recyclerViewFavouritesMovies.visibility = View.VISIBLE
+
+        // Charge the adapter
+        binding.recyclerViewFavouritesMovies.layoutManager = LinearLayoutManager(this.context)
+        val adapter = FavMoviesAdapter(
+            listFav,
+            {
+                val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
+                    putExtra("ID", it.id)
+                }
+                startActivity(intent)
+            },
+            {
+                controller.pressFavButton(it.first, it.second)
+            },
+            {
+                sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
+            }
+        )
+
+        binding.recyclerViewFavouritesMovies.adapter = adapter
+    }
+
+    private fun sharedInfo(textShare: String) {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textShare)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     /**
@@ -91,52 +127,20 @@ class FavMoviesFragment : Fragment() {
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                text?.let { searchText ->
+                /*text?.let { searchText ->
                     if (searchText != "") {
-                        NetworkMoviesProvider.getMoviesSearched(this@FavMoviesFragment, searchText)
+                        ServerMoviesProvider.getMoviesSearched(this@FavMoviesFragment, searchText)
                     } else {
                         val listFav = dbProvider.getAllFavouritesMovies()
                         createAdapter(listFav)
                     }
                 }
-
-                return true
+*/                return true
             }
 
         })
 
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    companion object {
-        private lateinit var context: Context
-
-        fun setContext(con: Context) {
-            context = con
-        }
-
-        /**
-         * Function for start the Detail Activity for show details from Movie that have be clicked
-         */
-        fun passDetailActivity(title: String) {
-            val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
-                putExtra("title", title)
-            }
-            intent.putExtra("title", title)
-            context.startActivity(intent)
-        }
-
-        fun sharedInfo(text: String) {
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, text)
-                type = "text/plain"
-            }
-
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            context.startActivity(shareIntent)
-        }
-    }
-
 
 }

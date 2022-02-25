@@ -2,23 +2,20 @@ package com.example.wembleymoviesapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseModel(val results: List<MovieModel>) {
+data class ResponseModel(val results: MutableList<RequestMovie>) {
 
     val size: Int get() = results.size
 
-    operator fun get(position: Int): MovieModel = results[position]
+    operator fun get(position: Int): RequestMovie = results[position]
 }
 
-data class MovieModel(
+data class RequestMovie(
 
     @field:SerializedName("overview")
-    val overview: String? = null,
+    val overview: String,
 
     @field:SerializedName("original_title")
-    val originalTitle: String? = null,
-
-    @field:SerializedName("title")
-    val title: String? = null,
+    val originalTitle: String,
 
     @field:SerializedName("poster_path")
     val posterPath: String? = null,
@@ -36,7 +33,7 @@ data class MovieModel(
     val voteAverage: Double? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @field:SerializedName("adult")
     val adult: Boolean? = null,
@@ -44,13 +41,4 @@ data class MovieModel(
     @field:SerializedName("vote_count")
     val voteCount: Int? = null
 
-
-) {
-    override fun equals(other: Any?): Boolean {
-        other as MovieModel
-
-        if (this.id == other.id) return true
-
-        return false
-    }
-}
+)

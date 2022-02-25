@@ -16,18 +16,18 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
-    companion object {
-        val popularFragment = PopularMoviesFragment()
-        val favouritesFragment = FavMoviesFragment()
-    }
+    val popularFragment = PopularMoviesFragment()
+    val favouritesFragment = FavMoviesFragment()
 
-    private val controller: MainController = MainController(this)
+    private lateinit var controller: MainController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        controller = MainController(this)
 
         //Principal fragment
         controller.replaceFragment(popularFragment)

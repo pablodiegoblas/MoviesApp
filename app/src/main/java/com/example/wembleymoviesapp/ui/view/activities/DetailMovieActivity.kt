@@ -5,9 +5,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wembleymoviesapp.data.API.API
-import com.example.wembleymoviesapp.data.model.DataProvider
-import com.example.wembleymoviesapp.data.model.MovieModel
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
+import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.ui.controllers.DetailController
 import com.squareup.picasso.Picasso
 
@@ -27,19 +26,29 @@ class DetailMovieActivity : AppCompatActivity() {
         controller = DetailController(this)
 
         //Find bundle of the intent
-        val title = intent.extras?.getString("title")
+        val idMovie = intent.extras?.getInt("ID")
 
         //Find a movie
-        title?.let { controller.findMovie(it) }
+        idMovie?.let { controller.findMovie(it) }
     }
 
-    fun bindDetailMovie(movie: MovieModel?) {
+    fun bindDetailMovie(movie: MovieDetail) {
         if (movie != null) {
             with(movie) {
-                backdropPath?.let { loadImage(it, binding.imageViewBackdrop) }
+                backdrop?.let { loadImage(it, binding.imageViewBackdrop) }
                 binding.textViewTitleDetail.text = title
                 binding.textViewDescriptionDetail.text = overview
-                binding.textViewValoration.text = "Vote: $voteAverage/10"
+
+                binding.textViewValoration.text = "Vote: $valoration/10"
+                // Establecer color dependiendo de la valoracion que tenga la pelicula
+                binding.textViewValoration.setTextColor(
+                    when (valoration?.toInt()) {
+                        in 0..4 -> android.R.color.holo_red_dark
+                        in 5..10 -> android.R.color.holo_green_dark
+                        else -> android.R.color.holo_red_dark
+                    }
+                )
+
             }
         }
 
