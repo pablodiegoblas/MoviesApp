@@ -38,7 +38,7 @@ class MainController(
             if (searchText != "") {
                 serverMoviesProvider.getMoviesSearched(mainActivity.popularFragment, searchText, mainActivity.popularFragment.controller, null)
             } else {
-                serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller, null)
+                serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
             }
         }
 
@@ -46,7 +46,7 @@ class MainController(
     }
 
     override fun onClose(): Boolean {
-        serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller, null)
+        serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
         return true
     }
 }
