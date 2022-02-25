@@ -47,7 +47,9 @@ class MainActivity : AppCompatActivity() {
         val searchView = menu!!.findItem(R.id.item_bar_search).actionView as SearchView
         searchView.maxWidth = Int.MAX_VALUE
 
+        // Set SearchView Listeners
         searchView.setOnQueryTextListener(controller)
+        searchView.setOnCloseListener(controller)
 
         return super.onCreateOptionsMenu(menu)
     }

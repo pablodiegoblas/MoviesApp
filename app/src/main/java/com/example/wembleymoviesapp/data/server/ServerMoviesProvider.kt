@@ -3,7 +3,6 @@ package com.example.wembleymoviesapp.data.server
 import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
-import com.example.wembleymoviesapp.data.database.DbDataMapper
 import com.example.wembleymoviesapp.data.model.ResponseModel
 import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.controllers.PopularController
@@ -23,8 +22,7 @@ class ServerMoviesProvider(
      * Function that returns all popular movies
      */
     fun getAllPopularMoviesRequest(
-        controllerPopular: PopularController?,
-        controllerFav: FavouritesController?
+        controllerPopular: PopularController
     ) {
         val result: Call<ResponseModel> = service.getPopularMovies(API.API_KEY)
 
@@ -33,34 +31,25 @@ class ServerMoviesProvider(
                 call: Call<ResponseModel>,
                 response: Response<ResponseModel>
             ) {
-                if (controllerPopular != null) {
-                    val popularMovies = response.body()
+                val popularMovies = response.body()
 
-                    if (popularMovies != null) {
-                        val popularMoviesModelDB = dataMapperServer.convertListToMovieDB(popularMovies)
+                if (popularMovies != null) {
+                    val popularMoviesModelDB = dataMapperServer.convertListToMovieDB(popularMovies)
 
-                        // Insert in DB all movies that returns server
-                        controllerPopular.insertMoviesInDatabase(popularMoviesModelDB)
+                    // Insert in DB all movies that returns server
+                    controllerPopular.insertMoviesInDatabase(popularMoviesModelDB)
 
-                        val listMovieItems = dataMapperServer.convertListToDomainMovieItem(popularMovies)
+                    val listMovieItems =
+                        dataMapperServer.convertListToDomainMovieItem(popularMovies)
 
-                        // Return to controller the model
-                        controllerPopular.returnsCall(listMovieItems)
-                    }
-
+                    // Return to controller the model
+                    controllerPopular.returnsCall(listMovieItems)
                 }
-                else if (controllerFav != null) {
 
-                }
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                if (controllerPopular != null) {
-                    controllerPopular.showErrorNetwork()
-                }
-                else if(controllerFav != null) {
-                    controllerFav.showErrorNetwork()
-                }
+                controllerPopular.showErrorNetwork()
             }
 
         })
@@ -126,7 +115,11 @@ class ServerMoviesProvider(
             ) {
                 val movieSearched = response.body()?.results?.get(0)
                 if (movieSearched != null) {
-                    activity.bindDetailMovie(dataMapperServer.convertToDomainMovieDetail(movieSearched))
+                    activity.bindDetailMovie(
+                        dataMapperServer.convertToDomainMovieDetail(
+                            movieSearched
+                        )
+                    )
                 }
             }
 

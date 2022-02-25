@@ -18,7 +18,7 @@ import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
 
-class FavMoviesFragment : Fragment() {
+class FavMoviesFragment() : Fragment() {
 
     private var _binding: FragmentFavMoviesBinding? = null
     private val binding get() = _binding!!
@@ -46,16 +46,6 @@ class FavMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Loading data from database
-        /*val listFav = dbProvider.getAllFavouritesMovies()
-
-        if (listFav.isEmpty()) {
-            binding.tvPopularDefault.visibility = View.VISIBLE
-        } else {
-            binding.tvPopularDefault.visibility = View.GONE
-        }
-        // Important here because don't charge the adapter
-        createAdapter(listFav)*/
         controller.getFavouritesMovies()
     }
 
@@ -66,10 +56,6 @@ class FavMoviesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         controller.destroyDB()
-    }
-
-    fun showErrorAPI() {
-        Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
     }
 
     fun showNotMoviesFavText() {
@@ -121,24 +107,9 @@ class FavMoviesFragment : Fragment() {
 
         val searchView = menu.findItem(R.id.item_bar_search).actionView as SearchView
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(text: String?): Boolean {
-                /*text?.let { searchText ->
-                    if (searchText != "") {
-                        ServerMoviesProvider.getMoviesSearched(this@FavMoviesFragment, searchText)
-                    } else {
-                        val listFav = dbProvider.getAllFavouritesMovies()
-                        createAdapter(listFav)
-                    }
-                }
-*/                return true
-            }
-
-        })
+        // SearchView Listeners
+        searchView.setOnQueryTextListener(controller)
+        searchView.setOnCloseListener(controller)
 
         super.onCreateOptionsMenu(menu, inflater)
     }

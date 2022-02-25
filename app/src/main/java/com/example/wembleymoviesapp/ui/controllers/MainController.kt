@@ -12,8 +12,7 @@ class MainController(
     val mainActivity: MainActivity,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider()
 ) : NavigationBarView.OnItemSelectedListener,
-    SearchView.OnQueryTextListener
-{
+    SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -43,6 +42,11 @@ class MainController(
             }
         }
 
+        return true
+    }
+
+    override fun onClose(): Boolean {
+        serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller, null)
         return true
     }
 }
