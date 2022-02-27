@@ -12,7 +12,7 @@ class MainController(
     val mainActivity: MainActivity,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider()
 ) : NavigationBarView.OnItemSelectedListener,
-    SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+    SearchView.OnQueryTextListener{
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -32,9 +32,7 @@ class MainController(
     override fun onQueryTextSubmit(text: String?): Boolean {
         text?.let { searchText ->
             if (searchText != "") {
-                serverMoviesProvider.getMoviesSearched(mainActivity.popularFragment, searchText, mainActivity.popularFragment.controller, null)
-            } else {
-                serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
+                serverMoviesProvider.getMoviesSearched(searchText, mainActivity.popularFragment.controller)
             }
         }
 
@@ -42,13 +40,9 @@ class MainController(
     }
 
     override fun onQueryTextChange(text: String?): Boolean {
-        return false
-    }
-
-    override fun onClose(): Boolean {
-        serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
-
-        mainActivity
+        if (text == "") {
+            serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
+        }
         return true
     }
 }

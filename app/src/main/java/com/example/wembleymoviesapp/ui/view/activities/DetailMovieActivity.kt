@@ -41,13 +41,13 @@ class DetailMovieActivity : AppCompatActivity() {
 
                 binding.textViewValoration.text = "Vote: $valoration/10"
                 // Establecer color dependiendo de la valoracion que tenga la pelicula
-                binding.textViewValoration.setTextColor(
+                /*binding.textViewValoration.setTextColor(
                     when (valoration?.toInt()) {
                         in 0..4 -> android.R.color.holo_red_dark
                         in 5..10 -> android.R.color.holo_green_dark
                         else -> android.R.color.holo_red_dark
                     }
-                )
+                )*/
 
             }
         }

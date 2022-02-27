@@ -5,7 +5,6 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.wembleymoviesapp.databinding.ActivityMainBinding
 import com.example.wembleymoviesapp.ui.controllers.MainController
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
@@ -46,10 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         val searchView = menu!!.findItem(R.id.item_bar_search).actionView as SearchView
         searchView.maxWidth = Int.MAX_VALUE
+        searchView.queryHint = "Search a Movie"
 
         // Set SearchView Listeners
         searchView.setOnQueryTextListener(controller)
-        searchView.setOnCloseListener(controller)
 
         return super.onCreateOptionsMenu(menu)
     }

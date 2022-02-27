@@ -12,9 +12,8 @@ import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
 class FavouritesController(
     private val favMoviesFragment: FavMoviesFragment,
     private val dbProvider: DBMoviesProvider = DBMoviesProvider((favMoviesFragment.requireContext())),
-    private val serverProvider: ServerMoviesProvider = ServerMoviesProvider(),
     private val dataMapper: DbDataMapper = DbDataMapper()
-) : SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+) : SearchView.OnQueryTextListener {
 
     fun getFavouritesMovies() {
         val listFavMovies = dbProvider.getAllFavouritesMovies()
@@ -35,7 +34,6 @@ class FavouritesController(
         val imagen: Int
 
         if (movieItem.favourite) {
-
             movieItem.favourite = false
             dbProvider.removeFavourite(movieItem.id)
             imagen = R.drawable.ic_favourite_border_red
@@ -51,19 +49,28 @@ class FavouritesController(
     override fun onQueryTextSubmit(text: String?): Boolean {
         text?.let { searchText ->
             if (searchText != "") {
-                serverProvider.getMoviesSearched(favMoviesFragment, text, null, this)
+                var listFilterDB = dbProvider.findMoviesFavouritesByTitle(text)
+
+                if (listFilterDB.isNotEmpty()) {
+                    //Convierto la lista de favoritos filtrada en el modelo de dominio item
+                    var listFavFilterDomainItem =
+                        dataMapper.convertListToDomainMovieItem(listFilterDB)
+
+                    //Creo el adaptador con esas peliculas
+                    favMoviesFragment.createAdapter(listFavFilterDomainItem)
+                }
+                else {
+                    favMoviesFragment.showNotMoviesFavText()
+                }
             }
         }
         return true
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        return false
-    }
-
-    override fun onClose(): Boolean {
-        getFavouritesMovies()
+    override fun onQueryTextChange(text: String?): Boolean {
+        if (text == "") {
+            getFavouritesMovies()
+        }
         return true
     }
-
 }

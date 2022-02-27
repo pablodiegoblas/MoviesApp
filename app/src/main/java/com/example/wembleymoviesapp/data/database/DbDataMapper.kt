@@ -5,7 +5,7 @@ import com.example.wembleymoviesapp.domain.MovieItem
 
 class DbDataMapper {
 
-    fun convertListToDomainMovieItem(listFav: MutableList<MovieDB>) =
+    fun convertListToDomainMovieItem(listFav: List<MovieDB>) =
         listFav.mapIndexed { _, movieDB ->
             convertToDomainMovieItem(movieDB)
         }

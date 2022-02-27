@@ -109,8 +109,7 @@ class FavMoviesFragment() : Fragment() {
 
         // SearchView Listeners
         searchView.setOnQueryTextListener(controller)
-        searchView.setOnCloseListener(controller)
-
+        
         super.onCreateOptionsMenu(menu, inflater)
     }
 

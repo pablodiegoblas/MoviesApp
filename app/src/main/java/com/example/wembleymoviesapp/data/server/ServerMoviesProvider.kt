@@ -4,10 +4,7 @@ import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
 import com.example.wembleymoviesapp.data.model.ResponseModel
-import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.controllers.PopularController
-import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
-import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,14 +53,11 @@ class ServerMoviesProvider(
     }
 
     /**
-     * Function that search movie by title in SearchBar
-     * Dep
+     * Function that search movie by title in SearchBar for popular fragment
      */
     fun getMoviesSearched(
-        fragment: Fragment,
         searchMovieTitle: String,
-        controllerPopular: PopularController?,
-        controllerFav: FavouritesController?
+        controllerPopular: PopularController
     ) {
         val result: Call<ResponseModel> = service.getSearchMovie(API.API_KEY, searchMovieTitle)
 
@@ -74,57 +68,21 @@ class ServerMoviesProvider(
             ) {
                 val searchMovie = response.body()
 
-                when (fragment) {
-                    is PopularMoviesFragment -> {
-                        // Save in Database
-                        val searchMoviesModelDB = searchMovie?.let {
-                            dataMapperServer.convertListToMovieDB(it)
-                        }
-                        searchMoviesModelDB?.let { controllerPopular?.insertMoviesInDatabase(it) }
-
-                        // Charge adapter
-                        val searchMoviesModelItem = searchMovie?.let {
-                            dataMapperServer.convertListToDomainMovieItem(searchMovie)
-                        }
-                        searchMoviesModelItem?.let { controllerPopular?.returnsCall(it) }
-                    }
-                    //is FavMoviesFragment -> searchMovie?.let { fragment.createAdapter(it.results) }
+                // Save in Database
+                val searchMoviesModelDB = searchMovie?.let {
+                    dataMapperServer.convertListToMovieDB(it)
                 }
+                searchMoviesModelDB?.let { controllerPopular?.insertMoviesInDatabase(it) }
+
+                // Charge adapter
+                val searchMoviesModelItem = searchMovie?.let {
+                    dataMapperServer.convertListToDomainMovieItem(searchMovie)
+                }
+                searchMoviesModelItem?.let { controllerPopular?.returnsCall(it) }
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                when (fragment) {
-                    is PopularMoviesFragment -> fragment.showErrorAPI()
-                    //is FavMoviesFragment -> fragment.showErrorAPI()
-                }
-            }
-
-        })
-    }
-
-    /**
-     * Function that search a Movie by her original title
-     */
-    fun searchMovieDetail(title: String, activity: DetailMovieActivity) {
-        val result: Call<ResponseModel> = service.getSearchMovie(API.API_KEY, title)
-
-        result.enqueue(object : Callback<ResponseModel> {
-            override fun onResponse(
-                call: Call<ResponseModel>,
-                response: Response<ResponseModel>
-            ) {
-                val movieSearched = response.body()?.results?.get(0)
-                if (movieSearched != null) {
-                    activity.bindDetailMovie(
-                        dataMapperServer.convertToDomainMovieDetail(
-                            movieSearched
-                        )
-                    )
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                activity.showError()
+                controllerPopular.showErrorNetwork()
             }
 
         })

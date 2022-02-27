@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Movie
 
 class DBMoviesProvider(context: Context) {
 
@@ -149,5 +150,14 @@ class DBMoviesProvider(context: Context) {
 
 
         return null
+    }
+
+    /**
+     * Metodo que busca las peliculas favoritas filtrando por el titulo para el metodo de la searchBar
+     */
+    fun findMoviesFavouritesByTitle(text: String): List<MovieDB> {
+        val allFavMovies = getAllFavouritesMovies()
+
+        return allFavMovies.filter { movieDB -> text in movieDB.title }
     }
 }
