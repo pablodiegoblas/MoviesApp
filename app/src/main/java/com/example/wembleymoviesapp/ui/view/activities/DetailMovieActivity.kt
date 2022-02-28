@@ -33,23 +33,22 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     fun bindDetailMovie(movie: MovieDetail) {
-        if (movie != null) {
-            with(movie) {
-                backdrop?.let { loadImage(it, binding.imageViewBackdrop) }
-                binding.textViewTitleDetail.text = title
-                binding.textViewDescriptionDetail.text = overview
+        with(movie) {
+            backdrop?.let { loadImage(it, binding.imageViewBackdrop) }
+            binding.textViewTitleDetail.text = title
+            binding.textViewDescriptionDetail.text = overview
+            binding.textViewValoration.text = "Vote: $valoration/10"
 
-                binding.textViewValoration.text = "Vote: $valoration/10"
-                // Establecer color dependiendo de la valoracion que tenga la pelicula
-                /*binding.textViewValoration.setTextColor(
-                    when (valoration?.toInt()) {
-                        in 0..4 -> android.R.color.holo_red_dark
-                        in 5..10 -> android.R.color.holo_green_dark
-                        else -> android.R.color.holo_red_dark
-                    }
-                )*/
+            // Establecer color del texto, dependiendo de la valoracion que tenga la pelicula
+            // No funciona no se por que
+            /*binding.textViewValoration.setTextColor(
+                when (valoration?.toInt()) {
+                    in 0..4 -> android.R.color.holo_red_dark
+                    in 5..10 -> android.R.color.holo_green_dark
+                    else -> android.R.color.holo_red_dark
+                }
+            )*/
 
-            }
         }
 
     }
