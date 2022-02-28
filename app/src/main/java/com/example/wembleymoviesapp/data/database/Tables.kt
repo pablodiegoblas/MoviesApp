@@ -8,6 +8,6 @@ object Favourites {
     const val POSTER = "poster_path"
     const val BACKDROP = "backdrop_path"
     const val DATE = "release_date"
-    const val VALORATION = "vote_average"
+    const val VALUATION = "vote_average"
     const val FAVOURITE = "favourite"
 }

@@ -68,17 +68,16 @@ class ServerMoviesProvider(
             ) {
                 val searchMovie = response.body()
 
-                // Save in Database
-                val searchMoviesModelDB = searchMovie?.let {
-                    dataMapperServer.convertListToMovieDB(it)
-                }
-                searchMoviesModelDB?.let { controllerPopular?.insertMoviesInDatabase(it) }
+                if (searchMovie != null) {
+                    // Save in Database
+                    val searchMoviesModelDB = dataMapperServer.convertListToMovieDB(searchMovie)
+                    controllerPopular.insertMoviesInDatabase(searchMoviesModelDB)
 
-                // Charge adapter
-                val searchMoviesModelItem = searchMovie?.let {
-                    dataMapperServer.convertListToDomainMovieItem(searchMovie)
+                    // Charge adapter
+                    val searchMoviesModelItem = dataMapperServer.convertListToDomainMovieItem(searchMovie)
+                    controllerPopular.returnsCall(searchMoviesModelItem)
                 }
-                searchMoviesModelItem?.let { controllerPopular?.returnsCall(it) }
+
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {

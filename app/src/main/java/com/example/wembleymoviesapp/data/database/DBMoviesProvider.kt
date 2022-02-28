@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Movie
 
 class DBMoviesProvider(context: Context) {
 
@@ -27,7 +26,7 @@ class DBMoviesProvider(context: Context) {
                 newRegister.put(Favourites.POSTER, poster)
                 newRegister.put(Favourites.BACKDROP, backdrop)
                 newRegister.put(Favourites.DATE, releaseDate)
-                newRegister.put(Favourites.VALORATION, voteAverage)
+                newRegister.put(Favourites.VALUATION, voteAverage)
                 newRegister.put(Favourites.FAVOURITE, favourite)
             }
 

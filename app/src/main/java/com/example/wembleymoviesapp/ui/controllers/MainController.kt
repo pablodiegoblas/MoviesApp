@@ -9,7 +9,7 @@ import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.google.android.material.navigation.NavigationBarView
 
 class MainController(
-    val mainActivity: MainActivity,
+    private val mainActivity: MainActivity,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider()
 ) : NavigationBarView.OnItemSelectedListener,
     SearchView.OnQueryTextListener{

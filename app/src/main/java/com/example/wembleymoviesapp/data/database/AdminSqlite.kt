@@ -18,7 +18,7 @@ class AdminSqlite(
             "${Favourites.POSTER} TEXT," +
             "${Favourites.BACKDROP} TEXT," +
             "${Favourites.DATE} TEXT," +
-            "${Favourites.VALORATION} DOUBLE," +
+            "${Favourites.VALUATION} DOUBLE," +
             "${Favourites.FAVOURITE} BOOLEAN)"
 
     override fun onCreate(db: SQLiteDatabase?) {

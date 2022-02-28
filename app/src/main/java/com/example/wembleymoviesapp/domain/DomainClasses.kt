@@ -1,7 +1,5 @@
 package com.example.wembleymoviesapp.domain
 
-data class MoviesItemsList(val listItems: MutableList<MovieItem>)
-
 data class MovieItem(
     val id: Int,
     val title: String,

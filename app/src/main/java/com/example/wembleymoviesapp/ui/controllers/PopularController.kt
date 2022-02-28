@@ -4,7 +4,6 @@ import android.widget.ImageView
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.MovieDB
-import com.example.wembleymoviesapp.data.model.ResponseModel
 import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
@@ -53,7 +52,6 @@ class PopularController(
         val imagen: Int
 
         if (movieItem.favourite) {
-
             movieItem.favourite = false
             dbProvider.removeFavourite(movieItem.id)
             imagen = R.drawable.ic_favourite_border_red
