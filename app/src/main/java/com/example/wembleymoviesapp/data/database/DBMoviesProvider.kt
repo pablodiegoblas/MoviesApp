@@ -109,11 +109,6 @@ class DBMoviesProvider(context: Context) {
     }
 
     /**
-     * Function that check if the movie is in Database
-     */
-    // fun checkIsFavourite(movie: MovieDB): Boolean = movie.favourite
-
-    /**
      * Function search movie by title in database
      */
     fun findMovie(id: Int): MovieDB? {
