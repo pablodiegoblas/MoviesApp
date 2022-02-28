@@ -49,18 +49,18 @@ class PopularController(
      * Método que hace lo oportuno al presionar el boton de favorito de un item
      */
     fun pressFavButton(movieItem: MovieItem, imageView: ImageView) {
-        val imagen: Int
+        val image: Int
 
         if (movieItem.favourite) {
             movieItem.favourite = false
             dbProvider.removeFavourite(movieItem.id)
-            imagen = R.drawable.ic_favourite_border_red
+            image = R.drawable.ic_favourite_border_red
         } else {
             movieItem.favourite = true
             dbProvider.setFavourite(movieItem.id)
-            imagen = R.drawable.ic_favourite_background_red
+            image = R.drawable.ic_favourite_background_red
         }
 
-        imageView.setImageResource(imagen)
+        imageView.setImageResource(image)
     }
 }

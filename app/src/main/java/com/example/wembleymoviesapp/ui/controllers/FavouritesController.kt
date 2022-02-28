@@ -5,7 +5,6 @@ import android.widget.SearchView
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.DbDataMapper
-import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
 
@@ -31,19 +30,19 @@ class FavouritesController(
      * Método que hace lo oportuno al presionar el boton de favorito de un item
      */
     fun pressFavButton(movieItem: MovieItem, imageView: ImageView) {
-        val imagen: Int
+        val image: Int
 
         if (movieItem.favourite) {
             movieItem.favourite = false
             dbProvider.removeFavourite(movieItem.id)
-            imagen = R.drawable.ic_favourite_border_red
+            image = R.drawable.ic_favourite_border_red
         } else {
             movieItem.favourite = true
             dbProvider.setFavourite(movieItem.id)
-            imagen = R.drawable.ic_favourite_background_red
+            image = R.drawable.ic_favourite_background_red
         }
 
-        imageView.setImageResource(imagen)
+        imageView.setImageResource(image)
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {

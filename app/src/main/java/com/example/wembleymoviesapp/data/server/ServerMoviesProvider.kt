@@ -1,9 +1,7 @@
 package com.example.wembleymoviesapp.data.server
 
-import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
-import com.example.wembleymoviesapp.data.model.ResponseModel
 import com.example.wembleymoviesapp.ui.controllers.PopularController
 import retrofit2.Call
 import retrofit2.Callback

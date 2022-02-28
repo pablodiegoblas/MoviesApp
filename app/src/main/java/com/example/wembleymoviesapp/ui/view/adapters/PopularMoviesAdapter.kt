@@ -1,17 +1,13 @@
 package com.example.wembleymoviesapp.ui.view.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.API.API
-import com.example.wembleymoviesapp.data.model.RequestMovie
-import com.example.wembleymoviesapp.data.server.ServerDataMapper
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
 import com.example.wembleymoviesapp.domain.MovieItem
-import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.squareup.picasso.Picasso
 
 class PopularMoviesAdapter(
@@ -36,7 +32,7 @@ class PopularMoviesAdapter(
 
     // Inner -> para que la clase ViewHolder pueda acceder a las propiedades de la clase superior en la que se encuentra
     inner class ViewHolder(
-        val binding: ItemMovieBinding
+        private val binding: ItemMovieBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -65,7 +61,7 @@ class PopularMoviesAdapter(
             }
         }
 
-        fun loadImage(url: String, imageView: ImageView) =
+        private fun loadImage(url: String, imageView: ImageView) =
             Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
     }
 }

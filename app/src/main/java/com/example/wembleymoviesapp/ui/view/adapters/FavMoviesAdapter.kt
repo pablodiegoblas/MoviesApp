@@ -59,7 +59,7 @@ class FavMoviesAdapter(
             }
         }
 
-        fun loadImage(url: String, imageView: ImageView) =
+        private fun loadImage(url: String, imageView: ImageView) =
             Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
 
     }

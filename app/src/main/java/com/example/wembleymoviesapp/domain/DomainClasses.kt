@@ -11,5 +11,5 @@ data class MovieDetail(
     val title: String,
     val backdrop: String? = null,
     val overview: String,
-    val valoration: Double? = null
+    val valuation: Double? = null
 )

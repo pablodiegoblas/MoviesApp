@@ -15,9 +15,9 @@ class DBMoviesProvider(context: Context) {
      */
     fun insert(movie: MovieDB) {
 
-        val movieSearch = findMovie(movie.id)?.id ?: null == movie.id
+        val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
 
-        if (!movieSearch) {
+        if (!isMovieSearch) {
             val newRegister = ContentValues()
             with(movie) {
                 newRegister.put(Favourites.ID, id)
@@ -32,7 +32,7 @@ class DBMoviesProvider(context: Context) {
 
             db.insert(Favourites.NAME, null, newRegister)
         }
-        else println("EXISTS THIS MOVIE YET")
+        else println("THIS MOVIE EXISTS YET")
 
     }
 
@@ -117,7 +117,7 @@ class DBMoviesProvider(context: Context) {
         cursor.use {
             if (cursor.moveToFirst()) {
                 while (!cursor.isAfterLast) {
-                    val id = cursor.getInt(0)
+                    val idDB = cursor.getInt(0)
                     val title = cursor.getString(1)
                     val overview = cursor.getString(2)
                     val poster = cursor.getString(3)
@@ -129,7 +129,7 @@ class DBMoviesProvider(context: Context) {
                     val favouriteBoolean: Boolean = favourite == 1
 
                     return MovieDB(
-                        id,
+                        idDB,
                         title,
                         overview,
                         poster,
@@ -141,7 +141,6 @@ class DBMoviesProvider(context: Context) {
                 }
             }
         }
-
 
         return null
     }

@@ -1,8 +1,6 @@
 package com.example.wembleymoviesapp.data.server
 
 import com.example.wembleymoviesapp.data.database.MovieDB
-import com.example.wembleymoviesapp.data.model.RequestMovie
-import com.example.wembleymoviesapp.data.model.ResponseModel
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
 

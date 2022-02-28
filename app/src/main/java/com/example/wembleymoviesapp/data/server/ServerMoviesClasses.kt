@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.data.model
+package com.example.wembleymoviesapp.data.server
 
 import com.google.gson.annotations.SerializedName
 

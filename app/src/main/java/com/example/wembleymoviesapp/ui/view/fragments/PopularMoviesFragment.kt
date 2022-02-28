@@ -15,7 +15,7 @@ import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
 
-class PopularMoviesFragment : Fragment() {
+class PopularMoviesFragment() : Fragment() {
 
     private var _binding: FragmentPopularMoviesBinding? = null
     private val binding get() = _binding!!

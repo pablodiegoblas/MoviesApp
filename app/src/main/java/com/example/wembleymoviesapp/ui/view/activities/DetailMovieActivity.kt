@@ -37,7 +37,7 @@ class DetailMovieActivity : AppCompatActivity() {
             backdrop?.let { loadImage(it, binding.imageViewBackdrop) }
             binding.textViewTitleDetail.text = title
             binding.textViewDescriptionDetail.text = overview
-            binding.textViewValoration.text = "Vote: $valoration/10"
+            binding.textViewValoration.text = "Vote: $valuation/10"
 
             // Establecer color del texto, dependiendo de la valoracion que tenga la pelicula
             // No funciona no se por que

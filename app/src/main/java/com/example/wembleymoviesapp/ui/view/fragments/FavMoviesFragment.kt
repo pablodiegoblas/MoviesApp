@@ -5,13 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.database.DBMoviesProvider
-import com.example.wembleymoviesapp.data.model.RequestMovie
-import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.FavouritesController
