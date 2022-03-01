@@ -22,6 +22,8 @@ class FavouritesController(
             listFavMoviesModelItem
         )
         else favMoviesFragment.showNotMoviesFavText()
+
+        favMoviesFragment.swipe.isRefreshing = false
     }
 
     fun destroyDB() = dbProvider.closeDatabase()

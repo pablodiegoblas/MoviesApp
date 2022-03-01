@@ -34,7 +34,7 @@ class FavMoviesAdapter(
 
 
     inner class ViewHolder(
-        val binding: ItemMovieBinding
+        private val binding: ItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         //private var selected: Boolean = false

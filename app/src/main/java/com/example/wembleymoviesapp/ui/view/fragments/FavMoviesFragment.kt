@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
@@ -20,6 +21,8 @@ class FavMoviesFragment() : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var controller: FavouritesController
+
+    val swipe: SwipeRefreshLayout by lazy { binding.swipe }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,6 +46,15 @@ class FavMoviesFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         controller.getFavouritesMovies()
+
+        setListeners()
+    }
+
+    private fun setListeners() {
+        swipe.setOnRefreshListener{
+            controller.getFavouritesMovies()
+            //swipe.isRefreshing = false
+        }
     }
 
     override fun onDestroyView() {

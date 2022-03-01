@@ -69,8 +69,7 @@ class PopularMoviesFragment() : Fragment() {
         binding.recyclerViewPopularMovies.visibility = View.VISIBLE
 
         //Charge the adapter
-        binding.recyclerViewPopularMovies.layoutManager = LinearLayoutManager(this.context)
-        val adapter = PopularMoviesAdapter(
+        val popularMoviesAdapter = PopularMoviesAdapter(
             list,
             {
                 val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
@@ -85,11 +84,15 @@ class PopularMoviesFragment() : Fragment() {
                 sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
             }
         )
-        binding.recyclerViewPopularMovies.adapter = adapter
+
+        binding.recyclerViewPopularMovies.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = popularMoviesAdapter
+        }
 
     }
 
-    fun sharedInfo(text: String) {
+    private fun sharedInfo(text: String) {
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, text)

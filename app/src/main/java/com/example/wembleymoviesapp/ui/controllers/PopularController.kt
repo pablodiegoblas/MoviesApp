@@ -12,7 +12,7 @@ class PopularController(
     private val popularMoviesFragment: PopularMoviesFragment,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider(),
     private val dbProvider: DBMoviesProvider = DBMoviesProvider(popularMoviesFragment.requireContext())
-) {
+){
 
     fun getPopularMovies() {
         serverMoviesProvider.getAllPopularMoviesRequest(this)
