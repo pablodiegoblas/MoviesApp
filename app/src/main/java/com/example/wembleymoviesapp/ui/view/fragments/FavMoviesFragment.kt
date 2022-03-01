@@ -77,8 +77,7 @@ class FavMoviesFragment() : Fragment() {
         binding.recyclerViewFavouritesMovies.visibility = View.VISIBLE
 
         // Charge the adapter
-        binding.recyclerViewFavouritesMovies.layoutManager = LinearLayoutManager(this.context)
-        val adapter = FavMoviesAdapter(
+        val favMoviesAdapter = FavMoviesAdapter(
             listFav,
             {
                 val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
@@ -94,7 +93,10 @@ class FavMoviesFragment() : Fragment() {
             }
         )
 
-        binding.recyclerViewFavouritesMovies.adapter = adapter
+        binding.recyclerViewFavouritesMovies.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = favMoviesAdapter
+        }
     }
 
     private fun sharedInfo(textShare: String) {
