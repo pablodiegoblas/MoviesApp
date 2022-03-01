@@ -57,10 +57,6 @@ class DetailMovieActivity : AppCompatActivity() {
         Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
     }
 
-    fun showError() {
-        Toast.makeText(this, "Connection Failure", Toast.LENGTH_SHORT).show()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
