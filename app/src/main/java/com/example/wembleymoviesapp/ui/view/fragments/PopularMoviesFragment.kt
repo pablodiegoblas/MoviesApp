@@ -17,10 +17,11 @@ import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
 
 class PopularMoviesFragment() : Fragment() {
 
-    private var _binding: FragmentPopularMoviesBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentPopularMoviesBinding? = null
 
     lateinit var controller: PopularController
+
+    private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -28,15 +29,15 @@ class PopularMoviesFragment() : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View = FragmentPopularMoviesBinding.inflate(layoutInflater,container,false).also {
+        binding = it
 
-        _binding = FragmentPopularMoviesBinding.inflate(inflater, container, false)
-
-        // Inflate the layout for this fragment
-        return binding.root
-    }
+        //Crear adaptador
+        createAdapter()
+    }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +49,7 @@ class PopularMoviesFragment() : Fragment() {
     // Important destroy the binding here, because the lifecycle of the fragments is different
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     override fun onDestroy() {
@@ -58,19 +59,18 @@ class PopularMoviesFragment() : Fragment() {
     }
 
     fun showNotMoviesText() {
-        binding.recyclerViewPopularMovies.visibility = View.GONE
-        binding.tvPopularDefault.visibility = View.VISIBLE
+        binding?.recyclerViewPopularMovies?.visibility = View.GONE
+        binding?.tvPopularDefault?.visibility = View.VISIBLE
     }
 
-    fun createAdapter(list: List<MovieItem>) {
+    private fun createAdapter() {
 
         //Put visibility DefaultText Gone
-        binding.tvPopularDefault.visibility = View.GONE
-        binding.recyclerViewPopularMovies.visibility = View.VISIBLE
+        binding?.tvPopularDefault?.visibility = View.GONE
+        binding?.recyclerViewPopularMovies?.visibility = View.VISIBLE
 
         //Charge the adapter
-        val popularMoviesAdapter = PopularMoviesAdapter(
-            list,
+        popularMoviesAdapter = PopularMoviesAdapter(
             {
                 val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
                     putExtra("ID", it.id)
@@ -85,11 +85,15 @@ class PopularMoviesFragment() : Fragment() {
             }
         )
 
-        binding.recyclerViewPopularMovies.apply {
+        binding?.recyclerViewPopularMovies?.apply {
             layoutManager = LinearLayoutManager(this.context)
             adapter = popularMoviesAdapter
         }
 
+    }
+
+    fun changeItemsAdapter(items: List<MovieItem>) {
+        popularMoviesAdapter.submitList(items)
     }
 
     private fun sharedInfo(text: String) {
@@ -105,6 +109,13 @@ class PopularMoviesFragment() : Fragment() {
 
     fun showErrorAPI() {
         Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Metodo que actualiza el item en el que se ha hecho click del adaptador
+     */
+    fun hasChanged(idItem: Int) {
+        popularMoviesAdapter.notifyItemChanged(idItem)
     }
 
 }

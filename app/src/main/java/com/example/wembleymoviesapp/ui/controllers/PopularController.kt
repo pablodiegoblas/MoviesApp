@@ -1,7 +1,5 @@
 package com.example.wembleymoviesapp.ui.controllers
 
-import android.widget.ImageView
-import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
@@ -24,8 +22,8 @@ class PopularController(
         } else {
             // Buscar de estas peliculas que retorna cuales son favoritas
             getListWithFavourites(listMovieItems)
-            // Una vez que ya tenemos las favoritas ahora ya creo el adaptador
-            popularMoviesFragment.createAdapter(listMovieItems)
+            // Una vez que ya tenemos las favoritas ahora ya modifico la lista del adaptador
+            popularMoviesFragment.changeItemsAdapter(listMovieItems)
         }
     }
 
@@ -48,19 +46,18 @@ class PopularController(
     /**
      * Método que hace lo oportuno al presionar el boton de favorito de un item
      */
-    fun pressFavButton(movieItem: MovieItem, imageView: ImageView) {
-        val image: Int
+    fun pressFavButton(movieItem: MovieItem, itemId: Int)  {
 
         if (movieItem.favourite) {
             movieItem.favourite = false
             dbProvider.removeFavourite(movieItem.id)
-            image = R.drawable.ic_favourite_border_red
         } else {
             movieItem.favourite = true
             dbProvider.setFavourite(movieItem.id)
-            image = R.drawable.ic_favourite_background_red
         }
 
-        imageView.setImageResource(image)
+        // Una vez que hago click actualizo el adapter
+        // ¿Como hacerlo aqui? -> para solo modificar ese elemento
+        popularMoviesFragment.hasChanged(itemId)
     }
 }
