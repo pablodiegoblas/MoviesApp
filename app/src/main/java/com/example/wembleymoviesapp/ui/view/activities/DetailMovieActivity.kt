@@ -1,8 +1,8 @@
 package com.example.wembleymoviesapp.ui.view.activities
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
@@ -40,14 +40,14 @@ class DetailMovieActivity : AppCompatActivity() {
             binding.textViewValoration.text = "Vote: $valuation/10"
 
             // Establecer color del texto, dependiendo de la valoracion que tenga la pelicula
-            // No funciona no se por que
-            /*binding.textViewValoration.setTextColor(
-                when (valoration?.toInt()) {
-                    in 0..4 -> android.R.color.holo_red_dark
-                    in 5..10 -> android.R.color.holo_green_dark
-                    else -> android.R.color.holo_red_dark
+            binding.textViewValoration.setTextColor(
+                when (valuation?.toInt()) {
+                    in 0..4 -> Color.RED
+                    in 5..7 -> Color.YELLOW
+                    in 8..10 -> Color.GREEN
+                    else -> Color.RED
                 }
-            )*/
+            )
 
         }
 
