@@ -14,6 +14,7 @@ import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
+import kotlinx.android.synthetic.main.fragment_fav_movies.*
 
 class FavMoviesFragment() : Fragment() {
 
@@ -22,7 +23,7 @@ class FavMoviesFragment() : Fragment() {
 
     lateinit var controller: FavouritesController
 
-    val swipe: SwipeRefreshLayout by lazy { binding.swipe }
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,15 +46,16 @@ class FavMoviesFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        controller.getFavouritesMovies()
-
+        swipeRefreshLayout = binding.swipe
         setListeners()
+
+        controller.getFavouritesMovies()
     }
 
     private fun setListeners() {
-        swipe.setOnRefreshListener{
+        swipeRefreshLayout.setOnRefreshListener{
+            // Each time that refreshing recharge the favourites movies
             controller.getFavouritesMovies()
-            //swipe.isRefreshing = false
         }
     }
 

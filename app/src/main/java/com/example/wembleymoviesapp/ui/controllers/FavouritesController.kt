@@ -23,7 +23,8 @@ class FavouritesController(
         )
         else favMoviesFragment.showNotMoviesFavText()
 
-        favMoviesFragment.swipe.isRefreshing = false
+        // Una vez que devuelvo los datos dejo de refrescar el swipe layout
+        favMoviesFragment.swipeRefreshLayout.isRefreshing = false
     }
 
     fun destroyDB() = dbProvider.closeDatabase()
