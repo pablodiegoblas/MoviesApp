@@ -8,7 +8,15 @@ import android.database.sqlite.SQLiteDatabase
 class DBMoviesProvider(context: Context) {
 
     private val adminSqliteHelper = AdminSqlite(context, "DBWembleyMovies.sqlite", null, 6)
-    private val db: SQLiteDatabase = adminSqliteHelper.writableDatabase
+    private lateinit var db: SQLiteDatabase
+
+    fun openDB() {
+        db = adminSqliteHelper.writableDatabase
+    }
+
+    fun closeDatabase() {
+        db.close()
+    }
 
     /**
      * Function insert movies in database
@@ -84,7 +92,7 @@ class DBMoviesProvider(context: Context) {
     /**
      * This movie not favorite yet
      */
-    fun removeFavourite(id: Int?) {
+    suspend fun removeFavourite(id: Int?) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
                     " SET ${Favourites.FAVOURITE} = '0'" +
@@ -95,16 +103,12 @@ class DBMoviesProvider(context: Context) {
     /**
      * This movie is favourite now
      */
-    fun setFavourite(id: Int) {
+    suspend fun setFavourite(id: Int) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
                     " SET ${Favourites.FAVOURITE}='1'" +
                     " WHERE ${Favourites.ID}='$id'"
         )
-    }
-
-    fun closeDatabase() {
-        db.close()
     }
 
     /**

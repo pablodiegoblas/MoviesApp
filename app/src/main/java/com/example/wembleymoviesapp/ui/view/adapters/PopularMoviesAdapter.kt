@@ -1,5 +1,6 @@
 package com.example.wembleymoviesapp.ui.view.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,9 +15,8 @@ import com.squareup.picasso.Picasso
 
 class PopularMoviesAdapter(
     private val onMoreClick: (MovieItem) -> Unit,
-    private val onFavouriteClick: (favourite: Pair<MovieItem, Int>) -> Unit,
+    private val onFavouriteClick: (favourite: MovieItem) -> Unit,
     private val onSharedClick: (MovieItem) -> Unit
-//) : RecyclerView.Adapter<PopularMoviesAdapter.ViewHolder>() {
 ) : ListAdapter<MovieItem, PopularMoviesAdapter.ViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +28,6 @@ class PopularMoviesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindMovie(getItem(position), position)
     }
-
-//    fun changeList(items: List<MovieItem>) { movies = items}
 
     // Inner -> para que la clase ViewHolder pueda acceder a las propiedades de la clase superior en la que se encuentra
     inner class ViewHolder(
@@ -54,7 +52,7 @@ class PopularMoviesAdapter(
             }
 
             binding.imageViewFavourite.setOnClickListener {
-                onFavouriteClick(movieItem to position)
+                onFavouriteClick(movieItem)
             }
 
             binding.imageViewShared.setOnClickListener {

@@ -4,7 +4,7 @@ data class MovieItem(
     val id: Int,
     val title: String,
     val poster: String? = null,
-    var favourite: Boolean
+    val favourite: Boolean
 )
 
 data class MovieDetail(

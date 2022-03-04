@@ -24,6 +24,7 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         controller = DetailController(this)
+        controller.createDB()
 
         //Find bundle of the intent
         val idMovie = intent.extras?.getInt("ID")
@@ -59,6 +60,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        controller.destroyDB()
         _binding = null
     }
 }

@@ -5,32 +5,41 @@ import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PopularController(
     private val popularMoviesFragment: PopularMoviesFragment,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider(),
     private val dbProvider: DBMoviesProvider = DBMoviesProvider(popularMoviesFragment.requireContext())
-){
+) {
+
+    private var listPopular: MutableList<MovieItem> = mutableListOf()
 
     fun getPopularMovies() {
         serverMoviesProvider.getAllPopularMoviesRequest(this)
     }
 
-    fun returnsCall(listMovieItems: List<MovieItem>) {
-        if (listMovieItems.isEmpty()) {
+    fun returnsCall(listCall: List<MovieItem>) {
+
+        listPopular = listCall.toMutableList()
+
+        if (listPopular.isEmpty()) {
             popularMoviesFragment.showNotMoviesText()
         } else {
             // Buscar de estas peliculas que retorna cuales son favoritas
-            getListWithFavourites(listMovieItems)
+            getListWithFavourites()
             // Una vez que ya tenemos las favoritas ahora ya modifico la lista del adaptador
-            popularMoviesFragment.changeItemsAdapter(listMovieItems)
+            popularMoviesFragment.updatePopularMoviesAdapter(listPopular)
         }
     }
 
-    private fun getListWithFavourites(listMovieItems: List<MovieItem>) {
-        listMovieItems.forEachIndexed { _, movieItem ->
-            if (dbProvider.findMovie(movieItem.id)?.favourite == true) movieItem.favourite = true
-        }
+    private fun getListWithFavourites() {
+        // FALLO AQUI NO LO REASIGNABA por lo que al volver a cargar las peliculas no se cargaban las que ya estaban como favoritas
+        listPopular = listPopular.mapIndexed { _, movieItem ->
+            if (dbProvider.findMovie(movieItem.id)?.favourite == true) movieItem.copy(favourite = true)
+            else movieItem
+        }.toMutableList()
     }
 
     fun insertMoviesInDatabase(listDB: List<MovieDB>) {
@@ -41,23 +50,40 @@ class PopularController(
 
     fun showErrorNetwork() = popularMoviesFragment.showErrorAPI()
 
+    fun createDB() = dbProvider.openDB()
     fun destroyDB() = dbProvider.closeDatabase()
 
     /**
-     * Método que hace lo oportuno al presionar el boton de favorito de un item
+     * Método que cambia la imagen de favoritos cuando se hace click sobre una pelicula
      */
-    fun pressFavButton(movieItem: MovieItem, itemId: Int)  {
-
+    fun pressFavButton(movieItem: MovieItem) {
         if (movieItem.favourite) {
-            movieItem.favourite = false
-            dbProvider.removeFavourite(movieItem.id)
+            listPopular = listPopular.map {
+                if (it.id == movieItem.id) it.copy(
+                    favourite = false
+                ) else it
+            }.toMutableList()
+
+            // Remove favourite attribute of the movies database
+            GlobalScope.launch {
+                dbProvider.removeFavourite(movieItem.id)
+            }
+
         } else {
-            movieItem.favourite = true
-            dbProvider.setFavourite(movieItem.id)
+            listPopular = listPopular.map {
+                if (it.id == movieItem.id) it.copy(
+                    favourite = true
+                ) else it
+            }.toMutableList()
+
+            // Include favourite attribute of the movies database
+            GlobalScope.launch {
+                dbProvider.setFavourite(movieItem.id)
+            }
+
         }
 
-        // Una vez que hago click actualizo el adapter
-        // ¿Como hacerlo aqui? -> para solo modificar ese elemento
-        popularMoviesFragment.hasChanged(itemId)
+        popularMoviesFragment.updatePopularMoviesAdapter(listPopular)
+
     }
 }

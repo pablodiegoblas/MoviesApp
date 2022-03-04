@@ -14,6 +14,7 @@ import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
+import kotlinx.android.synthetic.main.fragment_fav_movies.*
 
 class PopularMoviesFragment() : Fragment() {
 
@@ -26,6 +27,7 @@ class PopularMoviesFragment() : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         controller = PopularController(this)
+        controller.createDB()
     }
 
     override fun onCreateView(
@@ -78,7 +80,7 @@ class PopularMoviesFragment() : Fragment() {
                 startActivity(intent)
             },
             {
-                controller.pressFavButton(it.first, it.second)
+                controller.pressFavButton(it)
             },
             {
                 sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
@@ -92,7 +94,7 @@ class PopularMoviesFragment() : Fragment() {
 
     }
 
-    fun changeItemsAdapter(items: List<MovieItem>) {
+    fun updatePopularMoviesAdapter(items: List<MovieItem>) {
         popularMoviesAdapter.submitList(items)
     }
 
@@ -111,11 +113,5 @@ class PopularMoviesFragment() : Fragment() {
         Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Metodo que actualiza el item en el que se ha hecho click del adaptador
-     */
-    fun hasChanged(idItem: Int) {
-        popularMoviesAdapter.notifyItemChanged(idItem)
-    }
 
 }

@@ -1,12 +1,12 @@
 package com.example.wembleymoviesapp.ui.controllers
 
-import android.widget.ImageView
 import android.widget.SearchView
-import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.DbDataMapper
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FavouritesController(
     private val favMoviesFragment: FavMoviesFragment,
@@ -14,38 +14,63 @@ class FavouritesController(
     private val dataMapper: DbDataMapper = DbDataMapper()
 ) : SearchView.OnQueryTextListener {
 
-    fun getFavouritesMovies() {
-        val listFavMovies = dbProvider.getAllFavouritesMovies()
-        val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(listFavMovies)
+    private var listFavourites: MutableList<MovieItem> = mutableListOf()
 
-        if (dbProvider.getAllFavouritesMovies().isNotEmpty()) favMoviesFragment.createAdapter(
-            listFavMoviesModelItem
+    fun getFavouritesMovies() {
+        // Devuelvo las peliculas de la base de datos
+        val listFavMoviesCall = dbProvider.getAllFavouritesMovies()
+
+        // Convierto las peliculas al modelo de dominio MovieItem
+        val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(listFavMoviesCall)
+
+        // Almaceno la lista convertida a la lista del controlador
+        listFavourites = listFavMoviesModelItem.toMutableList()
+
+        //Si la lista no es vacia la actualizo, si es vacia pongo el texto NO HAY PELICULAS FAVORITAS
+        if (listFavourites
+                .isNotEmpty()
+        ) favMoviesFragment.updateFavouritesMoviesAdapter(
+            listFavourites
         )
         else favMoviesFragment.showNotMoviesFavText()
 
         // Una vez que devuelvo los datos dejo de refrescar el swipe layout
-        favMoviesFragment.swipeRefreshLayout.isRefreshing = false
+        favMoviesFragment.swipeRefreshLayout?.isRefreshing = false
     }
 
+    fun createDB() = dbProvider.openDB()
     fun destroyDB() = dbProvider.closeDatabase()
 
     /**
      * Método que hace lo oportuno al presionar el boton de favorito de un item
      */
-    fun pressFavButton(movieItem: MovieItem, imageView: ImageView) {
-        val image: Int
+    fun pressFavButton(movieItem: MovieItem) {
 
         if (movieItem.favourite) {
-            movieItem.favourite = false
-            dbProvider.removeFavourite(movieItem.id)
-            image = R.drawable.ic_favourite_border_red
+            // busco la pelicula que se ha hecho clic y le cambio el atributo favorito
+            listFavourites =
+                listFavourites.map { if (it.id == movieItem.id) it.copy(favourite = false) else it }
+                    .toMutableList()
+
+            // Remove favourite attribute of the movies database
+            GlobalScope.launch {
+                dbProvider.removeFavourite(movieItem.id)
+            }
+
         } else {
-            movieItem.favourite = true
-            dbProvider.setFavourite(movieItem.id)
-            image = R.drawable.ic_favourite_background_red
+            listFavourites =
+                listFavourites.map { if (it.id == movieItem.id) it.copy(favourite = true) else it }
+                    .toMutableList()
+
+            // Include favourite attribute of the movies database
+            GlobalScope.launch {
+                dbProvider.setFavourite(movieItem.id)
+            }
+
         }
 
-        imageView.setImageResource(image)
+        favMoviesFragment.updateFavouritesMoviesAdapter(listFavourites)
+
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {
@@ -59,9 +84,8 @@ class FavouritesController(
                         dataMapper.convertListToDomainMovieItem(listFilterDB)
 
                     //Creo el adaptador con esas peliculas
-                    favMoviesFragment.createAdapter(listFavFilterDomainItem)
-                }
-                else {
+                    favMoviesFragment.updateFavouritesMoviesAdapter(listFavFilterDomainItem)
+                } else {
                     favMoviesFragment.showNotMoviesFavText()
                 }
             }

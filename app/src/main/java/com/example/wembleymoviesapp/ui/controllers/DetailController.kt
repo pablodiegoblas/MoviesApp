@@ -12,6 +12,9 @@ class DetailController(
     //private val dataProvider: DataProvider = DataProvider(detailMovieActivity)
     private val dbMoviesProvider: DBMoviesProvider = DBMoviesProvider(detailMovieActivity)
 
+    fun createDB() = dbMoviesProvider.openDB()
+    fun destroyDB() = dbMoviesProvider.closeDatabase()
+
     fun findMovie(id: Int) {
         val movieSearched = dbMoviesProvider.findMovie(id)
         if (movieSearched != null) {

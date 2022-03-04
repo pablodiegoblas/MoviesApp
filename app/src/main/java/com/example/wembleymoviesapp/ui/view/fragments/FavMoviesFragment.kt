@@ -14,46 +14,46 @@ import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
-import kotlinx.android.synthetic.main.fragment_fav_movies.*
 
-class FavMoviesFragment() : Fragment() {
+class FavMoviesFragment : Fragment() {
 
-    private var _binding: FragmentFavMoviesBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentFavMoviesBinding? = null
 
-    lateinit var controller: FavouritesController
+    private lateinit var controller: FavouritesController
 
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private lateinit var favMoviesAdapter: FavMoviesAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         controller = FavouritesController(this)
+        controller.createDB()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        //Recargar las opciones del menu
+    ): View = FragmentFavMoviesBinding.inflate(layoutInflater, container, false).also {
+        // Recargar opciones del menu
         setHasOptionsMenu(true)
 
-        _binding = FragmentFavMoviesBinding.inflate(inflater, container, false)
+        binding = it
 
-        // Inflate the layout for this fragment
-        return binding.root
-    }
+        // Create adapter in fragment
+        createAdapter()
+    }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeRefreshLayout = binding.swipe
+        swipeRefreshLayout = binding?.swipe
         setListeners()
 
         controller.getFavouritesMovies()
     }
 
     private fun setListeners() {
-        swipeRefreshLayout.setOnRefreshListener{
+        swipeRefreshLayout?.setOnRefreshListener{
             // Each time that refreshing recharge the favourites movies
             controller.getFavouritesMovies()
         }
@@ -61,7 +61,7 @@ class FavMoviesFragment() : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -69,18 +69,17 @@ class FavMoviesFragment() : Fragment() {
     }
 
     fun showNotMoviesFavText() {
-        binding.recyclerViewFavouritesMovies.visibility = View.GONE
-        binding.tvFavouriteDefaultText.visibility = View.VISIBLE
+        binding?.recyclerViewFavouritesMovies?.visibility = View.GONE
+        binding?.tvFavouriteDefaultText?.visibility = View.VISIBLE
     }
 
-    fun createAdapter(listFav: List<MovieItem>) {
+    private fun createAdapter() {
         // Put visibility DetaultText Gone
-        binding.tvFavouriteDefaultText.visibility = View.GONE
-        binding.recyclerViewFavouritesMovies.visibility = View.VISIBLE
+        binding?.tvFavouriteDefaultText?.visibility = View.GONE
+        binding?.recyclerViewFavouritesMovies?.visibility = View.VISIBLE
 
         // Charge the adapter
-        val favMoviesAdapter = FavMoviesAdapter(
-            listFav,
+        favMoviesAdapter = FavMoviesAdapter(
             {
                 val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
                     putExtra("ID", it.id)
@@ -88,17 +87,21 @@ class FavMoviesFragment() : Fragment() {
                 startActivity(intent)
             },
             {
-                controller.pressFavButton(it.first, it.second)
+                controller.pressFavButton(it)
             },
             {
                 sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
             }
         )
 
-        binding.recyclerViewFavouritesMovies.apply {
+        binding?.recyclerViewFavouritesMovies?.apply {
             layoutManager = LinearLayoutManager(this.context)
             adapter = favMoviesAdapter
         }
+    }
+
+    fun updateFavouritesMoviesAdapter(items: List<MovieItem>) {
+        favMoviesAdapter.submitList(items)
     }
 
     private fun sharedInfo(textShare: String) {
@@ -108,7 +111,7 @@ class FavMoviesFragment() : Fragment() {
             type = "text/plain"
         }
 
-        val shareIntent = Intent.createChooser(sendIntent, null)
+        val shareIntent = Intent.createChooser(sendIntent, "SHARE THE MOVIE")
         startActivity(shareIntent)
     }
 
