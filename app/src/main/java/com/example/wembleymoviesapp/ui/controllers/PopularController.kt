@@ -43,8 +43,8 @@ class PopularController(
     }
 
     fun insertMoviesInDatabase(listDB: List<MovieDB>) {
-        for (i in listDB) {
-            dbProvider.insert(i)
+        GlobalScope.launch {
+            dbProvider.insert(listDB)
         }
     }
 

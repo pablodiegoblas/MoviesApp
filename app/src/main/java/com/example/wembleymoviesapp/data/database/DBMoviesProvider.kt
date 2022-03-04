@@ -21,26 +21,28 @@ class DBMoviesProvider(context: Context) {
     /**
      * Function insert movies in database
      */
-    fun insert(movie: MovieDB) {
+    suspend fun insert(listMovieDB: List<MovieDB>) {
 
-        val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
+        for (movie in listMovieDB) {
+            val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
 
-        if (!isMovieSearch) {
-            val newRegister = ContentValues()
-            with(movie) {
-                newRegister.put(Favourites.ID, id)
-                newRegister.put(Favourites.TITLE, title)
-                newRegister.put(Favourites.DESCRIPTION, overview)
-                newRegister.put(Favourites.POSTER, poster)
-                newRegister.put(Favourites.BACKDROP, backdrop)
-                newRegister.put(Favourites.DATE, releaseDate)
-                newRegister.put(Favourites.VALUATION, voteAverage)
-                newRegister.put(Favourites.FAVOURITE, favourite)
-            }
+            if (!isMovieSearch) {
+                val newRegister = ContentValues()
+                with(movie) {
+                    newRegister.put(Favourites.ID, id)
+                    newRegister.put(Favourites.TITLE, title)
+                    newRegister.put(Favourites.DESCRIPTION, overview)
+                    newRegister.put(Favourites.POSTER, poster)
+                    newRegister.put(Favourites.BACKDROP, backdrop)
+                    newRegister.put(Favourites.DATE, releaseDate)
+                    newRegister.put(Favourites.VALUATION, voteAverage)
+                    newRegister.put(Favourites.FAVOURITE, favourite)
+                }
 
-            db.insert(Favourites.NAME, null, newRegister)
+                db.insert(Favourites.NAME, null, newRegister)
+            } else println("THIS MOVIE EXISTS YET")
+
         }
-        else println("THIS MOVIE EXISTS YET")
 
     }
 
@@ -48,7 +50,10 @@ class DBMoviesProvider(context: Context) {
      * Function returns all favourites movies in database
      */
     fun getAllFavouritesMovies(): MutableList<MovieDB> {
-        val cursor: Cursor = db.rawQuery("select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '1'", null)
+        val cursor: Cursor = db.rawQuery(
+            "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '1'",
+            null
+        )
 
         //Important in Kotlin use mutableListOf or listOf
         val favourites: MutableList<MovieDB> = mutableListOf()
