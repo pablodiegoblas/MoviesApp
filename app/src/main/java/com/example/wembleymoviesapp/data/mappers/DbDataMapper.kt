@@ -1,5 +1,6 @@
-package com.example.wembleymoviesapp.data.database
+package com.example.wembleymoviesapp.data.mappers
 
+import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
 

@@ -2,7 +2,7 @@ package com.example.wembleymoviesapp.ui.controllers
 
 import android.widget.SearchView
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
-import com.example.wembleymoviesapp.data.database.DbDataMapper
+import com.example.wembleymoviesapp.data.mappers.DbDataMapper
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
 import kotlinx.coroutines.GlobalScope

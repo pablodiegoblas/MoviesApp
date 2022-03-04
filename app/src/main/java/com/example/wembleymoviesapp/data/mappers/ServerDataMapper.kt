@@ -1,6 +1,8 @@
-package com.example.wembleymoviesapp.data.server
+package com.example.wembleymoviesapp.data.mappers
 
 import com.example.wembleymoviesapp.data.database.MovieDB
+import com.example.wembleymoviesapp.data.server.RequestMovie
+import com.example.wembleymoviesapp.data.server.ResponseModel
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
 

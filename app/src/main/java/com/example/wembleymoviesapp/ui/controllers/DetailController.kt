@@ -1,7 +1,7 @@
 package com.example.wembleymoviesapp.ui.controllers
 
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
-import com.example.wembleymoviesapp.data.database.DbDataMapper
+import com.example.wembleymoviesapp.data.mappers.DbDataMapper
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 
 class DetailController(
