@@ -21,7 +21,7 @@ class DBMoviesProvider(context: Context) {
     /**
      * Function insert movies in database
      */
-    suspend fun insert(listMovieDB: List<MovieDB>) {
+    fun insert(listMovieDB: List<MovieDB>) {
 
         for (movie in listMovieDB) {
             val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
@@ -97,7 +97,7 @@ class DBMoviesProvider(context: Context) {
     /**
      * This movie not favorite yet
      */
-    suspend fun removeFavourite(id: Int?) {
+    fun removeFavourite(id: Int?) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
                     " SET ${Favourites.FAVOURITE} = '0'" +
@@ -108,7 +108,7 @@ class DBMoviesProvider(context: Context) {
     /**
      * This movie is favourite now
      */
-    suspend fun setFavourite(id: Int) {
+    fun setFavourite(id: Int) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
                     " SET ${Favourites.FAVOURITE}='1'" +
@@ -152,14 +152,5 @@ class DBMoviesProvider(context: Context) {
         }
 
         return null
-    }
-
-    /**
-     * Metodo que busca las peliculas favoritas filtrando por el titulo para el metodo de la searchBar
-     */
-    fun findMoviesFavouritesByTitle(text: String): List<MovieDB> {
-        val allFavMovies = getAllFavouritesMovies()
-
-        return allFavMovies.filter { movieDB -> text in movieDB.title }
     }
 }

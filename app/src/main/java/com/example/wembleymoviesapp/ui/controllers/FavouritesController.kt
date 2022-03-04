@@ -17,25 +17,28 @@ class FavouritesController(
     private var listFavourites: MutableList<MovieItem> = mutableListOf()
 
     fun getFavouritesMovies() {
-        // Devuelvo las peliculas de la base de datos
-        val listFavMoviesCall = dbProvider.getAllFavouritesMovies()
+        GlobalScope.launch {
+            // Devuelvo las peliculas de la base de datos
+            val listFavMoviesCall = dbProvider.getAllFavouritesMovies()
 
-        // Convierto las peliculas al modelo de dominio MovieItem
-        val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(listFavMoviesCall)
+            // Convierto las peliculas al modelo de dominio MovieItem
+            val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(listFavMoviesCall)
 
-        // Almaceno la lista convertida a la lista del controlador
-        listFavourites = listFavMoviesModelItem.toMutableList()
+            // Almaceno la lista convertida a la lista del controlador
+            listFavourites = listFavMoviesModelItem.toMutableList()
 
-        //Si la lista no es vacia la actualizo, si es vacia pongo el texto NO HAY PELICULAS FAVORITAS
-        if (listFavourites
-                .isNotEmpty()
-        ) favMoviesFragment.updateFavouritesMoviesAdapter(
-            listFavourites
-        )
-        else favMoviesFragment.showNotMoviesFavText()
+            //Si la lista no es vacia la actualizo, si es vacia pongo el texto NO HAY PELICULAS FAVORITAS
+            if (listFavourites
+                    .isNotEmpty()
+            ) favMoviesFragment.updateFavouritesMoviesAdapter(
+                listFavourites
+            )
+            else favMoviesFragment.showNotMoviesFavText()
 
-        // Una vez que devuelvo los datos dejo de refrescar el swipe layout
-        favMoviesFragment.swipeRefreshLayout?.isRefreshing = false
+            // Una vez que devuelvo los datos dejo de refrescar el swipe layout
+            favMoviesFragment.swipeRefreshLayout?.isRefreshing = false
+        }
+
     }
 
     fun createDB() = dbProvider.openDB()
@@ -76,15 +79,13 @@ class FavouritesController(
     override fun onQueryTextSubmit(text: String?): Boolean {
         text?.let { searchText ->
             if (searchText != "") {
-                var listFilterDB = dbProvider.findMoviesFavouritesByTitle(text)
+                //Filtro lista de datos por el titulo
+                val listFilter = listFavourites.filter { movieDB -> text in movieDB.title }
 
-                if (listFilterDB.isNotEmpty()) {
-                    //Convierto la lista de favoritos filtrada en el modelo de dominio item
-                    var listFavFilterDomainItem =
-                        dataMapper.convertListToDomainMovieItem(listFilterDB)
+                if (listFilter.isNotEmpty()) {
 
                     //Creo el adaptador con esas peliculas
-                    favMoviesFragment.updateFavouritesMoviesAdapter(listFavFilterDomainItem)
+                    favMoviesFragment.updateFavouritesMoviesAdapter(listFilter)
                 } else {
                     favMoviesFragment.showNotMoviesFavText()
                 }

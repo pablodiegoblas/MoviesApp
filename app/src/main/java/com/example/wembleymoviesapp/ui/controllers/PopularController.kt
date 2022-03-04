@@ -35,7 +35,6 @@ class PopularController(
     }
 
     private fun getListWithFavourites() {
-        // FALLO AQUI NO LO REASIGNABA por lo que al volver a cargar las peliculas no se cargaban las que ya estaban como favoritas
         listPopular = listPopular.mapIndexed { _, movieItem ->
             if (dbProvider.findMovie(movieItem.id)?.favourite == true) movieItem.copy(favourite = true)
             else movieItem

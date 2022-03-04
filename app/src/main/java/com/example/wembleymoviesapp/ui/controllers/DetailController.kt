@@ -8,8 +8,6 @@ class DetailController(
     private val detailMovieActivity: DetailMovieActivity,
     private val dbDataMapper: DbDataMapper = DbDataMapper()
 ) {
-
-    //private val dataProvider: DataProvider = DataProvider(detailMovieActivity)
     private val dbMoviesProvider: DBMoviesProvider = DBMoviesProvider(detailMovieActivity)
 
     fun createDB() = dbMoviesProvider.openDB()
