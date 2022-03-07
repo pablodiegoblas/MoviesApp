@@ -14,9 +14,8 @@ import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
-import kotlinx.android.synthetic.main.fragment_fav_movies.*
 
-class PopularMoviesFragment() : Fragment() {
+class PopularMoviesFragment : Fragment() {
 
     private var binding: FragmentPopularMoviesBinding? = null
 
@@ -34,7 +33,7 @@ class PopularMoviesFragment() : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentPopularMoviesBinding.inflate(layoutInflater,container,false).also {
+    ): View = FragmentPopularMoviesBinding.inflate(layoutInflater, container, false).also {
         binding = it
 
         //Crear adaptador
@@ -48,16 +47,21 @@ class PopularMoviesFragment() : Fragment() {
         controller.getPopularMovies()
     }
 
+    // Implementado para la rotacion del movil
+    override fun onResume() {
+        super.onResume()
+        controller.createDB()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        controller.destroyDB()
+    }
+
     // Important destroy the binding here, because the lifecycle of the fragments is different
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //IMPORTANTE DESTRUIR ACTIVIDAD
-        controller.destroyDB()
     }
 
     fun showNotMoviesText() {

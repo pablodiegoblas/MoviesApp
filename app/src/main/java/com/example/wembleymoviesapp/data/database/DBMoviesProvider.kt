@@ -40,7 +40,7 @@ class DBMoviesProvider(context: Context) {
                 }
 
                 db.insert(Favourites.NAME, null, newRegister)
-            } else println("THIS MOVIE EXISTS YET")
+            } else println("THIS MOVIE ${movie.title} EXISTS YET")
 
         }
 
