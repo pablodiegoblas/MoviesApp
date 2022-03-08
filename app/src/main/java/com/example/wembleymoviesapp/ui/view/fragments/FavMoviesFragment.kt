@@ -1,6 +1,5 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -24,8 +23,8 @@ class FavMoviesFragment : Fragment() {
     var swipeRefreshLayout: SwipeRefreshLayout? = null
     private lateinit var favMoviesAdapter: FavMoviesAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         controller = FavouritesController(this)
         controller.createDB()
     }
@@ -53,7 +52,7 @@ class FavMoviesFragment : Fragment() {
     }
 
     private fun setListeners() {
-        swipeRefreshLayout?.setOnRefreshListener{
+        swipeRefreshLayout?.setOnRefreshListener {
             // Each time that refreshing recharge the favourites movies
             controller.getFavouritesMovies()
         }
@@ -63,8 +62,15 @@ class FavMoviesFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
-    override fun onDestroy() {
-        super.onDestroy()
+
+    // Implementado para la salida y reactivacion del Fragment
+    override fun onResume() {
+        super.onResume()
+        controller.createDB()
+    }
+
+    override fun onPause() {
+        super.onPause()
         controller.destroyDB()
     }
 
@@ -124,7 +130,7 @@ class FavMoviesFragment : Fragment() {
 
         // SearchView Listeners
         searchView.setOnQueryTextListener(controller)
-        
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 

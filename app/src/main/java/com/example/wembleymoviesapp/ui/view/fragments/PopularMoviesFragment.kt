@@ -1,6 +1,5 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,8 +22,8 @@ class PopularMoviesFragment : Fragment() {
 
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         controller = PopularController(this)
         controller.createDB()
     }
@@ -47,7 +46,7 @@ class PopularMoviesFragment : Fragment() {
         controller.getPopularMovies()
     }
 
-    // Implementado para la rotacion del movil
+    // Implementado para la salida y reactivacion del Fragment
     override fun onResume() {
         super.onResume()
         controller.createDB()
