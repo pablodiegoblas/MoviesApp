@@ -10,6 +10,9 @@ class DBMoviesProvider(context: Context) {
     private val adminSqliteHelper = AdminSqlite(context, "DBWembleyMovies.sqlite", null, 6)
     private lateinit var db: SQLiteDatabase
 
+    private val FAVOURITE_NUM = 1
+    private val NO_FAVOURITE_NUM = 0
+
     fun openDB() {
         db = adminSqliteHelper.writableDatabase
     }
@@ -51,7 +54,7 @@ class DBMoviesProvider(context: Context) {
      */
     fun getAllFavouritesMovies(): MutableList<MovieDB> {
         val cursor: Cursor = db.rawQuery(
-            "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '1'",
+            "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '$FAVOURITE_NUM'",
             null
         )
 
@@ -100,7 +103,7 @@ class DBMoviesProvider(context: Context) {
     fun removeFavourite(id: Int?) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
-                    " SET ${Favourites.FAVOURITE} = '0'" +
+                    " SET ${Favourites.FAVOURITE} = '$NO_FAVOURITE_NUM'" +
                     " WHERE ${Favourites.ID}='$id'"
         )
     }
@@ -111,7 +114,7 @@ class DBMoviesProvider(context: Context) {
     fun setFavourite(id: Int) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
-                    " SET ${Favourites.FAVOURITE}='1'" +
+                    " SET ${Favourites.FAVOURITE}='$FAVOURITE_NUM'" +
                     " WHERE ${Favourites.ID}='$id'"
         )
     }

@@ -1,9 +1,10 @@
 package com.example.wembleymoviesapp.ui.view.activities
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
@@ -41,13 +42,13 @@ class DetailMovieActivity : AppCompatActivity() {
             binding.textViewDescriptionDetail.text = overview
             binding.textViewValoration.text = "Vote: $valuation/10"
 
-            // Establecer color del texto, dependiendo de la valoracion que tenga la pelicula
+            // Text color, depending the movies valuation
             binding.textViewValoration.setTextColor(
                 when (valuation?.toInt()) {
-                    in 0..4 -> Color.RED
-                    in 5..7 -> Color.YELLOW
-                    in 8..10 -> Color.GREEN
-                    else -> Color.RED
+                    in 0..4 -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
+                    in 4..7 -> ContextCompat.getColor(applicationContext, R.color.orange_valuation)
+                    in 7..10 -> ContextCompat.getColor(applicationContext, R.color.green_valuation)
+                    else -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
                 }
             )
 
@@ -56,7 +57,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun loadImage(url: String, imageView: ImageView) {
-        Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
+        Picasso.get().load("${BuildConfig.ApiImagesUrl}$url").fit().into(imageView)
     }
 
     override fun onDestroy() {

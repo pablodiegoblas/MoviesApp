@@ -20,7 +20,7 @@ class ServerMoviesProvider(
     fun getAllPopularMoviesRequest(
         controllerPopular: PopularController
     ) {
-        val result: Call<ResponseModel> = service.getPopularMovies(API.API_KEY)
+        val result: Call<ResponseModel> = service.getPopularMovies()
 
         result.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(
@@ -58,7 +58,7 @@ class ServerMoviesProvider(
         searchMovieTitle: String,
         controllerPopular: PopularController
     ) {
-        val result: Call<ResponseModel> = service.getSearchMovie(API.API_KEY, searchMovieTitle)
+        val result: Call<ResponseModel> = service.getSearchMovie(searchMovieTitle)
 
         result.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(

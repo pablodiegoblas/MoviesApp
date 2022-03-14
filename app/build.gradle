@@ -4,6 +4,8 @@ plugins {
 }
 apply from: '../deps/globalDependencies.gradle'
 apply from: 'deps/dependencies.gradle'
+apply plugin: 'com.android.application'
+
 
 android {
     compileSdk androidCompileSdkVersion
@@ -14,6 +16,10 @@ android {
         targetSdk androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "ApiKey", "\"bf416be99a24b9cfe9ee3f8c57775b65\""
+        buildConfigField "String", "ApiBaseUrl", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "ApiImagesUrl", "\"https://image.tmdb.org/t/p/w300\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

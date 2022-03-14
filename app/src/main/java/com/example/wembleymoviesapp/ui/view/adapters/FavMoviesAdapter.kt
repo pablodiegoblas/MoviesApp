@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
@@ -54,7 +55,7 @@ class FavMoviesAdapter(
         }
 
         private fun loadImage(url: String, imageView: ImageView) =
-            Picasso.get().load("${API.IMG_URL}$url").fit().into(imageView)
+            Picasso.get().load("${BuildConfig.ApiImagesUrl}$url").fit().into(imageView)
 
     }
 
