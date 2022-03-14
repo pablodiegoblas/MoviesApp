@@ -52,7 +52,7 @@ dependencies {
     // Activity
     implementation "androidx.activity:activity-ktx:$activityVersion"
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion"
     // Retrofit
