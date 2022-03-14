@@ -26,7 +26,7 @@ class PopularMoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindMovie(getItem(position), position)
+        holder.bindMovie(getItem(position))
     }
 
     // Inner -> para que la clase ViewHolder pueda acceder a las propiedades de la clase superior en la que se encuentra
@@ -36,7 +36,7 @@ class PopularMoviesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         //Cargo los elementos directamente con view binding
-        fun bindMovie(movieItem: MovieItem, position: Int) {
+        fun bindMovie(movieItem: MovieItem) {
             with(movieItem) {
                 poster?.let { loadImage(it, binding.imageViewMovie) }
                 binding.textViewTitleMovie.text = title

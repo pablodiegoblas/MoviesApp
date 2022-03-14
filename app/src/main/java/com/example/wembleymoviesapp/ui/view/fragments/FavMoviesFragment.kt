@@ -1,5 +1,6 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -12,6 +13,7 @@ import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
+import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
 
 class FavMoviesFragment : Fragment() {

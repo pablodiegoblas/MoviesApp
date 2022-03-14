@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WembleyMoviesApp</string>
+    <string name="favourites">Favoritas</string>
+    <string name="populars">Populares</string>
+</resources>

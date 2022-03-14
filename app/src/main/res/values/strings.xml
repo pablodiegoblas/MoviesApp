@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">WembleyMoviesApp</string>
     <string name="favourites">Favourites</string>
-    <string name="popular">Popular</string>
+    <string name="populars">Populars</string>
 </resources>

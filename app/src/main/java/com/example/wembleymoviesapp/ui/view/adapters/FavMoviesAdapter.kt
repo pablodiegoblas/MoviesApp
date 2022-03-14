@@ -25,7 +25,7 @@ class FavMoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindMovie(getItem(position), position)
+        holder.bindMovie(getItem(position))
     }
 
     inner class ViewHolder(
@@ -33,7 +33,7 @@ class FavMoviesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         //Charge the elements directly with view binding
-        fun bindMovie(movieItem: MovieItem, position: Int) {
+        fun bindMovie(movieItem: MovieItem) {
             with(movieItem) {
                 poster?.let { loadImage(it, binding.imageViewMovie) }
                 binding.textViewTitleMovie.text = title

@@ -1,6 +1,8 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import com.example.wembleymoviesapp.databinding.FragmentPopularMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
+import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
 
 class PopularMoviesFragment : Fragment() {

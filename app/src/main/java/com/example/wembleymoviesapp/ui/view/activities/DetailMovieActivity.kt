@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.wembleymoviesapp.domain.MovieDetail

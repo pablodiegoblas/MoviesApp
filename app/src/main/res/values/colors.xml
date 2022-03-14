@@ -12,4 +12,8 @@
     <color name="green_normal">#044a42</color>
     <color name="green_light">#3a9188</color>
     <color name="green_light_2">#b8e1dd</color>
+
+    <color name="red_valuation">#A51515</color>
+    <color name="orange_valuation">#FF5722</color>
+    <color name="green_valution">#417307</color>
 </resources>
