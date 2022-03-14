@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Margins-->
+    <dimen name="spacing1">8dp</dimen>
+    <dimen name="spacing2">16dp</dimen>
+    <dimen name="spacing3">20dp</dimen>
+    <dimen name="spacing4">28dp</dimen>
+
+    <!--Sizes Text-->
+    <dimen name="textSizeH1">10sp</dimen>
+    <dimen name="textSizeH2">16sp</dimen>
+    <dimen name="textSizeH3">20sp</dimen>
+    <dimen name="textSizeH4">24sp</dimen>
+
+    <!--Components-->
+    <dimen name="imageDetailWidth">254dp</dimen>
+    <dimen name="imageDetailHeight">177dp</dimen>
+    <dimen name="BottomNavigationHeight">56dp</dimen>
+    <dimen name="imageItemWidth">256dp</dimen>
+    <dimen name="imageItemHeight">180dp</dimen>
+    <dimen name="cornerRadiusCard">10dp</dimen>
+</resources>

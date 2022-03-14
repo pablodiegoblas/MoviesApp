@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="10dp">
+    app:cardCornerRadius="@dimen/cornerRadiusCard">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +15,8 @@
 
         <ImageView
             android:id="@+id/imageViewMovie"
-            android:layout_width="256dp"
-            android:layout_height="180dp"
+            android:layout_width="@dimen/imageItemWidth"
+            android:layout_height="@dimen/imageItemHeight"
             android:layout_weight="1"
             app:srcCompat="@drawable/logo_wembley" />
 
@@ -35,7 +34,7 @@
                 android:gravity="center"
                 android:text="Title Movie"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="@dimen/textSizeH2"
                 android:textStyle="bold" />
 
             <LinearLayout
