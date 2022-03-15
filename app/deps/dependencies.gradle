@@ -1,4 +1,15 @@
 ext {
+    //Android config
+    androidCompileSdkVersion = 31
+    androidBuildToolsVersion = "30.0.3"
+    androidMinSdkVersion = 26
+    androidTargetSdkVersion = 31
+
+    //Kotlin
+    kotlinVersion = "1.6.10"
+
+    jUnitVersion = "4.13.2"
+
     appCompatVersion = "1.4.1"
     coreKtkVersion = "1.7.0"
     materialVersion = "1.5.0"
@@ -15,5 +26,4 @@ ext {
     recyclerViewVersion = "1.2.1"
     cardViewVersion = "1.0.0"
     swipeRefreshLayoutVersion = "1.1.0"
-    coroutinesVersion = "1.3.9"
 }

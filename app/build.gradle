@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
-apply from: '../deps/globalDependencies.gradle'
 apply from: 'deps/dependencies.gradle'
 apply plugin: 'com.android.application'
 
@@ -79,8 +78,5 @@ dependencies {
     implementation "androidx.cardview:cardview:$cardViewVersion"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
-
-    //Corrutinas
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
 }
