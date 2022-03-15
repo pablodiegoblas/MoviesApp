@@ -5,8 +5,7 @@ import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.mappers.DbDataMapper
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 class FavouritesController(
     private val favMoviesFragment: FavMoviesFragment,
@@ -17,17 +16,17 @@ class FavouritesController(
     private var listFavourites: MutableList<MovieItem> = mutableListOf()
 
     fun getFavouritesMovies() {
-        GlobalScope.launch {
-            // Devuelvo las peliculas de la base de datos
+        thread {
+            // Return the movies from database
             val listFavMoviesCall = dbProvider.getAllFavouritesMovies()
 
-            // Convierto las peliculas al modelo de dominio MovieItem
+            // Convert the movies to MovieItem model
             val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(listFavMoviesCall)
 
-            // Almaceno la lista convertida a la lista del controlador
+            // Store the list
             listFavourites = listFavMoviesModelItem.toMutableList()
 
-            //Si la lista no es vacia la actualizo, si es vacia pongo el texto NO HAY PELICULAS FAVORITAS
+            // If the list is not empty I update it else show the text
             if (listFavourites
                     .isNotEmpty()
             ) favMoviesFragment.updateFavouritesMoviesAdapter(
@@ -35,7 +34,7 @@ class FavouritesController(
             )
             else favMoviesFragment.showNotMoviesFavText()
 
-            // Una vez que devuelvo los datos dejo de refrescar el swipe layout
+            // Stop refreshing SwipeRefreshLayout Layout
             favMoviesFragment.swipeRefreshLayout?.isRefreshing = false
         }
 
@@ -56,7 +55,7 @@ class FavouritesController(
                     .toMutableList()
 
             // Remove favourite attribute of the movies database
-            GlobalScope.launch {
+            thread {
                 dbProvider.removeFavourite(movieItem.id)
             }
 
@@ -66,7 +65,7 @@ class FavouritesController(
                     .toMutableList()
 
             // Include favourite attribute of the movies database
-            GlobalScope.launch {
+            thread {
                 dbProvider.setFavourite(movieItem.id)
             }
 

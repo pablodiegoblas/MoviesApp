@@ -14,16 +14,15 @@ import com.squareup.picasso.Picasso
 
 class DetailMovieActivity : AppCompatActivity() {
 
-    private var _binding: ActivityDetailMovieBinding? = null
-    private val binding get() = _binding!!
+    private var binding: ActivityDetailMovieBinding?= null
 
     private lateinit var controller: DetailController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityDetailMovieBinding.inflate(layoutInflater)
+        binding = ActivityDetailMovieBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         controller = DetailController(this)
         controller.createDB()
@@ -37,13 +36,13 @@ class DetailMovieActivity : AppCompatActivity() {
 
     fun bindDetailMovie(movie: MovieDetail) {
         with(movie) {
-            backdrop?.let { loadImage(it, binding.imageViewBackdrop) }
-            binding.textViewTitleDetail.text = title
-            binding.textViewDescriptionDetail.text = overview
-            binding.textViewValoration.text = "Vote: $valuation/10"
+            backdrop?.let { binding?.let { it1 -> loadImage(it, it1.imageViewBackdrop) } }
+            binding?.textViewTitleDetail?.text = title
+            binding?.textViewDescriptionDetail?.text = overview
+            binding?.textViewValoration?.text = "Vote: $valuation/10"
 
             // Text color, depending the movies valuation
-            binding.textViewValoration.setTextColor(
+            binding?.textViewValoration?.setTextColor(
                 when (valuation?.toInt()) {
                     in 0..4 -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
                     in 4..7 -> ContextCompat.getColor(applicationContext, R.color.orange_valuation)
@@ -51,9 +50,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     else -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
                 }
             )
-
         }
-
     }
 
     private fun loadImage(url: String, imageView: ImageView) {
@@ -63,6 +60,6 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         controller.destroyDB()
-        _binding = null
+        binding = null
     }
 }

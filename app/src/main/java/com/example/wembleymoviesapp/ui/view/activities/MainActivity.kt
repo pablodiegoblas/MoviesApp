@@ -12,8 +12,7 @@ import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private var binding: ActivityMainBinding?= null
 
     val popularFragment = PopularMoviesFragment()
     val favouritesFragment = FavMoviesFragment()
@@ -22,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         controller = MainController(this)
 
@@ -36,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        val navigation = binding.bottomNavigation
-        navigation.setOnItemSelectedListener(controller)
+        val navigation = binding?.bottomNavigation
+        navigation?.setOnItemSelectedListener(controller)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,6 +54,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        binding = null
     }
 }
