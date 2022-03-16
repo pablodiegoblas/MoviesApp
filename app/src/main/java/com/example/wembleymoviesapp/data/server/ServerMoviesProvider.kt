@@ -3,7 +3,7 @@ package com.example.wembleymoviesapp.data.server
 import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
 import com.example.wembleymoviesapp.data.mappers.ServerDataMapper
-import com.example.wembleymoviesapp.ui.controllers.PopularController
+import com.example.wembleymoviesapp.ui.controllers.GetMoviesServer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,12 +17,10 @@ class ServerMoviesProvider(
     /**
      * Function that returns all popular movies
      */
-    fun getAllPopularMoviesRequest(
-        controllerPopular: PopularController
-    ) {
-        val result: Call<ResponseModel> = service.getPopularMovies()
+    fun getAllPopularMoviesRequest(result: GetMoviesServer) {
+        val resultCall: Call<ResponseModel> = service.getPopularMovies()
 
-        result.enqueue(object : Callback<ResponseModel> {
+        resultCall.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(
                 call: Call<ResponseModel>,
                 response: Response<ResponseModel>
@@ -30,22 +28,12 @@ class ServerMoviesProvider(
                 val popularMovies = response.body()
 
                 if (popularMovies != null) {
-                    val popularMoviesModelDB = dataMapperServer.convertListToMovieDB(popularMovies)
-
-                    // Insert in DB all movies that returns server
-                    controllerPopular.insertMoviesInDatabase(popularMoviesModelDB)
-
-                    val listMovieItems =
-                        dataMapperServer.convertListToDomainMovieItem(popularMovies)
-
-                    // Return to controller the model
-                    controllerPopular.returnsCall(listMovieItems)
+                    return result.onSuccess(popularMovies)
                 }
-
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                controllerPopular.showErrorNetwork()
+                result.onError()
             }
 
         })
@@ -56,11 +44,11 @@ class ServerMoviesProvider(
      */
     fun getMoviesSearched(
         searchMovieTitle: String,
-        controllerPopular: PopularController
+        result: GetMoviesServer
     ) {
-        val result: Call<ResponseModel> = service.getSearchMovie(searchMovieTitle)
+        val resultCall: Call<ResponseModel> = service.getSearchMovie(searchMovieTitle)
 
-        result.enqueue(object : Callback<ResponseModel> {
+        resultCall.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(
                 call: Call<ResponseModel>,
                 response: Response<ResponseModel>
@@ -68,19 +56,13 @@ class ServerMoviesProvider(
                 val searchMovie = response.body()
 
                 if (searchMovie != null) {
-                    // Save in Database
-                    val searchMoviesModelDB = dataMapperServer.convertListToMovieDB(searchMovie)
-                    controllerPopular.insertMoviesInDatabase(searchMoviesModelDB)
-
-                    // Charge adapter
-                    val searchMoviesModelItem = dataMapperServer.convertListToDomainMovieItem(searchMovie)
-                    controllerPopular.returnsCall(searchMoviesModelItem)
+                    return result.onSuccess(searchMovie)
                 }
 
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                controllerPopular.showErrorNetwork()
+                result.onError()
             }
 
         })

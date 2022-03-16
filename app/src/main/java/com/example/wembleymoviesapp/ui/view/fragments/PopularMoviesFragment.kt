@@ -1,34 +1,34 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
-import android.app.ActivityOptions
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentPopularMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
-import com.example.wembleymoviesapp.ui.controllers.PopularController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
-import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
+import com.example.wembleymoviesapp.viewModel.PopularViewModel
 
 class PopularMoviesFragment : Fragment() {
 
     private var binding: FragmentPopularMoviesBinding? = null
 
-    lateinit var controller: PopularController
+    private val popularViewModel: PopularViewModel by viewModels()
 
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controller = PopularController(this)
-        controller.createDB()
+        popularViewModel.createDB()
     }
 
     override fun onCreateView(
@@ -36,28 +36,48 @@ class PopularMoviesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = FragmentPopularMoviesBinding.inflate(layoutInflater, container, false).also {
+        //Recharge options menu
+        setHasOptionsMenu(true)
+
         binding = it
 
-        //Crear adaptador
+        //Create adapter
         createAdapter()
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        swipeRefreshLayout = binding?.swipePopulars
+        setListeners()
+
         // Loading the popular movies from the API
-        controller.getPopularMovies()
+        popularViewModel.returnAllPopularMovies()
+    }
+
+    private fun setListeners() {
+        //Each time that refreshing recharge the popular movies
+        swipeRefreshLayout?.setOnRefreshListener(popularViewModel)
+
+        //Observer the view model
+        popularViewModel.popularMovieModel.observe(viewLifecycleOwner, Observer {
+            if (popularViewModel.popularMovieModel.value?.isNotEmpty() == true) {
+                updatePopularMoviesAdapter(it)
+            } else showNotMoviesText()
+
+            swipeRefreshLayout?.isRefreshing = false
+        })
     }
 
     // Implementado para la salida y reactivacion del Fragment
     override fun onResume() {
         super.onResume()
-        controller.createDB()
+        popularViewModel.createDB()
     }
 
     override fun onPause() {
         super.onPause()
-        controller.destroyDB()
+        popularViewModel.destroyDB()
     }
 
     // Important destroy the binding here, because the lifecycle of the fragments is different
@@ -66,7 +86,7 @@ class PopularMoviesFragment : Fragment() {
         binding = null
     }
 
-    fun showNotMoviesText() {
+    private fun showNotMoviesText() {
         binding?.recyclerViewPopularMovies?.visibility = View.GONE
         binding?.tvPopularDefault?.visibility = View.VISIBLE
     }
@@ -86,7 +106,7 @@ class PopularMoviesFragment : Fragment() {
                 startActivity(intent)
             },
             {
-                controller.pressFavButton(it)
+                popularViewModel.pressFavButton(it)
             },
             {
                 sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
@@ -100,7 +120,7 @@ class PopularMoviesFragment : Fragment() {
 
     }
 
-    fun updatePopularMoviesAdapter(items: List<MovieItem>) {
+    private fun updatePopularMoviesAdapter(items: List<MovieItem>) {
         popularMoviesAdapter.submitList(items)
     }
 
@@ -119,5 +139,17 @@ class PopularMoviesFragment : Fragment() {
         Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Override this method for create with others options the menu in this fragment
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
+        val searchView = menu.findItem(R.id.item_bar_search).actionView as SearchView
+
+        // SearchView Listeners
+        searchView.setOnQueryTextListener(popularViewModel)
+        searchView.setOnCloseListener(popularViewModel)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 }

@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_wembleystudios_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WembleyMoviesApp">
+        android:theme="@style/Theme.WembleyMoviesApp"
+        android:name=".MoviesApp">
         <activity
             android:name=".ui.view.activities.DetailMovieActivity"
             android:exported="false" />

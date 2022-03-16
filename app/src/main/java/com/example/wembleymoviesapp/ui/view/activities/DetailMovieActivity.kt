@@ -2,21 +2,22 @@ package com.example.wembleymoviesapp.ui.view.activities
 
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.wembleymoviesapp.domain.MovieDetail
-import com.example.wembleymoviesapp.ui.controllers.DetailController
+import com.example.wembleymoviesapp.viewModel.DetailMovieViewModel
 import com.squareup.picasso.Picasso
 
 class DetailMovieActivity : AppCompatActivity() {
 
     private var binding: ActivityDetailMovieBinding?= null
 
-    private lateinit var controller: DetailController
+    private val detailMovieViewModel: DetailMovieViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +25,16 @@ class DetailMovieActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        controller = DetailController(this)
-        controller.createDB()
+        detailMovieViewModel.createDB()
 
         //Find bundle of the intent
         val idMovie = intent.extras?.getInt("ID")
-
         //Find a movie
-        idMovie?.let { controller.findMovie(it) }
+        idMovie?.let { detailMovieViewModel.setMovie(it) }
+
+        detailMovieViewModel.detailMovieModel.observe(this, Observer {
+            bindDetailMovie(it)
+        })
     }
 
     fun bindDetailMovie(movie: MovieDetail) {
@@ -59,7 +62,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        controller.destroyDB()
+        detailMovieViewModel.destroyDB()
         binding = null
     }
 }

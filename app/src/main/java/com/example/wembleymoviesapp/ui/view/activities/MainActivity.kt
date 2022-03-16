@@ -46,9 +46,6 @@ class MainActivity : AppCompatActivity() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = "Search a Movie"
 
-        // Set SearchView Listeners
-        searchView.setOnQueryTextListener(controller)
-
         return super.onCreateOptionsMenu(menu)
     }
 

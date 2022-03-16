@@ -11,8 +11,7 @@ import com.google.android.material.navigation.NavigationBarView
 class MainController(
     private val mainActivity: MainActivity,
     private val serverMoviesProvider: ServerMoviesProvider = ServerMoviesProvider()
-) : NavigationBarView.OnItemSelectedListener,
-    SearchView.OnQueryTextListener{
+) : NavigationBarView.OnItemSelectedListener{
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -27,22 +26,5 @@ class MainController(
         val transition = mainActivity.supportFragmentManager.beginTransaction()
         transition.replace(R.id.frame_container, fragment)
         transition.commit()
-    }
-
-    override fun onQueryTextSubmit(text: String?): Boolean {
-        text?.let { searchText ->
-            if (searchText != "") {
-                serverMoviesProvider.getMoviesSearched(searchText, mainActivity.popularFragment.controller)
-            }
-        }
-
-        return true
-    }
-
-    override fun onQueryTextChange(text: String?): Boolean {
-        if (text == "") {
-            serverMoviesProvider.getAllPopularMoviesRequest(mainActivity.popularFragment.controller)
-        }
-        return true
     }
 }

@@ -1,13 +1,14 @@
 package com.example.wembleymoviesapp.data.database
 
 import android.content.ContentValues
-import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.wembleymoviesapp.MoviesApp
+import com.example.wembleymoviesapp.ui.controllers.GetMoviesDB
 
-class DBMoviesProvider(context: Context) {
+class DBMoviesProvider {
 
-    private val adminSqliteHelper = AdminSqlite(context, "DBWembleyMovies.sqlite", null, 6)
+    private val adminSqliteHelper = AdminSqlite(MoviesApp.instance, "DBWembleyMovies.sqlite", null, 6)
     private lateinit var db: SQLiteDatabase
 
     private val FAVOURITE_NUM = 1
@@ -52,7 +53,7 @@ class DBMoviesProvider(context: Context) {
     /**
      * Function returns all favourites movies in database
      */
-    fun getAllFavouritesMovies(): MutableList<MovieDB> {
+    fun getAllFavouritesMovies(result: GetMoviesDB) {
         val cursor: Cursor = db.rawQuery(
             "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '$FAVOURITE_NUM'",
             null
@@ -94,7 +95,7 @@ class DBMoviesProvider(context: Context) {
             }
         }
 
-        return favourites
+        result.onSuccess(favourites)
     }
 
     /**

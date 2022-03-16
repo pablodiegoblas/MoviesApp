@@ -26,4 +26,7 @@ ext {
     recyclerViewVersion = "1.2.1"
     cardViewVersion = "1.0.0"
     swipeRefreshLayoutVersion = "1.1.0"
+
+    viewModelVersion = "2.4.1"
+    lifeDataVersion = "2.4.1"
 }

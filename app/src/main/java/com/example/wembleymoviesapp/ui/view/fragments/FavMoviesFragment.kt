@@ -1,41 +1,39 @@
 package com.example.wembleymoviesapp.ui.view.fragments
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
-import com.example.wembleymoviesapp.ui.controllers.FavouritesController
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
-import com.example.wembleymoviesapp.ui.view.activities.MainActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
+import com.example.wembleymoviesapp.viewModel.FavouritesViewModel
 
 class FavMoviesFragment : Fragment() {
 
     private var binding: FragmentFavMoviesBinding? = null
 
-    private lateinit var controller: FavouritesController
+    private val favouritesViewModel: FavouritesViewModel by viewModels()
 
-    var swipeRefreshLayout: SwipeRefreshLayout? = null
     private lateinit var favMoviesAdapter: FavMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controller = FavouritesController(this)
-        controller.createDB()
+        favouritesViewModel.createDB()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = FragmentFavMoviesBinding.inflate(layoutInflater, container, false).also {
-        // Recargar opciones del menu
+        //Recharge options menu
         setHasOptionsMenu(true)
 
         binding = it
@@ -47,17 +45,17 @@ class FavMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeRefreshLayout = binding?.swipe
         setListeners()
 
-        controller.getFavouritesMovies()
+        favouritesViewModel.returnFavouritesMovies()
     }
 
     private fun setListeners() {
-        swipeRefreshLayout?.setOnRefreshListener {
-            // Each time that refreshing recharge the favourites movies
-            controller.getFavouritesMovies()
-        }
+        favouritesViewModel.favouritesMovieModel.observe(viewLifecycleOwner, Observer {
+            if (favouritesViewModel.favouritesMovieModel.value?.isNotEmpty() == true) {
+                updateFavouritesMoviesAdapter(it)
+            } else showNotMoviesFavText()
+        })
     }
 
     override fun onDestroyView() {
@@ -65,24 +63,23 @@ class FavMoviesFragment : Fragment() {
         binding = null
     }
 
-    // Implementado para la salida y reactivacion del Fragment
     override fun onResume() {
         super.onResume()
-        controller.createDB()
+        favouritesViewModel.createDB()
     }
 
     override fun onPause() {
         super.onPause()
-        controller.destroyDB()
+        favouritesViewModel.destroyDB()
     }
 
-    fun showNotMoviesFavText() {
+    private fun showNotMoviesFavText() {
         binding?.recyclerViewFavouritesMovies?.visibility = View.GONE
         binding?.tvFavouriteDefaultText?.visibility = View.VISIBLE
     }
 
     private fun createAdapter() {
-        // Put visibility DetaultText Gone
+        // Put visibility defaultText Gone
         binding?.tvFavouriteDefaultText?.visibility = View.GONE
         binding?.recyclerViewFavouritesMovies?.visibility = View.VISIBLE
 
@@ -95,7 +92,7 @@ class FavMoviesFragment : Fragment() {
                 startActivity(intent)
             },
             {
-                controller.pressFavButton(it)
+                favouritesViewModel.pressFavButton(it)
             },
             {
                 sharedInfo("¿Te apetece venir a ver conmigo la pelicula ${it.title}?")
@@ -108,7 +105,7 @@ class FavMoviesFragment : Fragment() {
         }
     }
 
-    fun updateFavouritesMoviesAdapter(items: List<MovieItem>) {
+    private fun updateFavouritesMoviesAdapter(items: List<MovieItem>) {
         favMoviesAdapter.submitList(items)
     }
 
@@ -131,7 +128,8 @@ class FavMoviesFragment : Fragment() {
         val searchView = menu.findItem(R.id.item_bar_search).actionView as SearchView
 
         // SearchView Listeners
-        searchView.setOnQueryTextListener(controller)
+        searchView.setOnQueryTextListener(favouritesViewModel)
+        searchView.setOnCloseListener(favouritesViewModel)
 
         super.onCreateOptionsMenu(menu, inflater)
     }

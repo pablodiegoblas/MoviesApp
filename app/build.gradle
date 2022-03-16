@@ -76,7 +76,10 @@ dependencies {
     //Componentes Androidx
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
-
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
 
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeDataVersion"
 }
