@@ -1,24 +1,21 @@
 package com.example.wembleymoviesapp.data.server
 
-import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
-import com.example.wembleymoviesapp.data.mappers.ServerDataMapper
 import com.example.wembleymoviesapp.ui.controllers.GetMoviesServer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class ServerMoviesProvider(
-    private val dataMapperServer: ServerDataMapper = ServerDataMapper()
-) {
+class ServerMoviesProvider @Inject constructor() {
 
-    private val service: MoviesService = API.retrofit.create(MoviesService::class.java)
+    @Inject lateinit var moviesService: MoviesService
 
     /**
      * Function that returns all popular movies
      */
     fun getAllPopularMoviesRequest(result: GetMoviesServer) {
-        val resultCall: Call<ResponseModel> = service.getPopularMovies()
+        val resultCall: Call<ResponseModel> = moviesService.getPopularMovies()
 
         resultCall.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(
@@ -35,7 +32,6 @@ class ServerMoviesProvider(
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
                 result.onError()
             }
-
         })
     }
 
@@ -46,7 +42,7 @@ class ServerMoviesProvider(
         searchMovieTitle: String,
         result: GetMoviesServer
     ) {
-        val resultCall: Call<ResponseModel> = service.getSearchMovie(searchMovieTitle)
+        val resultCall: Call<ResponseModel> = moviesService.getSearchMovie(searchMovieTitle)
 
         resultCall.enqueue(object : Callback<ResponseModel> {
             override fun onResponse(

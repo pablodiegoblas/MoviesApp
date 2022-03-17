@@ -7,7 +7,6 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
@@ -15,8 +14,10 @@ import com.example.wembleymoviesapp.databinding.FragmentPopularMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
-import com.example.wembleymoviesapp.viewModel.PopularViewModel
+import com.example.wembleymoviesapp.ui.viewModel.PopularViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PopularMoviesFragment : Fragment() {
 
     private var binding: FragmentPopularMoviesBinding? = null
@@ -60,13 +61,13 @@ class PopularMoviesFragment : Fragment() {
         swipeRefreshLayout?.setOnRefreshListener(popularViewModel)
 
         //Observer the view model
-        popularViewModel.popularMovieModel.observe(viewLifecycleOwner, Observer {
+        popularViewModel.popularMovieModel.observe(viewLifecycleOwner) {
             if (popularViewModel.popularMovieModel.value?.isNotEmpty() == true) {
                 updatePopularMoviesAdapter(it)
             } else showNotMoviesText()
 
             swipeRefreshLayout?.isRefreshing = false
-        })
+        }
     }
 
     // Implementado para la salida y reactivacion del Fragment

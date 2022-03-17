@@ -5,8 +5,9 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.wembleymoviesapp.MoviesApp
 import com.example.wembleymoviesapp.ui.controllers.GetMoviesDB
+import javax.inject.Inject
 
-class DBMoviesProvider {
+class DBMoviesProvider @Inject constructor(){
 
     private val adminSqliteHelper = AdminSqlite(MoviesApp.instance, "DBWembleyMovies.sqlite", null, 6)
     private lateinit var db: SQLiteDatabase
@@ -44,8 +45,7 @@ class DBMoviesProvider {
                 }
 
                 db.insert(Favourites.NAME, null, newRegister)
-            } else println("THIS MOVIE ${movie.title} EXISTS YET")
-
+            }
         }
 
     }

@@ -2,4 +2,5 @@
     <string name="app_name">WembleyMoviesApp</string>
     <string name="favourites">Favourites</string>
     <string name="populars">Populars</string>
+    <string name="textViewValuation">Vote: <b>%1$s</b>/10</string>
 </resources>

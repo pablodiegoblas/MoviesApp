@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 apply from: 'deps/dependencies.gradle'
 apply plugin: 'com.android.application'
@@ -82,4 +84,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
     //LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeDataVersion"
+    //DaggerHilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }

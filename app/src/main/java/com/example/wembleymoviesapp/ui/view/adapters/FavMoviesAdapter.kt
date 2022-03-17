@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.squareup.picasso.Picasso
@@ -39,17 +38,17 @@ class FavMoviesAdapter(
                 poster?.let { loadImage(it, binding.imageViewMovie) }
                 binding.textViewTitleMovie.text = title
                 //Change the fav image
-                if(favourite) binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_background_red)
+                if (favourite) binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_background_red)
                 else binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_border_red)
             }
 
-            binding.buttonMore.setOnClickListener{
+            binding.buttonMore.setOnClickListener {
                 onMoreClick(movieItem)
             }
-            binding.imageViewFavourite.setOnClickListener{
+            binding.imageViewFavourite.setOnClickListener {
                 onFavouriteClick(movieItem)
             }
-            binding.imageViewShared.setOnClickListener{
+            binding.imageViewShared.setOnClickListener {
                 onSharedClick(movieItem)
             }
         }

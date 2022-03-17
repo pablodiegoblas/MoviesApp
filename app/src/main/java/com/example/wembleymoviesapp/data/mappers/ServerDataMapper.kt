@@ -5,10 +5,11 @@ import com.example.wembleymoviesapp.data.server.RequestMovie
 import com.example.wembleymoviesapp.data.server.ResponseModel
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
+import javax.inject.Inject
 
-class ServerDataMapper {
+class ServerDataMapper @Inject constructor() {
 
-    // Convertirlo del formato de la API al formato item para mostrarlo
+    // Convert the list model from API model to MovieItem Model
     fun convertListToDomainMovieItem(responseModel: ResponseModel) =
         responseModel.results.mapIndexed { _, requestMovie ->
             convertToDomainMovieItem(requestMovie)
@@ -17,12 +18,7 @@ class ServerDataMapper {
         MovieItem(id, originalTitle, posterPath, false)
     }
 
-    // Convertirlo de formato de la API al formato detalle de pelicula
-    fun convertToDomainMovieDetail(requestMovie: RequestMovie) = with(requestMovie) {
-        MovieDetail(originalTitle, backdropPath, overview, voteAverage)
-    }
-
-    // Convertir de formato servidor al formato data base para guardarlo en la base de datos
+    // Convert the list model from API model to Database Model
     fun convertListToMovieDB(responseModel: ResponseModel) =
         responseModel.results.mapIndexed{ _, it ->
             convertToMovieDB(it)

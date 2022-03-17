@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
-import com.example.wembleymoviesapp.viewModel.FavouritesViewModel
+import com.example.wembleymoviesapp.ui.viewModel.FavouritesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavMoviesFragment : Fragment() {
 
     private var binding: FragmentFavMoviesBinding? = null
@@ -51,11 +52,11 @@ class FavMoviesFragment : Fragment() {
     }
 
     private fun setListeners() {
-        favouritesViewModel.favouritesMovieModel.observe(viewLifecycleOwner, Observer {
+        favouritesViewModel.favouritesMovieModel.observe(viewLifecycleOwner) {
             if (favouritesViewModel.favouritesMovieModel.value?.isNotEmpty() == true) {
                 updateFavouritesMoviesAdapter(it)
             } else showNotMoviesFavText()
-        })
+        }
     }
 
     override fun onDestroyView() {

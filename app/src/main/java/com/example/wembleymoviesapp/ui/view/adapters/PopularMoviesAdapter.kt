@@ -1,6 +1,5 @@
 package com.example.wembleymoviesapp.ui.view.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
-import com.example.wembleymoviesapp.data.API.API
 import com.example.wembleymoviesapp.databinding.ItemMovieBinding
 import com.example.wembleymoviesapp.domain.MovieItem
 import com.squareup.picasso.Picasso
@@ -45,7 +43,7 @@ class PopularMoviesAdapter(
                 if (favourite) {
                     binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_background_red)
                 } else
-                     binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_border_red)
+                    binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_border_red)
             }
 
             binding.buttonMore.setOnClickListener {
