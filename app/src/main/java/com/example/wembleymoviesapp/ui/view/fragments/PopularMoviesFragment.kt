@@ -62,7 +62,6 @@ class PopularMoviesFragment : Fragment() {
 
         //Observer the view model
         // If the list is not empty update the movies adapter
-        // If the list is null error
         // Else show no movies text
         popularViewModel.popularMovieModel.observe(viewLifecycleOwner) {
             if (popularViewModel.popularMovieModel.value?.isNotEmpty() == true) {
@@ -80,8 +79,8 @@ class PopularMoviesFragment : Fragment() {
     }
 
     override fun onPause() {
-        super.onPause()
         popularViewModel.destroyDB()
+        super.onPause()
     }
 
     // Important destroy the binding here, because the lifecycle of the fragments is different

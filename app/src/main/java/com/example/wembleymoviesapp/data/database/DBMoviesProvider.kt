@@ -32,17 +32,19 @@ class DBMoviesProvider @Inject constructor() {
             val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
 
             if (!isMovieSearch) {
-                val newRegister = ContentValues()
-                with(movie) {
-                    newRegister.put(Favourites.ID, id)
-                    newRegister.put(Favourites.TITLE, title)
-                    newRegister.put(Favourites.DESCRIPTION, overview)
-                    newRegister.put(Favourites.POSTER, poster)
-                    newRegister.put(Favourites.BACKDROP, backdrop)
-                    newRegister.put(Favourites.DATE, releaseDate)
-                    newRegister.put(Favourites.VALUATION, voteAverage)
-                    newRegister.put(Favourites.FAVOURITE, favourite)
+                val newRegister = ContentValues().apply {
+                    with(movie) {
+                        put(Favourites.ID, id)
+                        put(Favourites.TITLE, title)
+                        put(Favourites.DESCRIPTION, overview)
+                        put(Favourites.POSTER, poster)
+                        put(Favourites.BACKDROP, backdrop)
+                        put(Favourites.DATE, releaseDate)
+                        put(Favourites.VALUATION, voteAverage)
+                        put(Favourites.FAVOURITE, favourite)
+                    }
                 }
+
 
                 db.insert(Favourites.NAME, null, newRegister)
             }
