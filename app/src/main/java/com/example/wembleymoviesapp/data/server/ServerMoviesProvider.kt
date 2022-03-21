@@ -1,7 +1,7 @@
 package com.example.wembleymoviesapp.data.server
 
 import com.example.wembleymoviesapp.data.API.APIServices.MoviesService
-import com.example.wembleymoviesapp.ui.controllers.GetMoviesServer
+import com.example.wembleymoviesapp.domain.GetMoviesServer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

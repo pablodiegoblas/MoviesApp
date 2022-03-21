@@ -70,7 +70,6 @@ class PopularMoviesFragment : Fragment() {
         }
     }
 
-    // Implementado para la salida y reactivacion del Fragment
     override fun onResume() {
         super.onResume()
         popularViewModel.createDB()
@@ -101,7 +100,7 @@ class PopularMoviesFragment : Fragment() {
         //Charge the adapter
         popularMoviesAdapter = PopularMoviesAdapter(
             {
-                val intent: Intent = Intent(context, DetailMovieActivity::class.java).apply {
+                val intent = Intent(context, DetailMovieActivity::class.java).apply {
                     putExtra("ID", it.id)
                 }
                 startActivity(intent)

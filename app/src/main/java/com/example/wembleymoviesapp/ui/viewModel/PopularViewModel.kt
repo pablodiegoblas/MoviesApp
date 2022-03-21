@@ -10,7 +10,7 @@ import com.example.wembleymoviesapp.data.mappers.ServerDataMapper
 import com.example.wembleymoviesapp.data.server.ResponseModel
 import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
 import com.example.wembleymoviesapp.domain.MovieItem
-import com.example.wembleymoviesapp.ui.controllers.GetMoviesServer
+import com.example.wembleymoviesapp.domain.GetMoviesServer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

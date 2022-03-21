@@ -7,7 +7,7 @@ import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.data.mappers.DbDataMapper
 import com.example.wembleymoviesapp.domain.MovieItem
-import com.example.wembleymoviesapp.ui.controllers.GetMoviesDB
+import com.example.wembleymoviesapp.domain.GetMoviesDB
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -53,7 +53,7 @@ class FavouritesViewModel @Inject constructor()
             // Include favourite attribute of the movies database
             dbProvider.setFavourite(movieItem.id)
         }
-        // busco la pelicula que se ha hecho clic y le cambio el atributo favorito
+        //find the movie that click and change the fav attribute
         val newList = favouritesMovieModel.value?.dropWhile { it.id == movieItem.id }
 
         //Change value the view model

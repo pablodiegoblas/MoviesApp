@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.controllers
+package com.example.wembleymoviesapp.domain
 
 import com.example.wembleymoviesapp.data.database.MovieDB
 

@@ -3,17 +3,17 @@ package com.example.wembleymoviesapp.data.database
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.wembleymoviesapp.MoviesApp
-import com.example.wembleymoviesapp.ui.controllers.GetMoviesDB
+import com.example.wembleymoviesapp.domain.GetMoviesDB
 import javax.inject.Inject
 
-class DBMoviesProvider @Inject constructor(){
+class DBMoviesProvider @Inject constructor() {
 
-    private val adminSqliteHelper = AdminSqlite(MoviesApp.instance, "DBWembleyMovies.sqlite", null, 6)
+    @Inject
+    lateinit var adminSqliteHelper: AdminSqlite
     private lateinit var db: SQLiteDatabase
 
-    private val FAVOURITE_NUM = 1
-    private val NO_FAVOURITE_NUM = 0
+    private val favouriteNum = 1
+    private val noFavouriteNum = 0
 
     fun openDB() {
         db = adminSqliteHelper.writableDatabase
@@ -47,7 +47,6 @@ class DBMoviesProvider @Inject constructor(){
                 db.insert(Favourites.NAME, null, newRegister)
             }
         }
-
     }
 
     /**
@@ -55,7 +54,7 @@ class DBMoviesProvider @Inject constructor(){
      */
     fun getAllFavouritesMovies(result: GetMoviesDB) {
         val cursor: Cursor = db.rawQuery(
-            "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '$FAVOURITE_NUM'",
+            "select * from ${Favourites.NAME} WHERE ${Favourites.FAVOURITE} = '$favouriteNum'",
             null
         )
 
@@ -104,7 +103,7 @@ class DBMoviesProvider @Inject constructor(){
     fun removeFavourite(id: Int?) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
-                    " SET ${Favourites.FAVOURITE} = '$NO_FAVOURITE_NUM'" +
+                    " SET ${Favourites.FAVOURITE} = '$noFavouriteNum'" +
                     " WHERE ${Favourites.ID}='$id'"
         )
     }
@@ -115,7 +114,7 @@ class DBMoviesProvider @Inject constructor(){
     fun setFavourite(id: Int) {
         db.execSQL(
             "UPDATE ${Favourites.NAME}" +
-                    " SET ${Favourites.FAVOURITE}='$FAVOURITE_NUM'" +
+                    " SET ${Favourites.FAVOURITE}='$favouriteNum'" +
                     " WHERE ${Favourites.ID}='$id'"
         )
     }

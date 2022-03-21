@@ -11,7 +11,7 @@ class AdminSqlite(
     version: Int
 ) : SQLiteOpenHelper(context, name, factory, version) {
 
-    private val SQL_CREATE: String = "CREATE TABLE ${Favourites.NAME}(" +
+    private val sqlCreate: String = "CREATE TABLE ${Favourites.NAME}(" +
             "${Favourites.ID} INTEGER PRIMARY KEY," +
             "${Favourites.TITLE} TEXT," +
             "${Favourites.DESCRIPTION} TEXT," +
@@ -22,11 +22,11 @@ class AdminSqlite(
             "${Favourites.FAVOURITE} BOOLEAN)"
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(SQL_CREATE)
+        db?.execSQL(sqlCreate)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db?.execSQL("DROP TABLE IF EXISTS ${Favourites.NAME}")
-        db?.execSQL(SQL_CREATE)
+        db?.execSQL(sqlCreate)
     }
 }
