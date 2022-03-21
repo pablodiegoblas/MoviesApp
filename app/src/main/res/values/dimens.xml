@@ -20,4 +20,5 @@
     <dimen name="imageItemWidth">256dp</dimen>
     <dimen name="imageItemHeight">180dp</dimen>
     <dimen name="cornerRadiusCard">10dp</dimen>
+    <dimen name="spacing5">32dp</dimen>
 </resources>

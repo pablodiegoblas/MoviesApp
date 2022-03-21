@@ -66,12 +66,7 @@ class PopularMoviesFragment : Fragment() {
         // Else show no movies text
         popularViewModel.popularMovieModel.observe(viewLifecycleOwner) {
             if (popularViewModel.popularMovieModel.value?.isNotEmpty() == true) {
-                if (it != null) {
-                    updatePopularMoviesAdapter(it)
-                }
-            }
-            else if (popularViewModel.popularMovieModel.value == null) {
-                showErrorAPI()
+                updatePopularMoviesAdapter(it)
             }
             else showNotMoviesText()
 
