@@ -20,12 +20,12 @@ object NetworkModule {
     //provide retrofit
     @Singleton
     @Provides
-    fun provideRetrofit(interceptorApiKey: ApiKeyInterceptor): Retrofit {
-        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    fun provideRetrofit(apiKeyInterceptor: ApiKeyInterceptor): Retrofit {
+        val baseInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(interceptorApiKey)
+            .addInterceptor(baseInterceptor)
+            .addInterceptor(apiKeyInterceptor)
             .build()
 
         return Retrofit.Builder().baseUrl(BuildConfig.ApiBaseUrl)

@@ -53,11 +53,19 @@ class FavouritesViewModel @Inject constructor()
             // Include favourite attribute of the movies database
             dbProvider.setFavourite(movieItem.id)
         }
-        //find the movie that click and change the fav attribute
-        val newList = favouritesMovieModel.value?.dropWhile { it.id == movieItem.id }
 
-        //Change value the view model
-        favouritesMovieModel.postValue(newList ?: emptyList())
+        //Change value the view model returns all popular movies
+        dbProvider.getAllFavouritesMovies(object : GetMoviesDB {
+            override fun onSuccess(moviesDB: List<MovieDB>) {
+                val newList = dataMapper.convertListToDomainMovieItem(moviesDB)
+                favouritesMovieModel.postValue(newList)
+            }
+
+            override fun onError() {
+                favouritesMovieModel.postValue(emptyList())
+            }
+
+        })
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {

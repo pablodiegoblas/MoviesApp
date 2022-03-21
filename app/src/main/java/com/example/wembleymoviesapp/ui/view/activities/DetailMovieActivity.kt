@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailMovieActivity : AppCompatActivity() {
 
-    private var binding: ActivityDetailMovieBinding?= null
+    private var binding: ActivityDetailMovieBinding? = null
 
     private val detailMovieViewModel: DetailMovieViewModel by viewModels()
 
@@ -37,7 +37,7 @@ class DetailMovieActivity : AppCompatActivity() {
         //Find a movie
         idMovie?.let { detailMovieViewModel.setMovie(it) }
 
-        detailMovieViewModel.detailMovieModel.observe(this){
+        detailMovieViewModel.detailMovieModel.observe(this) {
             bindDetailMovie(it)
         }
     }
@@ -47,14 +47,24 @@ class DetailMovieActivity : AppCompatActivity() {
             backdrop?.let { binding?.let { it1 -> loadImage(it, it1.imageViewBackdrop) } }
             binding?.textViewTitleDetail?.text = title
             binding?.textViewDescriptionDetail?.text = overview
-            binding?.textViewValoration?.text = getString(R.string.textViewValuation, valuation.toString())
+            binding?.textViewValoration?.text =
+                getString(R.string.textViewValuation, valuation.toString())
 
             // Text color, depending the movies valuation
             binding?.textViewValoration?.setTextColor(
                 when (valuation?.toInt()) {
-                    in BAD_VALUATION -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
-                    in MEDIUM_VALUATION -> ContextCompat.getColor(applicationContext, R.color.orange_valuation)
-                    in GOOD_VALUATION -> ContextCompat.getColor(applicationContext, R.color.green_valuation)
+                    in BAD_VALUATION -> ContextCompat.getColor(
+                        applicationContext,
+                        R.color.red_valuation
+                    )
+                    in MEDIUM_VALUATION -> ContextCompat.getColor(
+                        applicationContext,
+                        R.color.orange_valuation
+                    )
+                    in GOOD_VALUATION -> ContextCompat.getColor(
+                        applicationContext,
+                        R.color.green_valuation
+                    )
                     else -> ContextCompat.getColor(applicationContext, R.color.red_valuation)
                 }
             )

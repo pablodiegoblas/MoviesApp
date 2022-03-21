@@ -61,10 +61,19 @@ class PopularMoviesFragment : Fragment() {
         swipeRefreshLayout?.setOnRefreshListener(popularViewModel)
 
         //Observer the view model
+        // If the list is not empty update the movies adapter
+        // If the list is null error
+        // Else show no movies text
         popularViewModel.popularMovieModel.observe(viewLifecycleOwner) {
             if (popularViewModel.popularMovieModel.value?.isNotEmpty() == true) {
-                updatePopularMoviesAdapter(it)
-            } else showNotMoviesText()
+                if (it != null) {
+                    updatePopularMoviesAdapter(it)
+                }
+            }
+            else if (popularViewModel.popularMovieModel.value == null) {
+                showErrorAPI()
+            }
+            else showNotMoviesText()
 
             swipeRefreshLayout?.isRefreshing = false
         }
@@ -92,11 +101,6 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private fun createAdapter() {
-
-        //Put visibility DefaultText Gone
-        binding?.tvPopularDefault?.visibility = View.GONE
-        binding?.recyclerViewPopularMovies?.visibility = View.VISIBLE
-
         //Charge the adapter
         popularMoviesAdapter = PopularMoviesAdapter(
             {
@@ -121,6 +125,10 @@ class PopularMoviesFragment : Fragment() {
     }
 
     private fun updatePopularMoviesAdapter(items: List<MovieItem>) {
+        //Put visibility DefaultText Gone
+        binding?.tvPopularDefault?.visibility = View.GONE
+        binding?.recyclerViewPopularMovies?.visibility = View.VISIBLE
+
         popularMoviesAdapter.submitList(items)
     }
 
@@ -135,7 +143,7 @@ class PopularMoviesFragment : Fragment() {
         startActivity(shareIntent)
     }
 
-    fun showErrorAPI() {
+    private fun showErrorAPI() {
         Toast.makeText(this.requireContext(), "Connection failure", Toast.LENGTH_SHORT).show()
     }
 

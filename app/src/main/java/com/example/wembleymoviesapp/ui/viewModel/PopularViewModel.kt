@@ -22,7 +22,7 @@ class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.O
     @Inject lateinit var serverMoviesProvider: ServerMoviesProvider
     @Inject lateinit var dataMapperServer: ServerDataMapper
 
-    val popularMovieModel = MutableLiveData<List<MovieItem>>()
+    val popularMovieModel = MutableLiveData<List<MovieItem>?>()
 
     fun returnAllPopularMovies() {
         serverMoviesProvider.getAllPopularMoviesRequest(object : GetMoviesServer {
@@ -107,7 +107,7 @@ class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.O
                 }
 
                 override fun onError() {
-                    popularMovieModel.postValue(emptyList())
+                    popularMovieModel.postValue(null)
                 }
 
             })

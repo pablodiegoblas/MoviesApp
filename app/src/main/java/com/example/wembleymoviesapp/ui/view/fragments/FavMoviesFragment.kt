@@ -6,7 +6,6 @@ import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
@@ -80,10 +79,6 @@ class FavMoviesFragment : Fragment() {
     }
 
     private fun createAdapter() {
-        // Put visibility defaultText Gone
-        binding?.tvFavouriteDefaultText?.visibility = View.GONE
-        binding?.recyclerViewFavouritesMovies?.visibility = View.VISIBLE
-
         // Charge the adapter
         favMoviesAdapter = FavMoviesAdapter(
             {
@@ -107,6 +102,10 @@ class FavMoviesFragment : Fragment() {
     }
 
     private fun updateFavouritesMoviesAdapter(items: List<MovieItem>) {
+        // Put visibility defaultText Gone
+        binding?.tvFavouriteDefaultText?.visibility = View.GONE
+        binding?.recyclerViewFavouritesMovies?.visibility = View.VISIBLE
+
         favMoviesAdapter.submitList(items)
     }
 
