@@ -30,8 +30,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        detailMovieViewModel.createDB()
-
         //Find bundle of the intent
         val idMovie = intent.extras?.getInt("ID")
         //Find a movie
@@ -77,7 +75,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        detailMovieViewModel.destroyDB()
         binding = null
     }
 }

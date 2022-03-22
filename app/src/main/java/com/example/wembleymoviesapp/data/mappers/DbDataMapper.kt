@@ -3,20 +3,17 @@ package com.example.wembleymoviesapp.data.mappers
 import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
-import javax.inject.Inject
 
-class DbDataMapper @Inject constructor(){
 
-    fun convertListToDomainMovieItem(listFav: List<MovieDB>) =
-        listFav.mapIndexed { _, movieDB ->
-            convertToDomainMovieItem(movieDB)
-        }
-
-    private fun convertToDomainMovieItem(movieDB: MovieDB) = with(movieDB) {
-        MovieItem(id, title, poster, favourite)
+fun List<MovieDB>.convertListToDomainMovieItem() =
+    this.mapIndexed { _, movieDB ->
+        movieDB.convertToDomainMovieItem()
     }
 
-    fun convertToDomainMovieDetail(movieDB: MovieDB) = with(movieDB) {
-        MovieDetail(title, backdrop, overview, voteAverage)
-    }
+private fun MovieDB.convertToDomainMovieItem() = with(this) {
+    MovieItem(id, title, poster, favourite)
+}
+
+fun MovieDB.convertToDomainMovieDetail() = with(this) {
+    MovieDetail(title, backdrop, overview, voteAverage)
 }

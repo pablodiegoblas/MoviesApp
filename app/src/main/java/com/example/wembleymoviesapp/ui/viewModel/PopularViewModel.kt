@@ -6,36 +6,51 @@ import androidx.lifecycle.ViewModel
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.MovieDB
-import com.example.wembleymoviesapp.data.mappers.ServerDataMapper
+import com.example.wembleymoviesapp.data.mappers.convertListToDomainMovieItem
+import com.example.wembleymoviesapp.data.mappers.convertListToMovieDB
+import com.example.wembleymoviesapp.data.mappers.mapListFavourites
 import com.example.wembleymoviesapp.data.server.ResponseModel
 import com.example.wembleymoviesapp.data.server.ServerMoviesProvider
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.GetMoviesDB
 import com.example.wembleymoviesapp.domain.GetMoviesServer
+import com.example.wembleymoviesapp.domain.MovieItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener,
+class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.OnRefreshListener,
+    SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    @Inject lateinit var dbProvider: DBMoviesProvider
-    @Inject lateinit var serverMoviesProvider: ServerMoviesProvider
-    @Inject lateinit var dataMapperServer: ServerDataMapper
+    @Inject
+    lateinit var dbProvider: DBMoviesProvider
+
+    @Inject
+    lateinit var serverMoviesProvider: ServerMoviesProvider
 
     val popularMovieModel = MutableLiveData<List<MovieItem>>()
 
     fun returnAllPopularMovies() {
         serverMoviesProvider.getAllPopularMoviesRequest(object : GetMoviesServer {
             override fun onSuccess(responseServer: ResponseModel) {
-                val popularMoviesDBModel = dataMapperServer.convertListToMovieDB(responseServer)
+                val popularMoviesDBModel = responseServer.convertListToMovieDB()
                 // Insert in DB all movies that returns server
                 insertMoviesInDatabase(popularMoviesDBModel)
 
-                val listMovieItems =
-                    dataMapperServer.convertListToDomainMovieItem(responseServer)
-                val newList = mapListWithFavourites(listMovieItems)
+                val listMovieItems = responseServer.convertListToDomainMovieItem()
 
-                popularMovieModel.postValue(newList)
+                dbProvider.getAllFavouritesMovies(object : GetMoviesDB {
+                    override fun onSuccess(moviesDB: List<MovieDB>) {
+                        val listFavModelMovieItem = moviesDB.convertListToDomainMovieItem()
+
+                        val newList = listMovieItems.mapListFavourites(listFavModelMovieItem)
+                        popularMovieModel.postValue(newList)
+                    }
+
+                    override fun onError() {
+                    }
+
+                })
             }
 
             override fun onError() {
@@ -45,11 +60,8 @@ class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.O
         })
     }
 
-    fun createDB() = dbProvider.openDB()
-    fun destroyDB() = dbProvider.closeDatabase()
-
     fun mapListWithFavourites(listMovieItems: List<MovieItem>): List<MovieItem> {
-         return listMovieItems.mapIndexed { _, movieItem ->
+        return listMovieItems.mapIndexed { _, movieItem ->
             if (dbProvider.findMovie(movieItem.id)?.favourite == true) movieItem.copy(favourite = true)
             else movieItem
         }
@@ -97,12 +109,11 @@ class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.O
             serverMoviesProvider.getMoviesSearched(text, object : GetMoviesServer {
                 override fun onSuccess(responseServer: ResponseModel) {
                     // Save in Database
-                    val searchMoviesModelDB = dataMapperServer.convertListToMovieDB(responseServer)
+                    val searchMoviesModelDB = responseServer.convertListToMovieDB()
                     insertMoviesInDatabase(searchMoviesModelDB)
 
                     // Set the value data
-                    val searchMoviesModelItem =
-                        dataMapperServer.convertListToDomainMovieItem(responseServer)
+                    val searchMoviesModelItem = responseServer.convertListToDomainMovieItem()
                     popularMovieModel.postValue(searchMoviesModelItem)
                 }
 

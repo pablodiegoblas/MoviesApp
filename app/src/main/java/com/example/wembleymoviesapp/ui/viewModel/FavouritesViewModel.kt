@@ -5,18 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
 import com.example.wembleymoviesapp.data.database.MovieDB
-import com.example.wembleymoviesapp.data.mappers.DbDataMapper
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.data.mappers.convertListToDomainMovieItem
 import com.example.wembleymoviesapp.domain.GetMoviesDB
+import com.example.wembleymoviesapp.domain.MovieItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FavouritesViewModel @Inject constructor()
-    : ViewModel(), SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+class FavouritesViewModel @Inject constructor() : ViewModel(), SearchView.OnQueryTextListener,
+    SearchView.OnCloseListener {
 
-    @Inject lateinit var dbProvider: DBMoviesProvider
-    @Inject lateinit var dataMapper: DbDataMapper
+    @Inject
+    lateinit var dbProvider: DBMoviesProvider
 
     val favouritesMovieModel = MutableLiveData<List<MovieItem>>()
 
@@ -25,7 +25,7 @@ class FavouritesViewModel @Inject constructor()
         dbProvider.getAllFavouritesMovies(object : GetMoviesDB {
             override fun onSuccess(moviesDB: List<MovieDB>) {
                 // Convert the moviesDB to MovieItem model
-                val listFavMoviesModelItem = dataMapper.convertListToDomainMovieItem(moviesDB)
+                val listFavMoviesModelItem = moviesDB.convertListToDomainMovieItem()
 
                 // Save the list
                 favouritesMovieModel.postValue(listFavMoviesModelItem)
@@ -37,10 +37,6 @@ class FavouritesViewModel @Inject constructor()
 
         })
     }
-
-    //Database operations
-    fun createDB() = dbProvider.openDB()
-    fun destroyDB() = dbProvider.closeDatabase()
 
     /**
      * Function that set this movieItem as Favourite
@@ -57,7 +53,7 @@ class FavouritesViewModel @Inject constructor()
         //Change value the view model returns all popular movies
         dbProvider.getAllFavouritesMovies(object : GetMoviesDB {
             override fun onSuccess(moviesDB: List<MovieDB>) {
-                val newList = dataMapper.convertListToDomainMovieItem(moviesDB)
+                val newList = moviesDB.convertListToDomainMovieItem()
                 favouritesMovieModel.postValue(newList)
             }
 

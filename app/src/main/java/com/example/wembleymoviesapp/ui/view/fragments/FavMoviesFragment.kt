@@ -24,11 +24,6 @@ class FavMoviesFragment : Fragment() {
 
     private lateinit var favMoviesAdapter: FavMoviesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        favouritesViewModel.createDB()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,15 +58,6 @@ class FavMoviesFragment : Fragment() {
         binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        favouritesViewModel.createDB()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        favouritesViewModel.destroyDB()
-    }
 
     private fun showNotMoviesFavText() {
         binding?.recyclerViewFavouritesMovies?.visibility = View.GONE

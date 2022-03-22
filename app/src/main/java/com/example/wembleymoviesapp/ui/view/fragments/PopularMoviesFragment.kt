@@ -27,11 +27,6 @@ class PopularMoviesFragment : Fragment() {
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        popularViewModel.createDB()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,16 +66,6 @@ class PopularMoviesFragment : Fragment() {
 
             swipeRefreshLayout?.isRefreshing = false
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        popularViewModel.createDB()
-    }
-
-    override fun onPause() {
-        popularViewModel.destroyDB()
-        super.onPause()
     }
 
     // Important destroy the binding here, because the lifecycle of the fragments is different
