@@ -64,6 +64,7 @@ class PopularMoviesFragment : Fragment() {
             }
             else showNotMoviesText()
 
+            //Stop refreshing
             swipeRefreshLayout?.isRefreshing = false
         }
     }

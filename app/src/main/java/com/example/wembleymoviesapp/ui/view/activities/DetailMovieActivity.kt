@@ -20,9 +20,9 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private val detailMovieViewModel: DetailMovieViewModel by viewModels()
 
-    private val BAD_VALUATION = 0..4
-    private val MEDIUM_VALUATION = 5..6
-    private val GOOD_VALUATION = 7..10
+    private val badValuation = 0..4
+    private val mediumValuation = 5..6
+    private val goodValuation = 7..10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +51,15 @@ class DetailMovieActivity : AppCompatActivity() {
             // Text color, depending the movies valuation
             binding?.textViewValoration?.setTextColor(
                 when (valuation?.toInt()) {
-                    in BAD_VALUATION -> ContextCompat.getColor(
+                    in badValuation -> ContextCompat.getColor(
                         applicationContext,
                         R.color.red_valuation
                     )
-                    in MEDIUM_VALUATION -> ContextCompat.getColor(
+                    in mediumValuation -> ContextCompat.getColor(
                         applicationContext,
                         R.color.orange_valuation
                     )
-                    in GOOD_VALUATION -> ContextCompat.getColor(
+                    in goodValuation -> ContextCompat.getColor(
                         applicationContext,
                         R.color.green_valuation
                     )
