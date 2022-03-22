@@ -22,9 +22,7 @@ class DBMoviesProvider @Inject constructor() {
         db = adminSqliteHelper.writableDatabase
         db.use {
             for (movie in listMovieDB) {
-                val isMovieSearch: Boolean = findMovie(movie.id)?.id == movie.id
-
-                if (!isMovieSearch) {
+                if (!existsInDB(movie.id)) {
                     val newRegister = ContentValues().apply {
                         with(movie) {
                             put(Favourites.ID, id)
@@ -40,6 +38,7 @@ class DBMoviesProvider @Inject constructor() {
 
 
                     db.insert(Favourites.NAME, null, newRegister)
+
                 }
             }
         }
@@ -160,8 +159,25 @@ class DBMoviesProvider @Inject constructor() {
                     }
                 }
             }
-
-            return null
         }
+
+        return null
+    }
+
+    private fun existsInDB(id: Int): Boolean {
+        db = adminSqliteHelper.readableDatabase
+        db.use {
+            val cursor: Cursor =
+                it.rawQuery("select * from ${Favourites.NAME} where ${Favourites.ID}='$id'", null)
+
+            cursor.use {
+                if (cursor.moveToFirst()) {
+                    while (!cursor.isAfterLast) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 }

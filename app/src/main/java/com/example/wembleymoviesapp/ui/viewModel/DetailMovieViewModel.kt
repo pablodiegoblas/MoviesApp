@@ -3,7 +3,9 @@ package com.example.wembleymoviesapp.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wembleymoviesapp.data.database.DBMoviesProvider
+import com.example.wembleymoviesapp.data.database.MovieDB
 import com.example.wembleymoviesapp.data.mappers.convertToDomainMovieDetail
+import com.example.wembleymoviesapp.domain.GetMovieDB
 import com.example.wembleymoviesapp.domain.MovieDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

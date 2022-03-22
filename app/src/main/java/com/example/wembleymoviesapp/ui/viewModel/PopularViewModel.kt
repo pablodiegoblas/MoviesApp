@@ -60,13 +60,6 @@ class PopularViewModel @Inject constructor() : ViewModel(), SwipeRefreshLayout.O
         })
     }
 
-    fun mapListWithFavourites(listMovieItems: List<MovieItem>): List<MovieItem> {
-        return listMovieItems.mapIndexed { _, movieItem ->
-            if (dbProvider.findMovie(movieItem.id)?.favourite == true) movieItem.copy(favourite = true)
-            else movieItem
-        }
-    }
-
     fun insertMoviesInDatabase(listDB: List<MovieDB>) {
         dbProvider.insert(listDB)
     }
