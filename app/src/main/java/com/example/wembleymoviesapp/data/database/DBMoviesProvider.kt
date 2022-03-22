@@ -37,7 +37,7 @@ class DBMoviesProvider @Inject constructor() {
                     }
 
 
-                    db.insert(Favourites.NAME, null, newRegister)
+                    it.insert(Favourites.NAME, null, newRegister)
 
                 }
             }
@@ -165,16 +165,13 @@ class DBMoviesProvider @Inject constructor() {
     }
 
     private fun existsInDB(id: Int): Boolean {
-        db = adminSqliteHelper.readableDatabase
-        db.use {
-            val cursor: Cursor =
-                it.rawQuery("select * from ${Favourites.NAME} where ${Favourites.ID}='$id'", null)
+        val cursor: Cursor =
+            db.rawQuery("select * from ${Favourites.NAME} where ${Favourites.ID}='$id'", null)
 
-            cursor.use {
-                if (cursor.moveToFirst()) {
-                    while (!cursor.isAfterLast) {
-                        return true
-                    }
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast) {
+                    return true
                 }
             }
         }
