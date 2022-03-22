@@ -164,21 +164,23 @@ class DBMoviesProvider @Inject constructor() {
         return null
     }
 
+    /**
+     * Function checked if id movie exists in database
+     */
     private fun existsInDB(id: Int): Boolean {
-        var exists = false
-        if (db != null) {
-            val cursor: Cursor =
-                db.rawQuery("select * from ${Favourites.NAME} where ${Favourites.ID}='$id'", null)
+        var exists: Boolean
 
-            cursor.use {
-                if (cursor.moveToFirst()) {
-                    while (!cursor.isAfterLast) {
-                        exists = true
-                    }
+        val cursor: Cursor =
+            db.rawQuery("select * from ${Favourites.NAME} where ${Favourites.ID}='$id'", null)
+
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast) {
+                    exists = true
                 }
             }
-            exists = false
         }
+        exists = false
 
         return exists
     }
