@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp"
     app:cardCornerRadius="@dimen/cornerRadiusCard">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewMovie"
+            android:layout_width="@dimen/imageItemWidth"
+            android:layout_height="@dimen/imageItemHeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_wembley" />
+
+        <TextView
+            android:id="@+id/textViewTitleMovie"
+            android:layout_width="@dimen/textTitleWidth"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Title Movie"
+            android:textAlignment="center"
+            android:textSize="@dimen/textSizeH2"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/buttonMore"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="@dimen/spacing3"
+            android:layout_weight="1"
+            android:text="@string/readMoreButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMovie" />
+
+        <ImageView
+            android:id="@+id/imageViewShared"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewFavourite"
+            app:layout_constraintStart_toEndOf="@+id/buttonMore"
+            app:layout_constraintTop_toTopOf="@+id/buttonMore"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+
+        <ImageView
+            android:id="@+id/imageViewFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginEnd="@dimen/spacing3"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buttonMore"
+            app:srcCompat="@drawable/ic_no_favourite_red" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -48,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:text="READ MORE…" />
+                    android:text="@string/readMoreButton" />
 
                 <ImageView
                     android:id="@+id/imageViewShared"
@@ -69,6 +130,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </androidx.cardview.widget.CardView>
