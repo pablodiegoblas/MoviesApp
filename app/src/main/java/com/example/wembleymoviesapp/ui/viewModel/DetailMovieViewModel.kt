@@ -2,28 +2,25 @@ package com.example.wembleymoviesapp.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.wembleymoviesapp.data.database.DBMoviesProvider
-import com.example.wembleymoviesapp.data.database.MovieDB
+import com.example.wembleymoviesapp.data.MoviesRepositoryImpl
 import com.example.wembleymoviesapp.data.mappers.convertToDomainMovieDetail
-import com.example.wembleymoviesapp.domain.GetMovieDB
 import com.example.wembleymoviesapp.domain.MovieDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailMovieViewModel @Inject constructor()
-    : ViewModel() {
-
-    @Inject lateinit var dbMoviesProvider: DBMoviesProvider
+class DetailMovieViewModel @Inject constructor(
+    private val moviesRepositoryImpl: MoviesRepositoryImpl
+) : ViewModel() {
 
     val detailMovieModel = MutableLiveData<MovieDetail>()
 
     fun setMovie(id: Int) {
-        val movieSearched = dbMoviesProvider.findMovie(id)
-        if (movieSearched != null) {
-            val movieConvertDetailModel = movieSearched.convertToDomainMovieDetail()
+        //Find in repository the movie
+        moviesRepositoryImpl.getMovieDatabase(id) { movieDB ->
+            val movieConvertedDetailModel = movieDB.convertToDomainMovieDetail()
 
-            detailMovieModel.postValue(movieConvertDetailModel)
+            detailMovieModel.postValue(movieConvertedDetailModel)
         }
     }
 

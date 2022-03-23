@@ -8,13 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.ActivityMainBinding
+import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
+import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
+import com.example.wembleymoviesapp.ui.viewModel.Destination
 import com.example.wembleymoviesapp.ui.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var binding: ActivityMainBinding?= null
+    private var binding: ActivityMainBinding? = null
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -28,8 +31,11 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.initialMain()
 
         //Observe the live data for the changes change the fragment
-        mainViewModel.navigateTo.observe(this){
-            replaceFragment(it)
+        mainViewModel.navigateTo.observe(this) {
+            when (it) {
+                Destination.Popular -> replaceFragment(PopularMoviesFragment())
+                Destination.Favourites -> replaceFragment(FavMoviesFragment())
+            }
         }
 
         //Set Listeners of this view

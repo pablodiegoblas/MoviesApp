@@ -28,7 +28,7 @@ ext {
     swipeRefreshLayoutVersion = "1.1.0"
 
     viewModelVersion = "2.4.1"
-    lifeDataVersion = "2.4.1"
+    liveDataVersion = "2.4.1"
 
     hiltVersion = "2.40.5"
 }

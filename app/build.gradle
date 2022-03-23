@@ -59,9 +59,9 @@ dependencies {
     // Activity
     implementation "androidx.activity:activity-ktx:$activityVersion"
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         // exclude Retrofit’s OkHttp peer-dependency module and define your own module import
@@ -80,10 +80,6 @@ dependencies {
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion"
 
-    //ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
-    //LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeDataVersion"
     //DaggerHilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"

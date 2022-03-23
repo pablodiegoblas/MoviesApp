@@ -2,6 +2,7 @@ package com.example.wembleymoviesapp.ui.view.activities
 
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -38,6 +39,10 @@ class DetailMovieActivity : AppCompatActivity() {
         detailMovieViewModel.detailMovieModel.observe(this) {
             bindDetailMovie(it)
         }
+    }
+
+    private fun showErrorDatabase() {
+        Toast.makeText(this, "ERROR FROM DATABASE", Toast.LENGTH_SHORT).show()
     }
 
     private fun bindDetailMovie(movie: MovieDetail) {

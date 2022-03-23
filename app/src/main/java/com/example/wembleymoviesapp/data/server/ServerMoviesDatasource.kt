@@ -7,14 +7,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class ServerMoviesProvider @Inject constructor() {
+class ServerMoviesDatasource @Inject constructor() {
 
     @Inject lateinit var moviesService: MoviesService
 
     /**
      * Function that returns all popular movies
      */
-    fun getAllPopularMoviesRequest(result: GetMoviesServer) {
+    fun getAllPopularMoviesRequest(onSuccess : (ResponseModel) -> Unit, onError : () -> Unit) {
         val resultCall: Call<ResponseModel> = moviesService.getPopularMovies()
 
         resultCall.enqueue(object : Callback<ResponseModel> {
@@ -25,12 +25,12 @@ class ServerMoviesProvider @Inject constructor() {
                 val popularMovies = response.body()
 
                 if (popularMovies != null) {
-                    return result.onSuccess(popularMovies)
+                    onSuccess(popularMovies)
                 }
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                result.onError()
+                onError()
             }
         })
     }
@@ -38,9 +38,10 @@ class ServerMoviesProvider @Inject constructor() {
     /**
      * Function that search movie by title in SearchBar for popular fragment
      */
-    fun getMoviesSearched(
+    fun returnMoviesSearched(
         searchMovieTitle: String,
-        result: GetMoviesServer
+        onSuccess: (ResponseModel) -> Unit,
+        onError: () -> Unit
     ) {
         val resultCall: Call<ResponseModel> = moviesService.getSearchMovie(searchMovieTitle)
 
@@ -52,13 +53,13 @@ class ServerMoviesProvider @Inject constructor() {
                 val searchMovie = response.body()
 
                 if (searchMovie != null) {
-                    return result.onSuccess(searchMovie)
+                    onSuccess(searchMovie)
                 }
 
             }
 
             override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                result.onError()
+                onError()
             }
 
         })

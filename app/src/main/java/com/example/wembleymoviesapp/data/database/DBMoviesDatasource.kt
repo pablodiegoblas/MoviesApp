@@ -3,10 +3,9 @@ package com.example.wembleymoviesapp.data.database
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.wembleymoviesapp.domain.GetMoviesDB
 import javax.inject.Inject
 
-class DBMoviesProvider @Inject constructor() {
+class DBMoviesDatasource @Inject constructor() {
 
     @Inject
     lateinit var adminSqliteHelper: AdminSqlite
@@ -44,7 +43,7 @@ class DBMoviesProvider @Inject constructor() {
     /**
      * Function returns all favourites movies in database
      */
-    fun getAllFavouritesMovies(result: GetMoviesDB) {
+    fun getAllFavouritesMovies(onSuccess: (List<MovieDB>) -> Unit) {
         db = adminSqliteHelper.readableDatabase
         db.use {
             val cursor: Cursor = it.rawQuery(
@@ -87,7 +86,7 @@ class DBMoviesProvider @Inject constructor() {
                     }
                 }
             }
-            result.onSuccess(favourites)
+            onSuccess(favourites)
         }
     }
 
@@ -122,7 +121,7 @@ class DBMoviesProvider @Inject constructor() {
     /**
      * Function search movie by title in database
      */
-    fun findMovie(id: Int): MovieDB? {
+    fun findMovie(id: Int, onSuccess: (MovieDB) -> Unit) {
         db = adminSqliteHelper.readableDatabase
         db.use {
             val cursor: Cursor =
@@ -142,22 +141,26 @@ class DBMoviesProvider @Inject constructor() {
 
                         val favouriteBoolean: Boolean = favourite == 1
 
-                        return MovieDB(
-                            idDB,
-                            title,
-                            overview,
-                            poster,
-                            backdrop,
-                            releaseDate,
-                            voteAverage,
-                            favouriteBoolean
+                        onSuccess(
+                            MovieDB(
+                                idDB,
+                                title,
+                                overview,
+                                poster,
+                                backdrop,
+                                releaseDate,
+                                voteAverage,
+                                favouriteBoolean
+                            )
                         )
+
+                        //Important pass to the next cursor
+                        cursor.moveToNext()
                     }
                 }
+
             }
         }
-
-        return null
     }
 
     /**
