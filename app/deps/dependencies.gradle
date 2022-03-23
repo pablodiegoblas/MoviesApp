@@ -31,4 +31,6 @@ ext {
     liveDataVersion = "2.4.1"
 
     hiltVersion = "2.40.5"
+
+    roomVersion = "2.4.2"
 }

@@ -41,9 +41,9 @@ class PopularMoviesAdapter(
                 binding.textViewTitleMovie.text = title
                 //Cambiar imagen de fav
                 if (favourite) {
-                    binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_background_red)
+                    binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite)
                 } else
-                    binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_border_red)
+                    binding.imageViewFavourite.setImageResource(R.drawable.ic_no_favourite_red)
             }
 
             binding.buttonMore.setOnClickListener {

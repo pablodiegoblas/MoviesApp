@@ -28,10 +28,10 @@ class FavouritesViewModel @Inject constructor(
     fun pressFavButton(movieItem: MovieItem) {
         if (movieItem.favourite) {
             // Remove favourite attribute of the movies database
-            moviesRepositoryImpl.removeFavourite(movieItem.id)
+            moviesRepositoryImpl.updateFavourite(movieItem.id, 0)
         } else {
             // Include favourite attribute of the movies database
-            moviesRepositoryImpl.setFavourite(movieItem.id)
+            moviesRepositoryImpl.updateFavourite(movieItem.id, 1)
         }
 
         returnFavouritesMovies()

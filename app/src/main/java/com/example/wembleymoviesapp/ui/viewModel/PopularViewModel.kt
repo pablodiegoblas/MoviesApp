@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.data.MoviesRepositoryImpl
-import com.example.wembleymoviesapp.data.database.DBMoviesDatasource
-import com.example.wembleymoviesapp.data.server.ServerMoviesDatasource
 import com.example.wembleymoviesapp.domain.MovieItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -34,7 +32,7 @@ class PopularViewModel @Inject constructor(
      * Function that set this movieItem as Favourite or noFavourite
      */
     fun pressFavButton(movieItem: MovieItem) {
-
+/*
         val attrFav: Boolean
 
         if (movieItem.favourite) {
@@ -55,8 +53,43 @@ class PopularViewModel @Inject constructor(
         popularMovieModel.postValue(
             popularMovieModel.value?.map { if (it.id == movieItem.id) it.copy(favourite = attrFav) else it }
                 ?.toMutableList()
-        )
+        )*/
 
+        /*moviesRepositoryImpl.getMovieDatabase(movieItem.id) {
+            if (movieItem.favourite) {
+                // Remove favourite attribute of the movies database
+                moviesRepositoryImpl.updateFavourite(it.copy(favourite = false))
+            } else {
+                // Include favourite attribute of the movies database
+                moviesRepositoryImpl.updateFavourite(it.copy(favourite = true))
+            }
+
+            returnAllPopularMovies()
+        }*/
+
+        val attrFav: Boolean
+
+        if (movieItem.favourite) {
+            attrFav = false
+            // Remove favourite attribute of the movies database
+            moviesRepositoryImpl.updateFavourite(movieItem.id, 0)
+        } else {
+            attrFav = true
+            // Include favourite attribute of the movies database
+            moviesRepositoryImpl.updateFavourite(movieItem.id, 1)
+        }
+
+        changeListView(movieItem.id, attrFav)
+    }
+
+    /**
+     * Find the movie that click movie and change the favourite attribute
+     */
+    private fun changeListView(idMovie : Int, fav: Boolean) {
+        popularMovieModel.postValue(
+            popularMovieModel.value?.map { if (it.id == idMovie) it.copy(favourite = fav) else it }
+                ?.toMutableList()
+        )
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {

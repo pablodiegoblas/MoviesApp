@@ -1,6 +1,6 @@
 package com.example.wembleymoviesapp.data.mappers
 
-import com.example.wembleymoviesapp.data.database.MovieDB
+import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 import com.example.wembleymoviesapp.data.server.RequestMovie
 import com.example.wembleymoviesapp.data.server.ResponseModel
 import com.example.wembleymoviesapp.domain.MovieItem
@@ -16,11 +16,21 @@ private fun RequestMovie.convertToDomainMovieItem() = with(this) {
 }
 
 // Convert the list model from API model to Database Model
-fun ResponseModel.convertListToMovieDB() =
+
+fun ResponseModel.convertListToMovieEntity() =
     this.results.mapIndexed { _, it ->
-        it.convertToMovieDB()
+        it.convertToMovieEntity()
     }
 
-private fun RequestMovie.convertToMovieDB() = with(this) {
-    MovieDB(id, originalTitle, overview, posterPath, backdropPath, releaseDate, voteAverage, false)
+private fun RequestMovie.convertToMovieEntity() = with(this) {
+    MovieEntity(
+        id,
+        title = originalTitle,
+        overview,
+        posterPath,
+        backdropPath,
+        releaseDate,
+        voteAverage,
+        false
+    )
 }

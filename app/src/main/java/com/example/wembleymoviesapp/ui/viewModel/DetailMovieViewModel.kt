@@ -17,8 +17,8 @@ class DetailMovieViewModel @Inject constructor(
 
     fun setMovie(id: Int) {
         //Find in repository the movie
-        moviesRepositoryImpl.getMovieDatabase(id) { movieDB ->
-            val movieConvertedDetailModel = movieDB.convertToDomainMovieDetail()
+        moviesRepositoryImpl.getMovieDatabase(id) { movieEntity ->
+            val movieConvertedDetailModel = movieEntity.convertToDomainMovieDetail()
 
             detailMovieModel.postValue(movieConvertedDetailModel)
         }

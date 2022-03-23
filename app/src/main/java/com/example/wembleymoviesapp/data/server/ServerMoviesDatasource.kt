@@ -7,9 +7,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class ServerMoviesDatasource @Inject constructor() {
-
-    @Inject lateinit var moviesService: MoviesService
+class ServerMoviesDatasource @Inject constructor(
+    private val moviesService: MoviesService
+) {
 
     /**
      * Function that returns all popular movies

@@ -1,6 +1,6 @@
 package com.example.wembleymoviesapp.domain
 
-import com.example.wembleymoviesapp.data.database.MovieDB
+import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 
 interface MoviesRepository {
 
@@ -10,11 +10,14 @@ interface MoviesRepository {
 
     fun getAllFavouriteMovies(callback: (List<MovieItem>) -> Unit)
 
-    fun insertMoviesInDatabase(listDB: List<MovieDB>)
+    fun insertMoviesInDatabase(listDB: List<MovieEntity>)
 
-    fun removeFavourite(id: Int)
+    /*fun removeFavourite(id: Int)
 
-    fun setFavourite(id: Int)
+    fun setFavourite(id: Int)*/
 
-    fun getMovieDatabase(id: Int, callback: (MovieDB) -> Unit)
+    //    fun updateFavourite(movie: MovieEntity)
+    fun updateFavourite(movieID: Int, fav: Int)
+
+    fun getMovieDatabase(id: Int, callback: (MovieEntity) -> Unit)
 }

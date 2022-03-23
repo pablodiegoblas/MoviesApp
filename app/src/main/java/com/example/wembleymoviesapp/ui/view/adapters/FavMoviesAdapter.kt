@@ -38,8 +38,8 @@ class FavMoviesAdapter(
                 poster?.let { loadImage(it, binding.imageViewMovie) }
                 binding.textViewTitleMovie.text = title
                 //Change the fav image
-                if (favourite) binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_background_red)
-                else binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite_border_red)
+                if (favourite) binding.imageViewFavourite.setImageResource(R.drawable.ic_favourite)
+                else binding.imageViewFavourite.setImageResource(R.drawable.ic_no_favourite_red)
             }
 
             binding.buttonMore.setOnClickListener {

@@ -1,19 +1,20 @@
 package com.example.wembleymoviesapp.data.mappers
 
-import com.example.wembleymoviesapp.data.database.MovieDB
+import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 import com.example.wembleymoviesapp.domain.MovieDetail
 import com.example.wembleymoviesapp.domain.MovieItem
 
 
-fun List<MovieDB>.convertListToDomainMovieItem() =
+fun List<MovieEntity>.convertListMovieEntityToDomainMovieItem() =
     this.mapIndexed { _, movieDB ->
-        movieDB.convertToDomainMovieItem()
+        movieDB.convertMovieEntityToDomainMovieItem()
     }
 
-private fun MovieDB.convertToDomainMovieItem() = with(this) {
+private fun MovieEntity.convertMovieEntityToDomainMovieItem() = with(this) {
     MovieItem(id, title, poster, favourite)
 }
 
-fun MovieDB.convertToDomainMovieDetail() = with(this) {
+fun MovieEntity.convertToDomainMovieDetail() = with(this) {
     MovieDetail(title, backdrop, overview, voteAverage)
 }
+
