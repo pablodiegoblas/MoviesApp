@@ -3,9 +3,11 @@ package com.example.wembleymoviesapp.ui.viewModel
 import android.widget.SearchView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.wembleymoviesapp.data.MoviesRepositoryImpl
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,28 +16,25 @@ class FavouritesViewModel @Inject constructor(
 ) : ViewModel(), SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    val favouritesMovieModel = MutableLiveData<List<MovieItem>>()
+    val favouritesMovieModel = MutableLiveData<List<MovieModel>>()
 
     fun returnFavouritesMovies() {
-        moviesRepositoryImpl.getAllFavouriteMovies {
-            favouritesMovieModel.postValue(it)
+        viewModelScope.launch {
+            favouritesMovieModel.value = moviesRepositoryImpl.getAllFavouriteMovies()
         }
     }
 
     /**
      * Function that set this movieItem as Favourite
      */
-    fun pressFavButton(movieItem: MovieItem) {
-        if (movieItem.favourite) {
-            // Remove favourite attribute of the movies database
-            moviesRepositoryImpl.updateFavourite(movieItem.id, 0)
-        } else {
-            // Include favourite attribute of the movies database
-            moviesRepositoryImpl.updateFavourite(movieItem.id, 1)
+    fun pressFavButton(movieModelItem: MovieModel) {
+        val attributeFavourite: Boolean = !movieModelItem.favourite
+
+        viewModelScope.launch {
+            moviesRepositoryImpl.updateFavourite((movieModelItem.copy(favourite = attributeFavourite)))
+
+            returnFavouritesMovies()
         }
-
-        returnFavouritesMovies()
-
     }
 
     override fun onQueryTextSubmit(text: String?): Boolean {

@@ -7,17 +7,14 @@ import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 interface MoviesDao {
 
     @Query("SELECT * FROM movies_table WHERE favourite = '1'")
-    fun getAllFavouritesMovies(): List<MovieEntity>
+    suspend fun getAllFavouritesMovies(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(movies: List<MovieEntity>)
+    suspend fun insertAll(movies: List<MovieEntity>)
 
-    /*@Update(entity = MovieEntity::class)
-    fun updateFavourite(movie: MovieEntity)*/
-
-    @Query("UPDATE movies_table SET favourite = :fav WHERE id = :idMovie")
-    fun updateFavourite(idMovie: Int, fav: Int)
+    @Update(entity = MovieEntity::class)
+    suspend fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movies_table WHERE id = :idMovie")
-    fun findMovie(idMovie: Int) : MovieEntity
+    suspend fun findMovie(idMovie: Int) : MovieEntity
 }

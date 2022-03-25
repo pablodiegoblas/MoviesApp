@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RoomModule {
+object RoomModule {
 
     private val MOVIES_DATABASE_NAME = "movies_database"
 
@@ -20,7 +20,7 @@ class RoomModule {
     @Provides
     fun provideRoom(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, MoviesDatabase::class.java, MOVIES_DATABASE_NAME)
-            .allowMainThreadQueries().fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

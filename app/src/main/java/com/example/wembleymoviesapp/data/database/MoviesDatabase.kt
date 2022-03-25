@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.wembleymoviesapp.data.database.dao.MoviesDao
 import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 
-@Database(entities = [MovieEntity::class], version = 2)
+@Database(entities = [MovieEntity::class], version = 3)
 abstract class MoviesDatabase: RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao

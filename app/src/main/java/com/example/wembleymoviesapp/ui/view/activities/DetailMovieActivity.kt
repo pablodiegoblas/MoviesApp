@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
-import com.example.wembleymoviesapp.domain.MovieDetail
+import com.example.wembleymoviesapp.domain.models.MovieModel
 import com.example.wembleymoviesapp.ui.viewModel.DetailMovieViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,8 +45,8 @@ class DetailMovieActivity : AppCompatActivity() {
         Toast.makeText(this, "ERROR FROM DATABASE", Toast.LENGTH_SHORT).show()
     }
 
-    private fun bindDetailMovie(movie: MovieDetail) {
-        with(movie) {
+    private fun bindDetailMovie(movieModel: MovieModel) {
+        with(movieModel) {
             backdrop?.let { binding?.let { it1 -> loadImage(it, it1.imageViewBackdrop) } }
             binding?.textViewTitleDetail?.text = title
             binding?.textViewDescriptionDetail?.text = overview

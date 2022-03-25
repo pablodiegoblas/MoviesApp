@@ -3,24 +3,26 @@ package com.example.wembleymoviesapp.ui.viewModel
 import android.widget.SearchView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.data.MoviesRepositoryImpl
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PopularViewModel @Inject constructor(
-    private val moviesRepositoryImpl : MoviesRepositoryImpl
+    private val moviesRepositoryImpl: MoviesRepositoryImpl
 ) : ViewModel(), SwipeRefreshLayout.OnRefreshListener,
     SearchView.OnQueryTextListener,
     SearchView.OnCloseListener {
 
-    val popularMovieModel = MutableLiveData<List<MovieItem>>()
+    val popularMovieModel = MutableLiveData<List<MovieModel>>()
 
     fun returnAllPopularMovies() {
-        moviesRepositoryImpl.getAllPopularMovies {
-            popularMovieModel.postValue(it)
+        viewModelScope.launch {
+            popularMovieModel.value = moviesRepositoryImpl.getAllPopularMovies()
         }
     }
 
@@ -31,61 +33,22 @@ class PopularViewModel @Inject constructor(
     /**
      * Function that set this movieItem as Favourite or noFavourite
      */
-    fun pressFavButton(movieItem: MovieItem) {
-/*
-        val attrFav: Boolean
+    fun pressFavButton(movieModelItem: MovieModel) {
 
-        if (movieItem.favourite) {
-            attrFav = false
+        val attributeFavourite = !movieModelItem.favourite
 
-            // Remove favourite attribute of the movies database
-            moviesRepositoryImpl.removeFavourite(movieItem.id)
+        viewModelScope.launch {
+            moviesRepositoryImpl.updateFavourite(movieModelItem.copy(favourite = attributeFavourite))
 
-        } else {
-            attrFav = true
-
-            // Include favourite attribute of the movies database
-            moviesRepositoryImpl.setFavourite(movieItem.id)
-
+            //No return all the popular films because if I am looking for a film I want the favourite image to change but I don't want the adapter to change to the popular films but to keep showing the same films.
+            changeListView(movieModelItem.id, attributeFavourite)
         }
-
-        //find movie that click movie and change the favourite attribute
-        popularMovieModel.postValue(
-            popularMovieModel.value?.map { if (it.id == movieItem.id) it.copy(favourite = attrFav) else it }
-                ?.toMutableList()
-        )*/
-
-        /*moviesRepositoryImpl.getMovieDatabase(movieItem.id) {
-            if (movieItem.favourite) {
-                // Remove favourite attribute of the movies database
-                moviesRepositoryImpl.updateFavourite(it.copy(favourite = false))
-            } else {
-                // Include favourite attribute of the movies database
-                moviesRepositoryImpl.updateFavourite(it.copy(favourite = true))
-            }
-
-            returnAllPopularMovies()
-        }*/
-
-        val attrFav: Boolean
-
-        if (movieItem.favourite) {
-            attrFav = false
-            // Remove favourite attribute of the movies database
-            moviesRepositoryImpl.updateFavourite(movieItem.id, 0)
-        } else {
-            attrFav = true
-            // Include favourite attribute of the movies database
-            moviesRepositoryImpl.updateFavourite(movieItem.id, 1)
-        }
-
-        changeListView(movieItem.id, attrFav)
     }
 
     /**
      * Find the movie that click movie and change the favourite attribute
      */
-    private fun changeListView(idMovie : Int, fav: Boolean) {
+    private fun changeListView(idMovie: Int, fav: Boolean) {
         popularMovieModel.postValue(
             popularMovieModel.value?.map { if (it.id == idMovie) it.copy(favourite = fav) else it }
                 ?.toMutableList()
@@ -94,8 +57,8 @@ class PopularViewModel @Inject constructor(
 
     override fun onQueryTextSubmit(text: String?): Boolean {
         if (text != null) {
-            moviesRepositoryImpl.getMoviesSearched(text) {
-                popularMovieModel.postValue(it)
+            viewModelScope.launch {
+                popularMovieModel.value = moviesRepositoryImpl.getMoviesSearched(text)
             }
         }
         return true

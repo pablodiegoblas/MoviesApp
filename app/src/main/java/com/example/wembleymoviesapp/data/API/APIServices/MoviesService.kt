@@ -8,9 +8,9 @@ import retrofit2.http.Query
 interface MoviesService {
 
     @GET("movie/popular")
-    fun getPopularMovies(): Call<ResponseModel>
+    suspend fun getPopularMovies(): ResponseModel
 
     @GET("search/movie")
-    fun getSearchMovie(@Query("query") query: String): Call<ResponseModel>
+    suspend fun getSearchMovie(@Query("query") query: String): ResponseModel
 
 }

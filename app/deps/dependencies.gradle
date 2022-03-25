@@ -33,4 +33,6 @@ ext {
     hiltVersion = "2.40.5"
 
     roomVersion = "2.4.2"
+
+    lottieVersion = "5.0.3"
 }

@@ -1,20 +1,30 @@
 package com.example.wembleymoviesapp.data.mappers
 
 import com.example.wembleymoviesapp.data.database.entities.MovieEntity
-import com.example.wembleymoviesapp.domain.MovieDetail
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 
-
-fun List<MovieEntity>.convertListMovieEntityToDomainMovieItem() =
-    this.mapIndexed { _, movieDB ->
-        movieDB.convertMovieEntityToDomainMovieItem()
-    }
-
-private fun MovieEntity.convertMovieEntityToDomainMovieItem() = with(this) {
-    MovieItem(id, title, poster, favourite)
+fun MovieEntity.toDomainModel(): MovieModel = with(this) {
+    MovieModel(
+        id = id,
+        title = title,
+        poster = poster,
+        overview = overview,
+        backdrop = backdrop,
+        releaseDate = releaseDate,
+        valuation = voteAverage,
+        favourite = favourite
+    )
 }
-
-fun MovieEntity.convertToDomainMovieDetail() = with(this) {
-    MovieDetail(title, backdrop, overview, voteAverage)
+fun MovieModel.toEntity() : MovieEntity = with(this) {
+    MovieEntity(
+        id = id,
+        title = title,
+        poster = poster,
+        overview = overview,
+        backdrop = backdrop,
+        releaseDate = releaseDate,
+        voteAverage = valuation,
+        favourite = favourite
+    )
 }
 

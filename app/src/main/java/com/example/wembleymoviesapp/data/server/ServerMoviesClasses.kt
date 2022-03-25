@@ -24,7 +24,7 @@ data class RequestMovie(
     val backdropPath: String? = null,
 
     @field:SerializedName("release_date")
-    val releaseDate: String? = null,
+    val releaseDate: String,
 
     @field:SerializedName("popularity")
     val popularity: Double? = null,

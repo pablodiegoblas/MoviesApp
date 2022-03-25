@@ -19,5 +19,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFavouritesMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_movie"
+        tools:itemCount="2"/>
 </FrameLayout>

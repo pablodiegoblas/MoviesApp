@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginStart="@dimen/spacing3"
+            android:layout_marginStart="@dimen/spacing2"
             android:layout_weight="1"
             android:text="@string/readMoreButton"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,80 +56,16 @@
             app:layout_constraintTop_toTopOf="@+id/buttonMore"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/imageViewFavourite"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginEnd="@dimen/spacing3"
+            android:layout_marginEnd="@dimen/spacing2"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonMore"
-            app:srcCompat="@drawable/ic_no_favourite_red" />
+            app:lottie_rawRes="@raw/favourite" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageViewMovie"
-            android:layout_width="@dimen/imageItemWidth"
-            android:layout_height="@dimen/imageItemHeight"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/logo_wembley" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewTitleMovie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Title Movie"
-                android:textAlignment="center"
-                android:textSize="@dimen/textSizeH2"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom">
-
-                <Button
-                    android:id="@+id/buttonMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/readMoreButton" />
-
-                <ImageView
-                    android:id="@+id/imageViewShared"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/ic_menu_share" />
-
-                <ImageView
-                    android:id="@+id/imageViewFavourite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_favourite_border_red" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>-->
-
 </androidx.cardview.widget.CardView>

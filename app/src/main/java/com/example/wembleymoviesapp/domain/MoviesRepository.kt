@@ -1,23 +1,16 @@
 package com.example.wembleymoviesapp.domain
 
-import com.example.wembleymoviesapp.data.database.entities.MovieEntity
+import com.example.wembleymoviesapp.domain.models.MovieModel
 
 interface MoviesRepository {
 
-    fun getAllPopularMovies(callback: (List<MovieItem>) -> Unit)
+    suspend fun getAllPopularMovies(): List<MovieModel>
 
-    fun getMoviesSearched(text: String, callback: (List<MovieItem>) -> Unit)
+    suspend fun getMoviesSearched(searchMovieTitle: String): List<MovieModel>
 
-    fun getAllFavouriteMovies(callback: (List<MovieItem>) -> Unit)
+    suspend fun getAllFavouriteMovies(): List<MovieModel>
 
-    fun insertMoviesInDatabase(listDB: List<MovieEntity>)
+    suspend fun updateFavourite(movieModel: MovieModel)
 
-    /*fun removeFavourite(id: Int)
-
-    fun setFavourite(id: Int)*/
-
-    //    fun updateFavourite(movie: MovieEntity)
-    fun updateFavourite(movieID: Int, fav: Int)
-
-    fun getMovieDatabase(id: Int, callback: (MovieEntity) -> Unit)
+    suspend fun getMovieDatabase(id: Int) : MovieModel
 }

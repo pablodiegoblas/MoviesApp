@@ -2,35 +2,30 @@ package com.example.wembleymoviesapp.data.mappers
 
 import com.example.wembleymoviesapp.data.database.entities.MovieEntity
 import com.example.wembleymoviesapp.data.server.RequestMovie
-import com.example.wembleymoviesapp.data.server.ResponseModel
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 
-// Convert the list model from API model to MovieItem Model
-fun ResponseModel.convertListToDomainMovieItem() =
-    this.results.mapIndexed { _, requestMovie ->
-        requestMovie.convertToDomainMovieItem()
-    }
-
-private fun RequestMovie.convertToDomainMovieItem() = with(this) {
-    MovieItem(id, originalTitle, posterPath, false)
+fun RequestMovie.toDomainModel() = with(this) {
+    MovieModel(
+        id = id,
+        title = originalTitle,
+        overview = overview,
+        poster = posterPath,
+        backdrop = backdropPath,
+        releaseDate = releaseDate,
+        valuation = voteAverage,
+        favourite = false
+    )
 }
 
-// Convert the list model from API model to Database Model
-
-fun ResponseModel.convertListToMovieEntity() =
-    this.results.mapIndexed { _, it ->
-        it.convertToMovieEntity()
-    }
-
-private fun RequestMovie.convertToMovieEntity() = with(this) {
+fun RequestMovie.toEntity() = with(this) {
     MovieEntity(
-        id,
+        id = id,
         title = originalTitle,
-        overview,
-        posterPath,
-        backdropPath,
-        releaseDate,
-        voteAverage,
-        false
+        overview = overview,
+        poster = posterPath,
+        backdrop = backdropPath,
+        releaseDate = releaseDate,
+        voteAverage = voteAverage,
+        favourite = false
     )
 }

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
 import com.example.wembleymoviesapp.ui.viewModel.FavouritesViewModel
@@ -87,7 +87,7 @@ class FavMoviesFragment : Fragment() {
         }
     }
 
-    private fun updateFavouritesMoviesAdapter(items: List<MovieItem>) {
+    private fun updateFavouritesMoviesAdapter(items: List<MovieModel>) {
         // Put visibility defaultText Gone
         binding?.tvFavouriteDefaultText?.visibility = View.GONE
         binding?.recyclerViewFavouritesMovies?.visibility = View.VISIBLE

@@ -7,12 +7,11 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentPopularMoviesBinding
-import com.example.wembleymoviesapp.domain.MovieItem
+import com.example.wembleymoviesapp.domain.models.MovieModel
 import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
 import com.example.wembleymoviesapp.ui.viewModel.PopularViewModel
@@ -105,7 +104,7 @@ class PopularMoviesFragment : Fragment() {
 
     }
 
-    private fun updatePopularMoviesAdapter(items: List<MovieItem>) {
+    private fun updatePopularMoviesAdapter(items: List<MovieModel>) {
         //Put visibility DefaultText Gone
         binding?.tvPopularDefault?.visibility = View.GONE
         binding?.recyclerViewPopularMovies?.visibility = View.VISIBLE
