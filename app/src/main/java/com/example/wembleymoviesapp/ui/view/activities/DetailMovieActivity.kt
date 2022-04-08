@@ -31,6 +31,8 @@ class DetailMovieActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Find bundle of the intent
         val idMovie = intent.extras?.getInt("ID")
         //Find a movie

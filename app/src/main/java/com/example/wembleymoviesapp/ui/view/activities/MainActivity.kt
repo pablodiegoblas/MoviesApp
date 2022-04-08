@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        //First go to the popular fragment
-        mainViewModel.initialMain()
-
         //Observe the live data for the changes change the fragment
         mainViewModel.navigateTo.observe(this) {
             when (it) {

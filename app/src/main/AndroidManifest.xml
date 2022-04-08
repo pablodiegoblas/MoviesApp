@@ -14,7 +14,8 @@
         android:name=".MoviesApp">
         <activity
             android:name=".ui.view.activities.DetailMovieActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.activities.MainActivity"/>
         <activity
             android:name=".ui.view.activities.MainActivity"
             android:exported="true">

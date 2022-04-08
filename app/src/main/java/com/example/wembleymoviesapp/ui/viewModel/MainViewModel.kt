@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor() : ViewModel(), NavigationBarView.OnIte
 
     val navigateTo = MutableLiveData<Destination>()
 
-    fun initialMain() {
+    init {
         navigateTo.postValue(Destination.Popular)
     }
 
