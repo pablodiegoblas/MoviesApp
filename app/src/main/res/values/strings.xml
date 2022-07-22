@@ -4,4 +4,6 @@
     <string name="populars">Populars</string>
     <string name="textViewValuation">Vote: <b>%1$s</b>/10</string>
     <string name="readMoreButton">READ MORE</string>
+
+    <string name="shared_movie_text">Would you like to come and watch the film %s with me?</string>
 </resources>

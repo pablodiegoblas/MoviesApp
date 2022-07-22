@@ -84,10 +84,11 @@ class PopularMoviesFragment : Fragment() {
         //Charge the adapter
         popularMoviesAdapter = PopularMoviesAdapter(
             {
-                val intent = Intent(context, DetailMovieActivity::class.java).apply {
+                Intent(context, DetailMovieActivity::class.java).apply {
                     putExtra("ID", it.id)
+                }.also {
+                    startActivity(it)
                 }
-                startActivity(intent)
             },
             {
                 popularViewModel.pressFavButton(it)
