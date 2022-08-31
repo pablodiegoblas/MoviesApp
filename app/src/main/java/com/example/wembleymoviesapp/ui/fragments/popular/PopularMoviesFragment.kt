@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.view.fragments
+package com.example.wembleymoviesapp.ui.fragments.popular
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +12,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentPopularMoviesBinding
 import com.example.wembleymoviesapp.domain.models.MovieModel
-import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
+import com.example.wembleymoviesapp.ui.activities.detailMovie.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.PopularMoviesAdapter
-import com.example.wembleymoviesapp.ui.viewModel.PopularViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

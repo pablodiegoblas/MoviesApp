@@ -13,11 +13,11 @@
         android:theme="@style/Theme.WembleyMoviesApp"
         android:name=".MoviesApp">
         <activity
-            android:name=".ui.view.activities.DetailMovieActivity"
+            android:name=".ui.activities.detailMovie.DetailMovieActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.activities.MainActivity"/>
+            android:parentActivityName=".ui.activities.main.MainActivity"/>
         <activity
-            android:name=".ui.view.activities.MainActivity"
+            android:name=".ui.activities.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

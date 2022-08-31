@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.viewModel
+package com.example.wembleymoviesapp.ui.activities.detailMovie
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

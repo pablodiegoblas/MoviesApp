@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.viewModel
+package com.example.wembleymoviesapp.ui.fragments.popular
 
 import android.widget.SearchView
 import androidx.lifecycle.MutableLiveData

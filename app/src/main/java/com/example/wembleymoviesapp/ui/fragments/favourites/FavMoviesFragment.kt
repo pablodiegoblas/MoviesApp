@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.view.fragments
+package com.example.wembleymoviesapp.ui.fragments.favourites
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.wembleymoviesapp.domain.models.MovieModel
-import com.example.wembleymoviesapp.ui.view.activities.DetailMovieActivity
+import com.example.wembleymoviesapp.ui.activities.detailMovie.DetailMovieActivity
 import com.example.wembleymoviesapp.ui.view.adapters.FavMoviesAdapter
-import com.example.wembleymoviesapp.ui.viewModel.FavouritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

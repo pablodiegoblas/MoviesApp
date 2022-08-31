@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.view.activities
+package com.example.wembleymoviesapp.ui.activities.detailMovie
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -10,7 +10,6 @@ import com.example.wembleymoviesapp.BuildConfig
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.wembleymoviesapp.domain.models.MovieModel
-import com.example.wembleymoviesapp.ui.viewModel.DetailMovieViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 

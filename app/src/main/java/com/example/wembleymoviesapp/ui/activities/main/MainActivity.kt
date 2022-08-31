@@ -1,4 +1,4 @@
-package com.example.wembleymoviesapp.ui.view.activities
+package com.example.wembleymoviesapp.ui.activities.main
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.wembleymoviesapp.R
 import com.example.wembleymoviesapp.databinding.ActivityMainBinding
-import com.example.wembleymoviesapp.ui.view.fragments.FavMoviesFragment
-import com.example.wembleymoviesapp.ui.view.fragments.PopularMoviesFragment
+import com.example.wembleymoviesapp.ui.fragments.favourites.FavMoviesFragment
+import com.example.wembleymoviesapp.ui.fragments.popular.PopularMoviesFragment
 import com.example.wembleymoviesapp.ui.viewModel.Destination
 import com.example.wembleymoviesapp.ui.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
