@@ -8,11 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="grey">#adadad</color>
+    <color name="light_grey">#d6d6d6</color>
+    <color name="grey_800_translucent">#563D3D3D</color>
+
+
     <color name="green_dark">#062925</color>
-    <color name="green_normal">#044a42</color>
+    <color name="normal_green">#044a42</color>
     <color name="green_light">#3a9188</color>
     <color name="green_light_2">#b8e1dd</color>
 
+    <!-- Valuations -->
     <color name="red_valuation">#A51515</color>
     <color name="orange_valuation">#BC7000</color>
     <color name="green_valuation">#417307</color>

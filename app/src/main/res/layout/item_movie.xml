@@ -17,7 +17,7 @@
             android:layout_height="@dimen/imageItemHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_wembley" />
+            app:srcCompat="@drawable/ic_movie" />
 
         <TextView
             android:id="@+id/textViewTitleMovie"
@@ -25,47 +25,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Title Movie"
+            android:text="Movie Title"
             android:textAlignment="center"
             android:textSize="@dimen/textSizeH2"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/buttonMore"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewMovie"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginStart="@dimen/spacing2"
-            android:layout_weight="1"
-            android:text="@string/readMoreButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewMovie" />
-
         <ImageView
             android:id="@+id/imageViewShared"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewFavourite"
             app:layout_constraintEnd_toStartOf="@+id/imageViewFavourite"
-            app:layout_constraintStart_toEndOf="@+id/buttonMore"
-            app:layout_constraintTop_toTopOf="@+id/buttonMore"
+            app:layout_constraintTop_toTopOf="@+id/imageViewFavourite"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
-        <com.airbnb.lottie.LottieAnimationView
+        <ImageView
             android:id="@+id/imageViewFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginEnd="@dimen/spacing2"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:src="@drawable/ic_no_favourite_red"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonMore"
-            app:lottie_rawRes="@raw/favourite" />
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

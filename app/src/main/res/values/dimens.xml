@@ -14,8 +14,7 @@
     <dimen name="textSizeH4">24sp</dimen>
 
     <!--Components-->
-    <dimen name="imageDetailWidth">254dp</dimen>
-    <dimen name="imageDetailHeight">177dp</dimen>
+    <dimen name="imageDetailHeight">200dp</dimen>
     <dimen name="BottomNavigationHeight">56dp</dimen>
     <dimen name="imageItemWidth">130dp</dimen>
     <dimen name="imageItemHeight">180dp</dimen>

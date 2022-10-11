@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WembleyMoviesApp</string>
+    <string name="app_name">MyMovies</string>
     <string name="favourites">Favoritas</string>
     <string name="populars">Populares</string>
     <string name="textViewValuation">Votación: <b>%1$s</b>/10</string>
     <string name="readMoreButton">LEER MAS</string>
 
     <string name="shared_movie_text">¿Te gustaría venir a ver conmigo la pelicula %s?</string>
+
+    <string name="select_preferences_title">Elige tus preferencias de peliculas</string>
+    <string name="chip_group_title">Tipos de películas</string>
+    <string name="favourites_movies_error">No hay películas favoritas</string>
+    <string name="popular_movies_error">No se encuentran películas favoritas</string>
+    <string name="save_button">Guardar</string>
+
+    <string name="search_bar_hint">Buscar películas</string>
+    <string name="favorite_search_bar_hint">Tu película favorita</string>
+    <string name="popular_search_bar_hint">Buscar películas</string>
 </resources>

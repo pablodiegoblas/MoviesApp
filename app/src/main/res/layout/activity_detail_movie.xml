@@ -7,56 +7,72 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:padding="@dimen/spacing5">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle.WithNavigationIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_camera" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <ImageView
             android:id="@+id/imageViewBackdrop"
-            android:layout_width="@dimen/imageDetailWidth"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/imageDetailHeight"
-            android:layout_marginTop="@dimen/spacing5"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:src="@tools:sample/avatars" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <TextView
+            android:id="@+id/textViewTitleDetail"
+            style="@style/TypoHeader.H1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing1"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="16dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackdrop"
+            tools:text="Titanic" />
+
+        <TextView
+            android:id="@+id/textViewDescriptionDetail"
+            style="@style/TypoBody.SubHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing3"
-            android:layout_marginEnd="@dimen/spacing1"
-            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBackdrop">
-
-            <TextView
-                android:id="@+id/textViewTitleDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/textSizeH3"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewDescriptionDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing3"
-                android:textAlignment="center" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail"
+            tools:text="Esta es la description de la película.\nLorem ipsum jaula por bandera." />
 
         <TextView
             android:id="@+id/textViewValoration"
+            style="@style/TypoHeader.H3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing3"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            android:layout_marginTop="@dimen/spacing3"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionDetail"
+            tools:text="9.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

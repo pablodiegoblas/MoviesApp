@@ -1,9 +1,19 @@
 <resources>
-    <string name="app_name">WembleyMoviesApp</string>
+    <string name="app_name">MyMovies</string>
     <string name="favourites">Favourites</string>
     <string name="populars">Populars</string>
     <string name="textViewValuation">Vote: <b>%1$s</b>/10</string>
     <string name="readMoreButton">READ MORE</string>
 
     <string name="shared_movie_text">Would you like to come and watch the film %s with me?</string>
+
+    <string name="select_preferences_title">Choose your movies preferences</string>
+    <string name="chip_group_title">Types of films</string>
+    <string name="favourites_movies_error">No Favourites Movies</string>
+    <string name="popular_movies_error">No Popular Movies</string>
+    <string name="save_button">Save</string>
+
+    <string name="search_bar_hint">Search movies</string>
+    <string name="favorite_search_bar_hint">Your favorite movie</string>
+    <string name="popular_search_bar_hint">Search movies</string>
 </resources>
