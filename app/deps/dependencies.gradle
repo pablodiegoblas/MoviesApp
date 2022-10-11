@@ -34,6 +34,5 @@ ext {
 
     roomVersion = "2.4.2"
 
-    preferenceVersion = "1.1.1"
-
+    lottieVersion = "5.0.3"
 }
