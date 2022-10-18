@@ -7,6 +7,7 @@ import com.example.mymoviesapp.R
 import com.example.mymoviesapp.handlers.PreferencesHandler
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Locale
 import javax.inject.Inject
 
 enum class Destination {
@@ -23,6 +24,7 @@ class MainViewModel @Inject constructor(
 
     init {
         navigateTo.postValue(Destination.Popular)
+        preferencesHandler.language = Locale.getDefault().language
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

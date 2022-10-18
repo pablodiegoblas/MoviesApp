@@ -6,9 +6,10 @@ import androidx.preference.PreferenceManager
 
 interface PreferencesHandler {
     var showChooseGenre: Boolean
+    var language: String
 }
 
-class PreferencesHandlerImpl(context: Context): PreferencesHandler {
+class PreferencesHandlerImpl(context: Context) : PreferencesHandler {
     private val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -20,6 +21,7 @@ class PreferencesHandlerImpl(context: Context): PreferencesHandler {
 
     companion object {
         private const val SHOW_CHOOSE_GENRE = "show_choose_genre"
+        private const val SELECTED_LANGUAGE = "selected_language"
     }
 
     override var showChooseGenre: Boolean
@@ -28,4 +30,9 @@ class PreferencesHandlerImpl(context: Context): PreferencesHandler {
             this.edit?.putBoolean(SHOW_CHOOSE_GENRE, value)?.apply()
         }
 
+    override var language: String
+        get() = sharedPreferences.getString(SELECTED_LANGUAGE, "") ?: ""
+        set(value) {
+            this.edit?.putString(SELECTED_LANGUAGE, value)?.apply()
+        }
 }

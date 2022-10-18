@@ -10,7 +10,7 @@ import com.example.mymoviesapp.R
 import com.example.mymoviesapp.databinding.ActivityMainBinding
 import com.example.mymoviesapp.extension.showDialog
 import com.example.mymoviesapp.ui.fragments.favourites.FavMoviesFragment
-import com.example.mymoviesapp.ui.fragments.favourites_genres_on_boarding.PreferencesMoviesFragment
+import com.example.mymoviesapp.ui.fragments.selectionFavourites.PreferencesMoviesDialog
 import com.example.mymoviesapp.ui.fragments.popular.PopularMoviesFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +44,7 @@ class MainActivity() : AppCompatActivity() {
         super.onResume()
 
         if(viewModel.checkShowMoviesPreferences()) {
-            showDialog(PreferencesMoviesFragment.newInstance() {
+            showDialog(PreferencesMoviesDialog.newInstance() {
                 viewModel.loadPopularDestination()
             })
         }

@@ -12,7 +12,6 @@ import com.example.mymoviesapp.R
 import com.example.mymoviesapp.databinding.FragmentFavMoviesBinding
 import com.example.mymoviesapp.domain.models.MovieModel
 import com.example.mymoviesapp.ui.activities.detailMovie.DetailMovieActivity
-import com.example.mymoviesapp.ui.view.adapters.FavMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

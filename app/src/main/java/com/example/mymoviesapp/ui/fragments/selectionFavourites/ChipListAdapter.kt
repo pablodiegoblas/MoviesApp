@@ -1,4 +1,4 @@
-package com.example.mymoviesapp.ui.fragments.favourites_genres_on_boarding
+package com.example.mymoviesapp.ui.fragments.selectionFavourites
 
 import android.graphics.Typeface
 import android.view.LayoutInflater

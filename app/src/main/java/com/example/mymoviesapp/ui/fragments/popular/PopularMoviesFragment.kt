@@ -3,7 +3,6 @@ package com.example.mymoviesapp.ui.fragments.popular
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,9 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mymoviesapp.R
 import com.example.mymoviesapp.databinding.FragmentPopularMoviesBinding
 import com.example.mymoviesapp.domain.models.MovieModel
-import com.example.mymoviesapp.extension.showDialog
 import com.example.mymoviesapp.ui.activities.detailMovie.DetailMovieActivity
-import com.example.mymoviesapp.ui.fragments.favourites_genres_on_boarding.PreferencesMoviesFragment
+import com.example.mymoviesapp.ui.fragments.selectionFavourites.PreferencesMoviesDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +56,7 @@ class PopularMoviesFragment : Fragment() {
     private fun initSearchBar() {
         with(binding) {
             this?.searchBar?.setOnClickAdditionalAction {
-                PreferencesMoviesFragment.newInstance() {
+                PreferencesMoviesDialog.newInstance() {
                     popularViewModel.returnAllPopularMovies()
                 }.show(parentFragmentManager, null)
             }

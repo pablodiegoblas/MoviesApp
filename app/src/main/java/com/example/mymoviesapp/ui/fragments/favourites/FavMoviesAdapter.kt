@@ -1,4 +1,4 @@
-package com.example.mymoviesapp.ui.view.adapters
+package com.example.mymoviesapp.ui.fragments.favourites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

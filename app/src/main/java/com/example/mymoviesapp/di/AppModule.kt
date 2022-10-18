@@ -33,15 +33,15 @@ class AppModule {
         val baseInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(baseInterceptor)
-            .addInterceptor(apiKeyInterceptor)
-            .addInterceptor(languageInterceptor)
-            .build()
+                .addInterceptor(baseInterceptor)
+                .addInterceptor(apiKeyInterceptor)
+                .addInterceptor(languageInterceptor)
+                .build()
 
         return Retrofit.Builder().baseUrl(BuildConfig.ApiBaseUrl)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
     }
 
     // Create API service
@@ -57,8 +57,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, MoviesDatabase::class.java, MOVIES_DATABASE_NAME)
-            .fallbackToDestructiveMigration().build()
+            Room.databaseBuilder(context, MoviesDatabase::class.java, MOVIES_DATABASE_NAME)
+                    .fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

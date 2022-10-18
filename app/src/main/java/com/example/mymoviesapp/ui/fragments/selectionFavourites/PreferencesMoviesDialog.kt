@@ -1,4 +1,4 @@
-package com.example.mymoviesapp.ui.fragments.favourites_genres_on_boarding
+package com.example.mymoviesapp.ui.fragments.selectionFavourites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.example.mymoviesapp.databinding.AlertPreferencesMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PreferencesMoviesFragment: DialogFragment() {
+class PreferencesMoviesDialog: DialogFragment() {
 
     private var binding: AlertPreferencesMoviesBinding? = null
 
@@ -59,7 +59,7 @@ class PreferencesMoviesFragment: DialogFragment() {
     companion object {
         fun newInstance(
             onSave: () -> Unit
-        ) = PreferencesMoviesFragment().apply {
+        ) = PreferencesMoviesDialog().apply {
             this.onSave = onSave
         }
     }
