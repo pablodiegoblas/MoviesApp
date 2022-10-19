@@ -9,6 +9,14 @@ data class MovieModel(
     val releaseDate: String,
     val valuation: Double?,
     val genreIds: List<Int>?,
-    val favourite: Boolean
+    val favourite: Boolean,
+    val state: MovieState? = MovieState.NotSelected
 )
+
+enum class MovieState {
+    See,
+    Pending,
+    NotSee,
+    NotSelected
+}
 

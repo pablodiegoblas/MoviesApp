@@ -7,7 +7,7 @@ import com.example.mymoviesapp.data.database.dao.MoviesDao
 import com.example.mymoviesapp.data.database.entities.GenreEntity
 import com.example.mymoviesapp.data.database.entities.MovieEntity
 
-@Database(entities = [MovieEntity::class, GenreEntity::class], version = 4)
+@Database(entities = [MovieEntity::class, GenreEntity::class], version = 5)
 abstract class MoviesDatabase: RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao
