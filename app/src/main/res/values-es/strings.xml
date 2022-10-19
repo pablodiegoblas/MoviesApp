@@ -19,5 +19,5 @@
     <string name="popular_search_bar_hint">Buscar películas</string>
     <string name="yes_chip">Vista</string>
     <string name="peding_chip">Pendiente de ver</string>
-    <string name="not_chip">No ver</string>
+    <string name="not_chip">No recomendada</string>
 </resources>

@@ -18,5 +18,5 @@
     <string name="popular_search_bar_hint">Search movies</string>
     <string name="yes_chip">Movie already seen</string>
     <string name="peding_chip">Pending to see</string>
-    <string name="not_chip">Do not see</string>
+    <string name="not_chip">Not recommended</string>
 </resources>

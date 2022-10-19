@@ -13,7 +13,7 @@ interface MoviesRepository {
 
     suspend fun getAllFavouriteMovies(): List<MovieModel>
 
-    suspend fun updateFavourite(movieModel: MovieModel)
+    suspend fun updateMovie(movieModel: MovieModel)
 
     suspend fun getMovieDatabase(id: Int) : MovieModel
 

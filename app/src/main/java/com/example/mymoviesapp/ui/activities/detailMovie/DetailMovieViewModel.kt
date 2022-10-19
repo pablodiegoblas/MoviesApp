@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymoviesapp.data.MoviesRepositoryImpl
 import com.example.mymoviesapp.domain.models.MovieModel
+import com.example.mymoviesapp.domain.models.MovieState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,4 +24,14 @@ class DetailMovieViewModel @Inject constructor(
         }
     }
 
+    fun changeStateMovie(state: MovieState) {
+        val updatedMovie = detailMovieModel.value?.copy(state = state)
+        updatedMovie?.let {
+            detailMovieModel.postValue(it)
+            viewModelScope.launch {
+                moviesRepositoryImpl.updateMovie(it)
+            }
+        }
+
+    }
 }

@@ -42,8 +42,8 @@ class MoviesRepositoryImpl @Inject constructor(
         return dbDataSource.getAllFavouritesMovies()
     }
 
-    override suspend fun updateFavourite(movieModel: MovieModel) {
-        dbDataSource.updateFavourite(movieModel)
+    override suspend fun updateMovie(movieModel: MovieModel) {
+        dbDataSource.updateMovie(movieModel)
     }
 
     override suspend fun getMovieDatabase(id: Int): MovieModel {

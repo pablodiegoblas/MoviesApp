@@ -29,7 +29,7 @@ class FavouritesViewModel @Inject constructor(
         val attributeFavourite: Boolean = movieModelItem.favourite.not()
 
         viewModelScope.launch {
-            moviesRepositoryImpl.updateFavourite((movieModelItem.copy(favourite = attributeFavourite)))
+            moviesRepositoryImpl.updateMovie((movieModelItem.copy(favourite = attributeFavourite)))
 
             returnFavouritesMovies()
         }

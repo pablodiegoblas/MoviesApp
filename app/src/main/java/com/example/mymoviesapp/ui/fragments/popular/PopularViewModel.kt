@@ -35,7 +35,7 @@ class PopularViewModel @Inject constructor(
         val attributeFavourite = movieModelItem.favourite.not()
 
         viewModelScope.launch {
-            moviesRepository.updateFavourite(movieModelItem.copy(favourite = attributeFavourite))
+            moviesRepository.updateMovie(movieModelItem.copy(favourite = attributeFavourite))
 
             //No return all the popular films because if I am looking for a film I want the favourite image to change but I don't want the adapter to change to the popular films but to keep showing the same films.
             changeListView(movieModelItem.id, attributeFavourite)

@@ -22,7 +22,7 @@ class MoviesDbDataSource @Inject constructor(
         moviesDao.insertAll(movieModels.map { it.toEntity() })
     }
 
-    suspend fun updateFavourite(movieModel: MovieModel) {
+    suspend fun updateMovie(movieModel: MovieModel) {
         moviesDao.updateMovie(movieModel.toEntity())
     }
 
