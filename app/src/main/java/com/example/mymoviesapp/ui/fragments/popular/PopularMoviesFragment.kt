@@ -61,6 +61,7 @@ class PopularMoviesFragment : Fragment() {
                 }.show(parentFragmentManager, null)
             }
             this?.searchBar?.onAfterTextChanged { popularViewModel.onQueryTextSubmit(it) }
+            this?.searchBar?.closeIconOnClickListener { popularViewModel.returnAllPopularMovies() }
         }
     }
 

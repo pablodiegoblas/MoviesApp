@@ -3,7 +3,6 @@ package com.example.mymoviesapp.ui.commons.custom_views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import androidx.annotation.DrawableRes
 import com.example.mymoviesapp.databinding.SearchBarBinding
 import com.example.mymoviesapp.extension.onAfterTextChanged
 import com.example.mymoviesapp.extension.viewBinding
@@ -25,11 +24,17 @@ class SearchBar @JvmOverloads constructor(
 
     fun onAfterTextChanged(afterChanged: (String) -> Unit) {
         binding.etxSearch.onAfterTextChanged { afterChanged(it) }
-        binding.etxSearch
     }
 
     fun setOnFocusChangeListener(changeFocus: (Boolean) -> Unit) {
         binding.etxSearch.setOnFocusChangeListener { _, hasFocus -> changeFocus(hasFocus) }
+    }
+
+    fun closeIconOnClickListener(click: () -> Unit) {
+        binding.ilySearch.setEndIconOnClickListener {
+            binding.etxSearch.setText("")
+            click()
+        }
     }
 
     fun clear(){
