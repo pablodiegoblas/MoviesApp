@@ -42,6 +42,7 @@ class PreferencesMoviesDialog: DialogFragment() {
                 nextButton.setOnClickListener {
                     viewModel.saveFavoritesGenres()
                     dismiss()
+                    onSave()
                 }
                 toolbar.setNavigationOnClickListener { dismiss() }
                 chipList.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
