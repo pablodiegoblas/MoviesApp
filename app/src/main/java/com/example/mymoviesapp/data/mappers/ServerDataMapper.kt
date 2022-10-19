@@ -10,7 +10,7 @@ import com.example.mymoviesapp.domain.models.MovieModel
 fun ApiMovie.toDomainModel() =
     MovieModel(
         id = id,
-        title = originalTitle,
+        title = originalTitle.orEmpty(),
         overview = overview,
         poster = posterPath,
         backdrop = backdropPath,

@@ -6,7 +6,7 @@ data class MovieModel(
     val overview: String,
     val poster: String?,
     val backdrop: String?,
-    val releaseDate: String,
+    val releaseDate: String?,
     val valuation: Double?,
     val genreIds: List<Int>?,
     val favourite: Boolean,
