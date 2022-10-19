@@ -2,7 +2,7 @@
     <string name="app_name">MyMovies</string>
     <string name="favourites">Favourites</string>
     <string name="populars">Populars</string>
-    <string name="textViewValuation">Vote: <b>%1$s</b>/10</string>
+    <string name="textViewValuation">Valuation: <b>%1$s</b>/10</string>
     <string name="readMoreButton">READ MORE</string>
 
     <string name="shared_movie_text">Would you like to come and watch the film %s with me?</string>
@@ -16,4 +16,7 @@
     <string name="search_bar_hint">Search movies</string>
     <string name="favorite_search_bar_hint">Your favorite movie</string>
     <string name="popular_search_bar_hint">Search movies</string>
+    <string name="yes_chip">Movie already seen</string>
+    <string name="peding_chip">Pending to see</string>
+    <string name="not_chip">Do not see</string>
 </resources>

@@ -40,6 +40,25 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="YesChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/yes_chip_background_tint</item>
+        <item name="fontFamily">@font/speedee_regular</item>
+        <item name="minWidth">60dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="PendingChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/pending_chip_background_tint</item>
+        <item name="fontFamily">@font/speedee_regular</item>
+        <item name="minWidth">60dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="NotChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/no_chip_background_tint</item>
+        <item name="fontFamily">@font/speedee_regular</item>
+        <item name="minWidth">60dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Dialog -->
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:backgroundDimEnabled">false</item>
