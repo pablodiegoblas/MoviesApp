@@ -1,7 +1,9 @@
 package com.example.mymoviesapp.domain
 
 import com.example.mymoviesapp.domain.models.GenreMovie
+import com.example.mymoviesapp.domain.models.GuestSession
 import com.example.mymoviesapp.domain.models.MovieModel
+import com.example.mymoviesapp.domain.models.RatingResponse
 
 interface MoviesRepository {
 
@@ -20,4 +22,8 @@ interface MoviesRepository {
     suspend fun getSelectedGenres(): List<GenreMovie>
 
     suspend fun insertGenres(genres: List<GenreMovie>)
+
+    suspend fun getSessionId(): GuestSession
+
+    suspend fun ratingMovie(movie: String, valuation: Long): RatingResponse
 }

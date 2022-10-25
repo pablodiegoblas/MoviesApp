@@ -11,6 +11,7 @@ import com.example.mymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.mymoviesapp.domain.models.MovieModel
 import com.example.mymoviesapp.domain.models.MovieState
 import com.example.mymoviesapp.extension.loadImage
+import com.example.mymoviesapp.ui.fragments.valuation.ValuationMovieDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,6 +59,8 @@ class DetailMovieActivity : AppCompatActivity() {
                 viewModel.changeStateMovie(state)
             }
         }
+
+        binding?.yesChip?.setOnClickListener { ValuationMovieDialog.newInstance() }
     }
 
     private fun showErrorDatabase() {

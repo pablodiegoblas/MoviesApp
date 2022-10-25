@@ -1,8 +1,12 @@
 package com.example.mymoviesapp.data.api.APIServices
 
 import com.example.mymoviesapp.data.server.ApiGenresMovies
+import com.example.mymoviesapp.data.server.ApiGuestSession
+import com.example.mymoviesapp.data.server.ApiRatingResponse
 import com.example.mymoviesapp.data.server.ResponseModel
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesService {
@@ -16,4 +20,9 @@ interface MoviesService {
     @GET("genre/movie/list")
     suspend fun getGenresMoviesList(): ApiGenresMovies
 
+    @GET("authentication/guest_session/new")
+    suspend fun guestSessionNew(): ApiGuestSession
+
+    @POST("movie/{movieId}/rating")
+    suspend fun ratingMovie(@Path("movieId") movieId: String, @Query("value") valuationRating: Long): ApiRatingResponse
 }

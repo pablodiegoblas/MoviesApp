@@ -1,11 +1,7 @@
 package com.example.mymoviesapp.data.mappers
 
-import com.example.mymoviesapp.data.server.ApiGenreMovie
-import com.example.mymoviesapp.data.server.ApiGenresMovies
-import com.example.mymoviesapp.data.server.ApiMovie
-import com.example.mymoviesapp.domain.models.GenreMovie
-import com.example.mymoviesapp.domain.models.GenresMovies
-import com.example.mymoviesapp.domain.models.MovieModel
+import com.example.mymoviesapp.data.server.*
+import com.example.mymoviesapp.domain.models.*
 
 fun ApiMovie.toDomainModel() =
     MovieModel(
@@ -29,4 +25,17 @@ fun ApiGenreMovie.toDomainModel() =
         id = id,
         name = name,
         selected = false
+    )
+
+fun ApiGuestSession.toDomainModel() =
+    GuestSession(
+        success = success,
+        guestSessionId = guestSessionId,
+        expiresAt = expiresAt
+    )
+
+fun ApiRatingResponse.toDomainModel() =
+    RatingResponse(
+        success = success,
+        statusMessage = message
     )

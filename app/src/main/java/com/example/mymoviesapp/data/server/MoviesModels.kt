@@ -30,3 +30,14 @@ data class ApiGenreMovie(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String
 )
+
+data class ApiGuestSession(
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("guest_session_id") val guestSessionId: String?,
+    @SerializedName("expires_at") val expiresAt: String?
+)
+
+data class ApiRatingResponse(
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("status_message") val message: String?
+)

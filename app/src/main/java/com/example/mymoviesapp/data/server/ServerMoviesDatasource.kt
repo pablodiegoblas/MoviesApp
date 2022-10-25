@@ -3,6 +3,7 @@ package com.example.mymoviesapp.data.server
 import com.example.mymoviesapp.data.api.APIServices.MoviesService
 import com.example.mymoviesapp.data.mappers.toDomainModel
 import com.example.mymoviesapp.domain.models.GenreMovie
+import com.example.mymoviesapp.domain.models.GuestSession
 import com.example.mymoviesapp.domain.models.MovieModel
 import javax.inject.Inject
 
@@ -29,4 +30,10 @@ class ServerMoviesDatasource @Inject constructor(
     suspend fun getGenreMovies(): List<GenreMovie> {
         return moviesService.getGenresMoviesList().toDomainModel().genres
     }
+
+    suspend fun getGuestSessionId(): GuestSession =
+        moviesService.guestSessionNew().toDomainModel()
+
+    suspend fun ratingMovie(movie: String, valuation: Long): ApiRatingResponse =
+        moviesService.ratingMovie(movie, valuation)
 }

@@ -2,10 +2,13 @@ package com.example.mymoviesapp.data
 
 import com.example.mymoviesapp.data.database.MoviesDbDataSource
 import com.example.mymoviesapp.data.mappers.mapListFavourites
+import com.example.mymoviesapp.data.mappers.toDomainModel
 import com.example.mymoviesapp.data.server.ServerMoviesDatasource
-import com.example.mymoviesapp.domain.models.MovieModel
 import com.example.mymoviesapp.domain.MoviesRepository
 import com.example.mymoviesapp.domain.models.GenreMovie
+import com.example.mymoviesapp.domain.models.GuestSession
+import com.example.mymoviesapp.domain.models.MovieModel
+import com.example.mymoviesapp.domain.models.RatingResponse
 import com.example.mymoviesapp.extension.sortedByGenres
 import javax.inject.Inject
 
@@ -58,4 +61,10 @@ class MoviesRepositoryImpl @Inject constructor(
         dbDataSource.deleteGenres()
         dbDataSource.insertSelectedGenres(genres = genres)
     }
+
+    override suspend fun getSessionId(): GuestSession =
+        serverMoviesProvider.getGuestSessionId()
+
+    override suspend fun ratingMovie(movie: String, valuation: Long): RatingResponse =
+        serverMoviesProvider.ratingMovie(movie, valuation).toDomainModel()
 }
