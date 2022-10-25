@@ -57,6 +57,11 @@ class PreferencesMoviesDialog: DialogFragment() {
         viewModel.getMovieGenres()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     companion object {
         fun newInstance(
             onSave: () -> Unit
