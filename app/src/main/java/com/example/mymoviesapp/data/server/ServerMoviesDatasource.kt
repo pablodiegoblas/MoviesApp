@@ -34,6 +34,6 @@ class ServerMoviesDatasource @Inject constructor(
     suspend fun getGuestSessionId(): GuestSession =
         moviesService.guestSessionNew().toDomainModel()
 
-    suspend fun ratingMovie(movie: String, valuation: Long): ApiRatingResponse =
-        moviesService.ratingMovie(movie, valuation)
+    suspend fun ratingMovie(movie: Int, valuation: Long, guestSessionId: String): ApiRatingResponse =
+        moviesService.ratingMovie(movie, valuation, guestSessionId)
 }

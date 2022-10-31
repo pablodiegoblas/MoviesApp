@@ -20,4 +20,7 @@
     <string name="yes_chip">Vista</string>
     <string name="peding_chip">Pendiente de ver</string>
     <string name="not_chip">No recomendada</string>
+
+    <string name="rating_button">Valorar</string>
+    <string name="rating_title">Valora la pelicula que has marcado como vista</string>
 </resources>

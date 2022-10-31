@@ -51,7 +51,9 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun setListeners() {
         binding?.yesChip?.setOnClickListener {
             viewModel.changeStateMovie(MovieState.See)
-            showDialog(ValuationMovieDialog.newInstance())
+            viewModel.detailMovieModel.value?.id?.let {
+                showDialog(ValuationMovieDialog.newInstance(it))
+            }
         }
         binding?.pendingChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
         binding?.notChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.NotSee) }

@@ -19,4 +19,8 @@
     <string name="yes_chip">Movie already seen</string>
     <string name="peding_chip">Pending to see</string>
     <string name="not_chip">Not recommended</string>
+
+    <string name="rating_button">Rate</string>
+    <string name="rating_title">Rate movie that you see</string>
+    <string name="rating_hint_edit_text">Introduce un numero entre 0.5 y 10</string>
 </resources>

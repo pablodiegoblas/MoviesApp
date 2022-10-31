@@ -6,26 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.valuation.ValuationMovieDialog">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarStyle.WithCloseIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         style="@style/TypoHeader.H2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:text="Valora la pelicula que has marcado como vista"
+        android:layout_marginTop="4dp"
+        android:text="@string/rating_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etx_search"
+        android:id="@+id/rate_number_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@android:color/transparent"
+        android:background="@color/green_light_2"
         android:fontFamily="@font/speedee_regular"
-        android:hint="Introduce un numero entre 0.5 y 10"
+        android:hint="@string/rating_hint_edit_text"
         android:inputType="numberDecimal"
+        android:padding="10dp"
         android:paddingTop="8dp"
         android:textAlignment="center"
         android:textColor="@color/grey"
@@ -33,4 +44,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/rateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/rating_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate_number_input" />
 </androidx.constraintlayout.widget.ConstraintLayout>

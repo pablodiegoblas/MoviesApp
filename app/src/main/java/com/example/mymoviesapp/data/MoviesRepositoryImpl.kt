@@ -65,6 +65,6 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getSessionId(): GuestSession =
         serverMoviesProvider.getGuestSessionId()
 
-    override suspend fun ratingMovie(movie: String, valuation: Long): RatingResponse =
-        serverMoviesProvider.ratingMovie(movie, valuation).toDomainModel()
+    override suspend fun ratingMovie(movie: Int, valuation: Long, guestSessionId: String): RatingResponse =
+        serverMoviesProvider.ratingMovie(movie, valuation, guestSessionId).toDomainModel()
 }

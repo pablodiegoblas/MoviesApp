@@ -24,5 +24,5 @@ interface MoviesService {
     suspend fun guestSessionNew(): ApiGuestSession
 
     @POST("movie/{movieId}/rating")
-    suspend fun ratingMovie(@Path("movieId") movieId: String, @Query("value") valuationRating: Long): ApiRatingResponse
+    suspend fun ratingMovie(@Path("movieId") movieId: Int, @Query("value") valuationRating: Long, @Query("guest_session_id") guestSessionId: String): ApiRatingResponse
 }
