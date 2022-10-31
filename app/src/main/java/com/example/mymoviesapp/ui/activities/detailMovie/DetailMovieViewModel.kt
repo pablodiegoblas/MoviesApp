@@ -27,11 +27,10 @@ class DetailMovieViewModel @Inject constructor(
     fun changeStateMovie(state: MovieState) {
         val updatedMovie = detailMovieModel.value?.copy(state = state)
         updatedMovie?.let {
-            detailMovieModel.postValue(it)
             viewModelScope.launch {
+                detailMovieModel.postValue(it)
                 moviesRepositoryImpl.updateMovie(it)
             }
         }
-
     }
 }

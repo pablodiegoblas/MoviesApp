@@ -11,6 +11,7 @@ import com.example.mymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.mymoviesapp.domain.models.MovieModel
 import com.example.mymoviesapp.domain.models.MovieState
 import com.example.mymoviesapp.extension.loadImage
+import com.example.mymoviesapp.extension.showDialog
 import com.example.mymoviesapp.ui.fragments.valuation.ValuationMovieDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,19 +49,12 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        binding?.stateChipGroup?.forEach {
-            it.setOnClickListener { chip ->
-                val state = when(chip) {
-                    binding?.yesChip -> MovieState.See
-                    binding?.pendingChip -> MovieState.Pending
-                    binding?.notChip -> MovieState.NotSee
-                    else -> MovieState.NotSelected
-                }
-                viewModel.changeStateMovie(state)
-            }
+        binding?.yesChip?.setOnClickListener {
+            viewModel.changeStateMovie(MovieState.See)
+            showDialog(ValuationMovieDialog.newInstance())
         }
-
-        binding?.yesChip?.setOnClickListener { ValuationMovieDialog.newInstance() }
+        binding?.pendingChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
+        binding?.notChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.NotSee) }
     }
 
     private fun showErrorDatabase() {
