@@ -39,28 +39,21 @@
         android:layout_marginVertical="20dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
         app:layout_constraintStart_toStartOf="@+id/tvMoviesPreferencesTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvMoviesPreferencesTitle"
         tools:itemCount="1"
         tools:listitem="@layout/filter_chip_item" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
+    <Button
+        android:id="@+id/next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/save_button"
+        android:theme="@style/MovieButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <Button
-            android:id="@+id/next_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save_button"
-            android:theme="@style/MovieButton"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

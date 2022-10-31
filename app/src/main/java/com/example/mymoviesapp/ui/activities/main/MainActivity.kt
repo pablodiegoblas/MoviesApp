@@ -38,11 +38,6 @@ class MainActivity() : AppCompatActivity() {
         //Set Listeners of this view
         setListeners()
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         if(viewModel.checkShowMoviesPreferences()) {
             showDialog(PreferencesMoviesDialog.newInstance() {
                 viewModel.loadPopularDestination()
