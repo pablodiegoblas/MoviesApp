@@ -25,7 +25,7 @@ class ValuationMovieDialog : DialogFragment() {
         }
     }
 
-    private val viewModel: ValuationMovieDialogViewModel by viewModels()
+    private val viewModel: ValuationMovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

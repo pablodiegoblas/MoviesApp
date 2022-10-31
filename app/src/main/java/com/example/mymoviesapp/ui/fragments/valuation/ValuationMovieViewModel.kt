@@ -12,7 +12,7 @@ const val minRate = 0.5
 const val maxRate = 10
 
 @HiltViewModel
-class ValuationMovieDialogViewModel @Inject constructor(
+class ValuationMovieViewModel @Inject constructor(
     private val moviesRepository: MoviesRepositoryImpl,
     private val preferencesHandler: PreferencesHandler
 ) : ViewModel() {
