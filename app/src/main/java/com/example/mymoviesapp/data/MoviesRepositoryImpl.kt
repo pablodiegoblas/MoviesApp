@@ -1,5 +1,6 @@
 package com.example.mymoviesapp.data
 
+import com.example.mymoviesapp.data.api.interceptors.ApiKeyQuery
 import com.example.mymoviesapp.data.database.MoviesDbDataSource
 import com.example.mymoviesapp.data.mappers.mapListFavourites
 import com.example.mymoviesapp.data.mappers.toDomainModel
@@ -66,5 +67,5 @@ class MoviesRepositoryImpl @Inject constructor(
         serverMoviesProvider.getGuestSessionId()
 
     override suspend fun ratingMovie(movie: Int, valuation: Long, guestSessionId: String): RatingResponse =
-        serverMoviesProvider.ratingMovie(movie, valuation, guestSessionId).toDomainModel()
+        serverMoviesProvider.ratingMovie(movie, ApiKeyQuery.fromApiKey().value, valuation, guestSessionId).toDomainModel()
 }
