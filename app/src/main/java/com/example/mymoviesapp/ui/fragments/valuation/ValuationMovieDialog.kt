@@ -18,12 +18,12 @@ class ValuationMovieDialog : DialogFragment() {
 
     private var movieId: MovieModel? = null
 
-    private lateinit var onSuccess: (String) -> Unit
+    private lateinit var onSuccess: (Double) -> Unit
 
     companion object {
         fun newInstance(
             movie: MovieModel,
-            onSuccess: (String) -> Unit
+            onSuccess: (Double) -> Unit
         ) = ValuationMovieDialog().apply {
             this.movieId = movie
             this.onSuccess = onSuccess

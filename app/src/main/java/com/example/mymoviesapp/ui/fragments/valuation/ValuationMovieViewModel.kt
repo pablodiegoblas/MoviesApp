@@ -18,7 +18,7 @@ class ValuationMovieViewModel @Inject constructor(
     private val preferencesHandler: PreferencesHandler
 ) : ViewModel() {
 
-    fun rateMovie(movie: MovieModel, rateNumber: String, onSuccess: (String) -> Unit) {
+    fun rateMovie(movie: MovieModel, rateNumber: String, onSuccess: (Double) -> Unit) {
         if (rateNumber.toDouble() in minRate..maxRate) {
             viewModelScope.launch {
                 moviesRepository.ratingMovie(
@@ -26,7 +26,7 @@ class ValuationMovieViewModel @Inject constructor(
                     valuation = rateNumber.toDouble(),
                     guestSessionId = preferencesHandler.guestSessionId,
                 )
-                onSuccess(rateNumber)
+                onSuccess(rateNumber.toDouble())
             }
         }
 

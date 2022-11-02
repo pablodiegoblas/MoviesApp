@@ -54,8 +54,8 @@ class DetailMovieActivity : AppCompatActivity() {
                 yesChip.setOnClickListener {
                     viewModel.changeStateMovie(MovieState.See)
                     viewModel.detailMovieModel.value?.let { movie ->
-                        showDialog(ValuationMovieDialog.newInstance(movie) {
-                            viewModel.evaluateMovie(it)
+                        showDialog(ValuationMovieDialog.newInstance(movie) { valuation ->
+                            viewModel.evaluateMovie(valuation)
                         })
                     }
                 }

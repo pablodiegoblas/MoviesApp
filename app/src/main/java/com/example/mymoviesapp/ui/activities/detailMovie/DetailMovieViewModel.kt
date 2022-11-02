@@ -24,8 +24,8 @@ class DetailMovieViewModel @Inject constructor(
         }
     }
 
-    fun evaluateMovie(valuation: String) {
-        val updatedMovie = detailMovieModel.value?.copy(personalValuation = valuation.toDouble())
+    fun evaluateMovie(valuation: Double) {
+        val updatedMovie = detailMovieModel.value?.copy(personalValuation = valuation)
 
         updatedMovie?.let {
             viewModelScope.launch {
