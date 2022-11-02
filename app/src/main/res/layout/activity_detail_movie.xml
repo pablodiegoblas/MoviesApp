@@ -101,33 +101,40 @@
             android:id="@+id/stateChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewMyValuation">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/yesChip"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/YesChipStyle"
-                android:text="@string/yes_chip" />
+                android:orientation="vertical" >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/pendingChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                style="@style/PendingChipStyle"
-                android:text="@string/peding_chip" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/yesChip"
+                    style="@style/YesChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes_chip" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/notChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/NotChipStyle"
-                android:text="@string/not_chip" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/pendingChip"
+                    style="@style/PendingChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/peding_chip" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/notChip"
+                    style="@style/NotChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_chip" />
+            </LinearLayout>
+
         </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
