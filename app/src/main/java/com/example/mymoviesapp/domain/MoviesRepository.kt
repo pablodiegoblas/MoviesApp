@@ -25,5 +25,5 @@ interface MoviesRepository {
 
     suspend fun getSessionId(): GuestSession
 
-    suspend fun ratingMovie(movie: MovieModel, valuation: Long, guessSessionId: String): RatingResponse
+    suspend fun ratingMovie(movie: MovieModel, valuation: Double, guessSessionId: String): RatingResponse
 }

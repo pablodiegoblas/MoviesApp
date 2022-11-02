@@ -24,6 +24,17 @@ class DetailMovieViewModel @Inject constructor(
         }
     }
 
+    fun evaluateMovie(valuation: String) {
+        val updatedMovie = detailMovieModel.value?.copy(personalValuation = valuation.toDouble())
+
+        updatedMovie?.let {
+            viewModelScope.launch {
+                detailMovieModel.postValue(it)
+            }
+        }
+
+    }
+
     fun changeStateMovie(state: MovieState) {
         var updatedMovie = detailMovieModel.value?.copy(state = state)
         if (state != MovieState.See) updatedMovie = updatedMovie?.copy(personalValuation = null)

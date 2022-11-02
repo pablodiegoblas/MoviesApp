@@ -18,14 +18,15 @@ class ValuationMovieViewModel @Inject constructor(
     private val preferencesHandler: PreferencesHandler
 ) : ViewModel() {
 
-    fun rateMovie(movie: MovieModel, rateNumber: Double) {
-        if (rateNumber in minRate..maxRate) {
+    fun rateMovie(movie: MovieModel, rateNumber: String, onSuccess: (String) -> Unit) {
+        if (rateNumber.toDouble() in minRate..maxRate) {
             viewModelScope.launch {
                 moviesRepository.ratingMovie(
                     movie = movie,
-                    valuation = rateNumber.toLong(),
-                    guestSessionId = preferencesHandler.guestSessionId
+                    valuation = rateNumber.toDouble(),
+                    guestSessionId = preferencesHandler.guestSessionId,
                 )
+                onSuccess(rateNumber)
             }
         }
 

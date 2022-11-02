@@ -35,7 +35,7 @@ class ServerMoviesDatasource @Inject constructor(
     suspend fun getGuestSessionId(): GuestSession =
         moviesService.guestSessionNew().toDomainModel()
 
-    suspend fun ratingMovie(movie: Int, apiKey: String, valuation: Long, guestSessionId: String): RatingResponse =
+    suspend fun ratingMovie(movie: Int, apiKey: String, valuation: Double, guestSessionId: String): RatingResponse =
         moviesService.ratingMovie(
             movieId = movie,
             api_key = apiKey,

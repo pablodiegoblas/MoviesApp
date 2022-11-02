@@ -43,5 +43,5 @@ data class ApiRatingResponse(
 )
 
 data class ValuationValue(
-    @SerializedName("value") val valuationValue: Long
+    @SerializedName("value") val valuationValue: Double
 )

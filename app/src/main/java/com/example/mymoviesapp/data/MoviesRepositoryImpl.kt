@@ -66,10 +66,10 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getSessionId(): GuestSession =
         serverMoviesProvider.getGuestSessionId()
 
-    override suspend fun ratingMovie(movie: MovieModel, valuation: Long, guestSessionId: String): RatingResponse {
+    override suspend fun ratingMovie(movie: MovieModel, valuation: Double, guestSessionId: String): RatingResponse {
         val response = serverMoviesProvider.ratingMovie(movie.id, ApiKeyQuery.fromApiKey().value, valuation, guestSessionId)
 
-        dbDataSource.updateMovie(movieModel = movie.copy(personalValuation = valuation.toDouble()))
+        dbDataSource.updateMovie(movieModel = movie.copy(personalValuation = valuation))
 
         return response
     }

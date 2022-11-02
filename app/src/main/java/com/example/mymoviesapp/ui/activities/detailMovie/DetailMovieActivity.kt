@@ -53,8 +53,10 @@ class DetailMovieActivity : AppCompatActivity() {
             with(it) {
                 yesChip.setOnClickListener {
                     viewModel.changeStateMovie(MovieState.See)
-                    viewModel.detailMovieModel.value?.let {
-                        showDialog(ValuationMovieDialog.newInstance(it))
+                    viewModel.detailMovieModel.value?.let { movie ->
+                        showDialog(ValuationMovieDialog.newInstance(movie) {
+                            viewModel.evaluateMovie(it)
+                        })
                     }
                 }
                 pendingChip.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
