@@ -15,6 +15,7 @@ fun MovieEntity.toDomainModel(): MovieModel =
         backdrop = backdrop,
         releaseDate = releaseDate,
         valuation = voteAverage,
+        personalValuation = personalValuation,
         favourite = favourite,
         genreIds = null,
         state = movieState.toDomainModel()
@@ -37,6 +38,7 @@ fun MovieModel.toEntity() : MovieEntity =
         backdrop = backdrop,
         releaseDate = releaseDate.orEmpty(),
         voteAverage = valuation,
+        personalValuation = personalValuation,
         favourite = favourite,
         movieState = state.toEntity()
     )

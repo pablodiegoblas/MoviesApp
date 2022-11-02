@@ -14,6 +14,7 @@ data class MovieEntity(
     @ColumnInfo(name = "backdrop") val backdrop: String?,
     @ColumnInfo(name = "releaseDate") val releaseDate: String,
     @ColumnInfo(name = "voteAverage") val voteAverage: Double?,
+    @ColumnInfo(name = "personalValuation") val personalValuation: Double?,
     @ColumnInfo(name = "favourite") val favourite: Boolean,
     @ColumnInfo(name = "state") val movieState: Int? = 0
 )

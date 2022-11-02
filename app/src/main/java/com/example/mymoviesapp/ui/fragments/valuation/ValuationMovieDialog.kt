@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.mymoviesapp.R
 import com.example.mymoviesapp.databinding.FragmentValuationMovieDialogBinding
+import com.example.mymoviesapp.domain.models.MovieModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,11 +16,11 @@ class ValuationMovieDialog : DialogFragment() {
 
     private var binding: FragmentValuationMovieDialogBinding? = null
 
-    private var movieId: Int? = null
+    private var movieId: MovieModel? = null
 
     companion object {
         fun newInstance(
-            movieId: Int
+            movieId: MovieModel
         ) = ValuationMovieDialog().apply {
             this.movieId = movieId
         }

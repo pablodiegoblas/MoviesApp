@@ -40,7 +40,8 @@
         android:paddingTop="8dp"
         android:textAlignment="center"
         android:textColor="@color/grey"
-        android:textSize="14sp"
+        android:focusable="true"
+        style="@style/TypoBody.SubHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

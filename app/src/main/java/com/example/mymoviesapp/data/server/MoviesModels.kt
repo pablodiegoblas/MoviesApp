@@ -41,3 +41,7 @@ data class ApiRatingResponse(
     @SerializedName("success") val success: Boolean,
     @SerializedName("status_message") val message: String?
 )
+
+data class ValuationValue(
+    @SerializedName("value") val valuationValue: Long
+)

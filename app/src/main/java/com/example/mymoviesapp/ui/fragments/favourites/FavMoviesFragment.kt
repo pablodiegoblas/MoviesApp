@@ -45,6 +45,11 @@ class FavMoviesFragment : Fragment() {
         favouritesViewModel.returnFavouritesMovies()
     }
 
+    override fun onResume() {
+        super.onResume()
+        favouritesViewModel.returnFavouritesMovies()
+    }
+
     private fun initSearchBar() {
         with(binding) {
             this?.searchBar?.showAdditionalAction(false)

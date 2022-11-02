@@ -8,6 +8,7 @@ data class MovieModel(
     val backdrop: String?,
     val releaseDate: String?,
     val valuation: Double?,
+    val personalValuation: Double?,
     val genreIds: List<Int>?,
     val favourite: Boolean,
     val state: MovieState? = MovieState.NotSelected

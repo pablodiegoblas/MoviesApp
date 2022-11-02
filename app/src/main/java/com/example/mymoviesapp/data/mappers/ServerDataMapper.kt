@@ -12,6 +12,7 @@ fun ApiMovie.toDomainModel() =
         backdrop = backdropPath,
         releaseDate = releaseDate,
         valuation = voteAverage,
+        personalValuation = null,
         favourite = false,
         genreIds = genreIds
     )

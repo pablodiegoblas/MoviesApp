@@ -5,13 +5,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.forEach
 import com.example.mymoviesapp.R
 import com.example.mymoviesapp.databinding.ActivityDetailMovieBinding
 import com.example.mymoviesapp.domain.models.MovieModel
 import com.example.mymoviesapp.domain.models.MovieState
 import com.example.mymoviesapp.extension.loadImage
 import com.example.mymoviesapp.extension.showDialog
+import com.example.mymoviesapp.extension.visible
 import com.example.mymoviesapp.ui.fragments.valuation.ValuationMovieDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,14 +49,20 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        binding?.yesChip?.setOnClickListener {
-            viewModel.changeStateMovie(MovieState.See)
-            viewModel.detailMovieModel.value?.id?.let {
-                showDialog(ValuationMovieDialog.newInstance(it))
+        binding?.let {
+            with(it) {
+                yesChip.setOnClickListener {
+                    viewModel.changeStateMovie(MovieState.See)
+                    viewModel.detailMovieModel.value?.let {
+                        showDialog(ValuationMovieDialog.newInstance(it))
+                    }
+                }
+                pendingChip.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
+                notChip.setOnClickListener { viewModel.changeStateMovie(MovieState.NotSee) }
+
+                imageViewFavourite.setOnClickListener { viewModel.pressFavButton() }
             }
         }
-        binding?.pendingChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
-        binding?.notChip?.setOnClickListener { viewModel.changeStateMovie(MovieState.NotSee) }
     }
 
     private fun showErrorDatabase() {
@@ -69,11 +75,11 @@ class DetailMovieActivity : AppCompatActivity() {
                 movieModel.backdrop?.let { imageViewBackdrop.loadImage(it) }
                 textViewTitleDetail.text = movieModel.title
                 textViewDescriptionDetail.text = movieModel.overview
-                textViewValoration.text =
-                    getString(R.string.textViewValuation, movieModel.valuation.toString())
+                textViewGlobalValuation.text =
+                    getString(R.string.text_view_global_valuation, movieModel.valuation.toString())
 
-                // Text color, depending the movies valuation
-                 textViewValoration.setTextColor(
+                // Text color depending the movies valuation
+                 textViewGlobalValuation.setTextColor(
                     when (movieModel.valuation?.toInt()) {
                         in badValuation -> ContextCompat.getColor(
                             applicationContext,
@@ -91,9 +97,17 @@ class DetailMovieActivity : AppCompatActivity() {
                     }
                 )
 
+                textViewMyValuation.text =
+                    getString(R.string.text_view_personal_valuation, movieModel.personalValuation.toString())
+                textViewMyValuation.visible(movieModel.personalValuation != null)
+
                 yesChip.isChecked = movieModel.state == MovieState.See
                 pendingChip.isChecked = movieModel.state == MovieState.Pending
                 notChip.isChecked = movieModel.state == MovieState.NotSee
+
+                if (movieModel.favourite)
+                    imageViewFavourite.setImageResource(R.drawable.ic_favourite_red)
+                else imageViewFavourite.setImageResource(R.drawable.ic_no_favourite_red)
             }
         }
 

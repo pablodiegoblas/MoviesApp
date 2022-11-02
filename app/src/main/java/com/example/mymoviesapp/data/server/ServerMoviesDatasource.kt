@@ -5,6 +5,7 @@ import com.example.mymoviesapp.data.mappers.toDomainModel
 import com.example.mymoviesapp.domain.models.GenreMovie
 import com.example.mymoviesapp.domain.models.GuestSession
 import com.example.mymoviesapp.domain.models.MovieModel
+import com.example.mymoviesapp.domain.models.RatingResponse
 import javax.inject.Inject
 
 class ServerMoviesDatasource @Inject constructor(
@@ -34,6 +35,11 @@ class ServerMoviesDatasource @Inject constructor(
     suspend fun getGuestSessionId(): GuestSession =
         moviesService.guestSessionNew().toDomainModel()
 
-    suspend fun ratingMovie(movie: Int, apiKey: String, valuation: Long, guestSessionId: String): ApiRatingResponse =
-        moviesService.ratingMovie(movie, apiKey, valuation, guestSessionId)
+    suspend fun ratingMovie(movie: Int, apiKey: String, valuation: Long, guestSessionId: String): RatingResponse =
+        moviesService.ratingMovie(
+            movieId = movie,
+            api_key = apiKey,
+            value = ValuationValue(valuation),
+            guestSessionId = guestSessionId
+        ).toDomainModel()
 }

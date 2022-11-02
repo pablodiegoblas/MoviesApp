@@ -40,14 +40,25 @@
         <TextView
             android:id="@+id/textViewTitleDetail"
             style="@style/TypoHeader.H1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewFavourite"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:layout_editor_absoluteX="16dp"
             tools:text="Titanic" />
+
+        <ImageView
+            android:id="@+id/imageViewFavourite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_no_favourite_red"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTitleDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewTitleDetail" />
 
         <TextView
             android:id="@+id/textViewDescriptionDetail"
@@ -63,7 +74,7 @@
             tools:text="Esta es la description de la película.\nLorem ipsum jaula por bandera." />
 
         <TextView
-            android:id="@+id/textViewValoration"
+            android:id="@+id/textViewGlobalValuation"
             style="@style/TypoHeader.H3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,6 +84,19 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionDetail"
             tools:text="Valoración: 9.5" />
 
+        <TextView
+            android:id="@+id/textViewMyValuation"
+            style="@style/TypoHeader.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/spacing3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGlobalValuation"
+            tools:text="Mi valoración: 7"
+            tools:visibility="visible"/>
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/stateChipGroup"
             android:layout_width="wrap_content"
@@ -81,7 +105,7 @@
             android:layout_marginHorizontal="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewValoration">
+            app:layout_constraintTop_toBottomOf="@+id/textViewMyValuation">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/yesChip"

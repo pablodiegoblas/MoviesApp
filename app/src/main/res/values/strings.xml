@@ -2,7 +2,8 @@
     <string name="app_name">MyMovies</string>
     <string name="favourites">Favourites</string>
     <string name="populars">Populars</string>
-    <string name="textViewValuation">Valuation: <b>%1$s</b>/10</string>
+    <string name="text_view_global_valuation">Global valuation: <b>%1$s</b>/10</string>
+    <string name="text_view_personal_valuation">My valuation: <b>%1$s</b>/10</string>
     <string name="readMoreButton">READ MORE</string>
 
     <string name="shared_movie_text">Would you like to come and watch the film %s with me?</string>
@@ -22,5 +23,5 @@
 
     <string name="rating_button">Rate</string>
     <string name="rating_title">Rate movie that you see</string>
-    <string name="rating_hint_edit_text">Introduce un numero entre 0.5 y 10</string>
+    <string name="rating_hint_edit_text">Enter valuation number between 0.5 y 10</string>
 </resources>

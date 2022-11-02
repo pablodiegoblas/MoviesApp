@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailMovieViewModel @Inject constructor(
-    private val moviesRepositoryImpl: MoviesRepositoryImpl
+    private val moviesRepository: MoviesRepositoryImpl
 ) : ViewModel() {
 
     val detailMovieModel = MutableLiveData<MovieModel>()
@@ -20,16 +20,34 @@ class DetailMovieViewModel @Inject constructor(
     fun setMovie(id: Int) {
         //Find in repository the movie
         viewModelScope.launch {
-            detailMovieModel.value = moviesRepositoryImpl.getMovieDatabase(id)
+            detailMovieModel.value = moviesRepository.getMovieDatabase(id)
         }
     }
 
     fun changeStateMovie(state: MovieState) {
-        val updatedMovie = detailMovieModel.value?.copy(state = state)
+        var updatedMovie = detailMovieModel.value?.copy(state = state)
+        if (state != MovieState.See) updatedMovie = updatedMovie?.copy(personalValuation = null)
+
         updatedMovie?.let {
             viewModelScope.launch {
                 detailMovieModel.postValue(it)
-                moviesRepositoryImpl.updateMovie(it)
+                moviesRepository.updateMovie(it)
+            }
+        }
+    }
+
+    /**
+     * Function that set this movieItem as Favourite or noFavourite
+     */
+    fun pressFavButton() {
+
+        val attributeFavourite = detailMovieModel.value?.favourite?.not()
+        val updatedMovie = detailMovieModel.value?.copy(favourite = attributeFavourite ?: false)
+
+        updatedMovie?.let {
+            viewModelScope.launch {
+                detailMovieModel.postValue(it)
+                moviesRepository.updateMovie(it)
             }
         }
     }
