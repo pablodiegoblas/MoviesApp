@@ -15,8 +15,8 @@ android {
         applicationId 'com.example.mymoviesapp'
         minSdk androidMinSdkVersion
         targetSdk androidTargetSdkVersion
-        versionCode 1
-        versionName '1.7'
+        versionCode 2
+        versionName '2.0.0'
 
         buildConfigField "String", "ApiKey", "\"bf416be99a24b9cfe9ee3f8c57775b65\""
         buildConfigField "String", "ApiBaseUrl", "\"https://api.themoviedb.org/3/\""

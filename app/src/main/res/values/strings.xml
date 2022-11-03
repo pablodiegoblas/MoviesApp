@@ -24,4 +24,6 @@
     <string name="rating_button">Rate</string>
     <string name="rating_title">Rate movie that you see</string>
     <string name="rating_hint_edit_text">Enter valuation number between 0.5 y 10</string>
+    <string name="error_alert_rate_movie">Error when evaluating the film</string>
+    <string name="error_alert_incorrect_valor">You must enter a value between 0.5 and 10</string>
 </resources>

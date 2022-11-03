@@ -54,9 +54,20 @@ class DetailMovieActivity : AppCompatActivity() {
                 yesChip.setOnClickListener {
                     viewModel.changeStateMovie(MovieState.See)
                     viewModel.detailMovieModel.value?.let { movie ->
-                        showDialog(ValuationMovieDialog.newInstance(movie) { valuation ->
-                            viewModel.evaluateMovie(valuation)
-                        })
+                        showDialog(ValuationMovieDialog.newInstance(
+                            movie,
+                            { valuation ->
+                                viewModel.evaluateMovie(valuation)
+                            },
+                            { errorResource ->
+                                Toast.makeText(
+                                    this@DetailMovieActivity,
+                                    getString(errorResource),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        )
+                        )
                     }
                 }
                 pendingChip.setOnClickListener { viewModel.changeStateMovie(MovieState.Pending) }
@@ -81,7 +92,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     getString(R.string.text_view_global_valuation, movieModel.valuation.toString())
 
                 // Text color depending the movies valuation
-                 textViewGlobalValuation.setTextColor(
+                textViewGlobalValuation.setTextColor(
                     when (movieModel.valuation?.toInt()) {
                         in badValuation -> ContextCompat.getColor(
                             applicationContext,
@@ -99,9 +110,12 @@ class DetailMovieActivity : AppCompatActivity() {
                     }
                 )
 
-                textViewMyValuation.text =
-                    getString(R.string.text_view_personal_valuation, movieModel.personalValuation.toString())
                 textViewMyValuation.visible(movieModel.personalValuation != null)
+                textViewMyValuation.text =
+                    getString(
+                        R.string.text_view_personal_valuation,
+                        movieModel.personalValuation.toString()
+                    )
 
                 yesChip.isChecked = movieModel.state == MovieState.See
                 pendingChip.isChecked = movieModel.state == MovieState.Pending

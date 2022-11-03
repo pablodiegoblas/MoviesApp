@@ -19,14 +19,17 @@ class ValuationMovieDialog : DialogFragment() {
     private var movieId: MovieModel? = null
 
     private lateinit var onSuccess: (Double) -> Unit
+    private lateinit var onFailure: (Int) -> Unit
 
     companion object {
         fun newInstance(
             movie: MovieModel,
-            onSuccess: (Double) -> Unit
+            onSuccess: (Double) -> Unit,
+            onFailure: (Int) -> Unit
         ) = ValuationMovieDialog().apply {
             this.movieId = movie
             this.onSuccess = onSuccess
+            this.onFailure = onFailure
         }
     }
 
@@ -52,10 +55,14 @@ class ValuationMovieDialog : DialogFragment() {
                             viewModel.rateMovie(
                                 movieId,
                                 rateNumber.toString(),
-                                onSuccess
+                                { valuation ->
+                                    onSuccess(valuation)
+                                },
+                                { errorText ->
+                                    onFailure(errorText)
+                                }
                             )
                         }
-                        dismiss()
                     }
                 }
             }
