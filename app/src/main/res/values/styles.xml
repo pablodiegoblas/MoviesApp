@@ -107,10 +107,9 @@
         <item name="fontFamily">@font/speedee_regular</item>
     </style>
     <style name="MovieButton">
-        <item name="android:textColor">@color/green_light</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/green_dark</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:minHeight">64dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:stateListAnimator">@null</item>

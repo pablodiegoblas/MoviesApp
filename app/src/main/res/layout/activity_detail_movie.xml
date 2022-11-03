@@ -117,6 +117,7 @@
                     style="@style/YesChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/yes_chip" />
 
                 <com.google.android.material.chip.Chip
@@ -124,6 +125,7 @@
                     style="@style/PendingChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/peding_chip" />
 
                 <com.google.android.material.chip.Chip
@@ -131,6 +133,7 @@
                     style="@style/NotChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/not_chip" />
             </LinearLayout>
 
