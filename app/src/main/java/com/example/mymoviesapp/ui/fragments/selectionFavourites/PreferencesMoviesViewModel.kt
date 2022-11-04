@@ -20,7 +20,7 @@ class PreferencesMoviesViewModel @Inject constructor(
 
     fun getMovieGenres() {
         viewModelScope.launch {
-            preferencesGenres.value = moviesRepository.getApiGenresMovies()
+            preferencesGenres.value = moviesRepository.getGenresMovies()
         }
     }
 

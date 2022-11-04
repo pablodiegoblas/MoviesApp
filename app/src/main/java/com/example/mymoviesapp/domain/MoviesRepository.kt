@@ -11,7 +11,7 @@ interface MoviesRepository {
 
     suspend fun getMoviesSearched(searchMovieTitle: String): List<MovieModel>
 
-    suspend fun getApiGenresMovies() : List<GenreMovie>
+    suspend fun getGenresMovies() : List<GenreMovie>
 
     suspend fun getAllFavouriteMovies(): List<MovieModel>
 

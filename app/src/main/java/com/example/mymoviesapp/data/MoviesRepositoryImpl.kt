@@ -2,8 +2,8 @@ package com.example.mymoviesapp.data
 
 import com.example.mymoviesapp.data.api.interceptors.ApiKeyQuery
 import com.example.mymoviesapp.data.database.MoviesDbDataSource
+import com.example.mymoviesapp.data.mappers.mapGenresSelected
 import com.example.mymoviesapp.data.mappers.mapListFavourites
-import com.example.mymoviesapp.data.mappers.toDomainModel
 import com.example.mymoviesapp.data.server.ServerMoviesDatasource
 import com.example.mymoviesapp.domain.MoviesRepository
 import com.example.mymoviesapp.domain.models.GenreMovie
@@ -41,7 +41,11 @@ class MoviesRepositoryImpl @Inject constructor(
         return searchedMovies.mapListFavourites(listWithFavorites)
     }
 
-    override suspend fun getApiGenresMovies(): List<GenreMovie> = serverMoviesProvider.getGenreMovies()
+    override suspend fun getGenresMovies(): List<GenreMovie> {
+        val selectedGenres = dbDataSource.getSelectedGenres()
+
+        return serverMoviesProvider.getGenreMovies().mapGenresSelected(selectedGenres)
+    }
 
     override suspend fun getAllFavouriteMovies(): List<MovieModel> {
         return dbDataSource.getAllFavouritesMovies()
