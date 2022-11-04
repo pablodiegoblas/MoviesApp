@@ -37,7 +37,8 @@ class MoviesRepositoryImpl @Inject constructor(
 
         dbDataSource.insertAll(searchedMovies)
 
-        return searchedMovies
+        val listWithFavorites = dbDataSource.getAllFavouritesMovies()
+        return searchedMovies.mapListFavourites(listWithFavorites)
     }
 
     override suspend fun getApiGenresMovies(): List<GenreMovie> = serverMoviesProvider.getGenreMovies()
