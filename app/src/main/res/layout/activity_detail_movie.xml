@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitleDetail"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@drawable/ic_movie" />
 
         <TextView
             android:id="@+id/textViewTitleDetail"
@@ -60,6 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textViewTitleDetail" />
 
+
         <TextView
             android:id="@+id/textViewDescriptionDetail"
             style="@style/TypoBody.SubHeader"
@@ -67,11 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing3"
             android:layout_marginHorizontal="20dp"
-            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewBackdrop"
-            tools:text="Esta es la description de la película.\nLorem ipsum jaula por bandera." />
+            tools:text="Esta es la description de la película. La pelicula trataba de los trabajos forzados que ocurrian en las carceles de Mexico.\nLorem ipsum jaula por bandera." />
 
         <TextView
             android:id="@+id/textViewGlobalValuation"

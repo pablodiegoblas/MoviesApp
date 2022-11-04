@@ -78,14 +78,12 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun showErrorDatabase() {
-        Toast.makeText(this, "ERROR FROM DATABASE", Toast.LENGTH_SHORT).show()
-    }
-
     private fun bindDetailMovie(movieModel: MovieModel) {
         binding?.let { binding ->
             with(binding) {
+                imageViewBackdrop.visible(movieModel.backdrop.isNullOrEmpty().not())
                 movieModel.backdrop?.let { imageViewBackdrop.loadImage(it) }
+
                 textViewTitleDetail.text = movieModel.title
                 textViewDescriptionDetail.text = movieModel.overview
                 textViewGlobalValuation.text =
