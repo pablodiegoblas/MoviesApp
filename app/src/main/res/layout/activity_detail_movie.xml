@@ -62,40 +62,62 @@
 
 
         <TextView
+            android:id="@+id/textViewTitleValuation"
+            style="@style/TypoHeader.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/valuation_title_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionDetail" />
+
+        <TextView
+            android:id="@+id/textViewTitleDescription"
+            style="@style/TypoHeader.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/summary_title_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackdrop" />
+
+        <TextView
             android:id="@+id/textViewDescriptionDetail"
             style="@style/TypoBody.SubHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing3"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewBackdrop"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleDescription"
             tools:text="Esta es la description de la película. La pelicula trataba de los trabajos forzados que ocurrian en las carceles de Mexico.\nLorem ipsum jaula por bandera." />
 
         <TextView
             android:id="@+id/textViewGlobalValuation"
-            style="@style/TypoHeader.H3"
+            style="@style/TypoBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing3"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleValuation"
             tools:text="Valoración: 9.5" />
 
         <TextView
             android:id="@+id/textViewMyValuation"
-            style="@style/TypoHeader.H3"
+            style="@style/TypoBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:visibility="gone"
-            android:layout_marginTop="@dimen/spacing3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewGlobalValuation"
             tools:text="Mi valoración: 7"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/stateChipGroup"

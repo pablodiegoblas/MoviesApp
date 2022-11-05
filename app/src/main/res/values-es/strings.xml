@@ -27,4 +27,7 @@
     <string name="rating_hint_edit_text">Introduce un numero entre 0.5 y 10</string>
     <string name="error_alert_rate_movie">Error al valorar la película</string>
     <string name="error_alert_incorrect_valor">Debes de introducir un valor entre 0.5 y 10</string>
+
+    <string name="summary_title_text">Resumen</string>
+    <string name="valuation_title_text">Valoraciones</string>
 </resources>
