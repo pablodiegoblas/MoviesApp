@@ -4,10 +4,10 @@
     <string name="favourites">Favoritas</string>
     <string name="populars">Populares</string>
     <string name="text_view_global_valuation">Valoración global del público: <b>%1$s</b>/10</string>
-    <string name="text_view_personal_valuation">Mi valuation: <b>%1$s</b>/10</string>
+    <string name="text_view_personal_valuation">Mi valoración: <b>%1$s</b>/10</string>
     <string name="readMoreButton">LEER MAS</string>
 
-    <string name="shared_movie_text">¿Te gustaría venir a ver conmigo la pelicula %s?</string>
+    <string name="shared_movie_text">¿Te gustaría venir a ver conmigo la película %s?</string>
 
     <string name="select_preferences_title">Elige tus preferencias de peliculas</string>
     <string name="chip_group_title">Tipos de películas</string>
@@ -23,7 +23,7 @@
     <string name="not_chip">No recomendada</string>
 
     <string name="rating_button">Valorar</string>
-    <string name="rating_title">Valora la pelicula que has marcado como vista</string>
+    <string name="rating_title">Valora la película que has marcado como vista</string>
     <string name="rating_hint_edit_text">Introduce un numero entre 0.5 y 10</string>
     <string name="error_alert_rate_movie">Error al valorar la película</string>
     <string name="error_alert_incorrect_valor">Debes de introducir un valor entre 0.5 y 10</string>
